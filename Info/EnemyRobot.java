@@ -1,5 +1,3 @@
-package group09;
-
 public class EnemyRobot {
 	
 	private int energy;
