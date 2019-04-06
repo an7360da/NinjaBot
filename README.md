@@ -1,2 +1,2 @@
 # NinjaBot
-Den bästa roboton
+Den bästa roboten
