@@ -7,7 +7,7 @@ import java.awt.Color;
 /**
  * RobotNbr1 - a robot by (your name here)
  */
-public class RobotNbr1 extends Robot
+public class Main extends Robot
 {
 	/**
 	 * run: RobotNbr1's default behavior
@@ -18,7 +18,7 @@ public class RobotNbr1 extends Robot
 		// After trying out your robot, try uncommenting the import at the top,
 		// and the next line:
 
-		 setColors(Color.red,Color.blue,Color.green); // body,gun,radar
+		 setColors(Color.black,Color.red,Color.white); // body,gun,radar
 
 		// Robot main loop
 		while(true) {
