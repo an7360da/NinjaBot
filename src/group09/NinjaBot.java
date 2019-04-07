@@ -8,12 +8,14 @@ import java.awt.geom.Rectangle2D;
 import java.util.Enumeration;
 import java.util.Hashtable;
 
+import info.EnemyRobot;
+
 
 
 public class NinjaBot extends TeamRobot {
 	
 	static Hashtable enemies = new Hashtable();
-	static microEnemy target;
+	static EnemyRobot target;
 	static Point2D.Double nextDestination;
 	static Point2D.Double lastPosition;
 	static Point2D.Double myPos;
@@ -37,7 +39,7 @@ public class NinjaBot extends TeamRobot {
 			myPos = new Point2D.Double(getX(),getY());
 			myEnergy = getEnergy();
 			// wait until you have scanned all other bots. this should take around 7 to 9 ticks.
-			if(target.live && getTime()>9) {
+			if(target.getAlive() && getTime()>9) {
 				doMovementAndGun();
 			}
  
@@ -49,15 +51,15 @@ public class NinjaBot extends TeamRobot {
 //- stuff -----------------------------------------------------------------------------------------------------------------------------------
 	public void doMovementAndGun() {
  
-		double distanceToTarget = myPos.distance(target.pos);
+		double distanceToTarget = myPos.distance(target.getPosition());
  
 	//**** gun ******************//
 		// HeadOnTargeting there's nothing I can say about this
 		if(getGunTurnRemaining() == 0 && myEnergy > 1) {
-			setFire( Math.min(Math.min(myEnergy/6d, 1300d/distanceToTarget), target.energy/3d) );
+			setFire( Math.min(Math.min(myEnergy/6d, 1300d/distanceToTarget), target.getEnergy()/3d) );
 		}
  
-		setTurnGunRightRadians(Utils.normalRelativeAngle(calcAngle(target.pos, myPos) - getGunHeadingRadians()));
+		setTurnGunRightRadians(Utils.normalRelativeAngle(calcAngle(target.getPosition(), myPos) - getGunHeadingRadians()));
  
 	//**** move *****************//
 		double distanceToNextDestination = myPos.distance(nextDestination);
@@ -111,16 +113,16 @@ public class NinjaBot extends TeamRobot {
  
 		Enumeration _enum = enemies.elements();
 		while (_enum.hasMoreElements()) {
-			microEnemy en = (microEnemy)_enum.nextElement();
+			EnemyRobot en = (EnemyRobot)_enum.nextElement();
 			// this is the heart of HawkOnFire. So I try to explain what I wanted to do:
 			// -	Math.min(en.energy/myEnergy,2) is multiplied because en.energy/myEnergy is an indicator how dangerous an enemy is
 			// -	Math.abs(Math.cos(calcAngle(myPos, p) - calcAngle(en.pos, p))) is bigger if the moving direction isn't good in relation
 			//		to a certain bot. it would be more natural to use Math.abs(Math.cos(calcAngle(p, myPos) - calcAngle(en.pos, myPos)))
 			//		but this wasn't going to give me good results
 			// -	1 / p.distanceSq(en.pos) is just the normal anti gravity thing
-			if(en.live) {
-				eval += Math.min(en.energy/myEnergy,2) * 
-						(1 + Math.abs(Math.cos(calcAngle(myPos, p) - calcAngle(en.pos, p)))) / p.distanceSq(en.pos);
+			if(en.getAlive()) {
+				eval += Math.min(en.getEnergy()/myEnergy,2) * 
+						(1 + Math.abs(Math.cos(calcAngle(myPos, p) - calcAngle(en.getPosition(), p)))) / p.distanceSq(en.getPosition());
 			}
 		}
 		return eval;
@@ -129,19 +131,19 @@ public class NinjaBot extends TeamRobot {
 //- scan event ------------------------------------------------------------------------------------------------------------------------------
 	public void onScannedRobot(ScannedRobotEvent e)
 	{
-		microEnemy en = (microEnemy)enemies.get(e.getName());
+		EnemyRobot en = (EnemyRobot)enemies.get(e.getName());
  
 		if(en == null){
-			en = new microEnemy();
+			en = new EnemyRobot();
 			enemies.put(e.getName(), en);
 		}
  
-		en.energy = e.getEnergy();
-		en.live = true;
-		en.pos = calcPoint(myPos, e.getDistance(), getHeadingRadians() + e.getBearingRadians());
+		en.setEnergy((double) e.getEnergy());
+		en.setAlive(true);
+		en.setPosition(calcPoint(myPos, e.getDistance(), getHeadingRadians() + e.getBearingRadians())); 
  
 		// normal target selection: the one closer to you is the most dangerous so attack him
-		if(!target.live || e.getDistance() < myPos.distance(target.pos)) {
+		if(!target.getAlive() || e.getDistance() < myPos.distance(target.getPosition())) {
 			target = en;
 		}
  
@@ -151,7 +153,7 @@ public class NinjaBot extends TeamRobot {
  
 //- minor events ----------------------------------------------------------------------------------------------------------------------------
 	public void onRobotDeath(RobotDeathEvent e) {
-		((microEnemy)enemies.get(e.getName())).live = false;
+		((EnemyRobot)enemies.get(e.getName())).setAlive(false);
 	}
  
 //- math ------------------------------------------------------------------------------------------------------------------------------------
@@ -162,13 +164,7 @@ public class NinjaBot extends TeamRobot {
 	private static double calcAngle(Point2D.Double p2,Point2D.Double p1){
 		return Math.atan2(p2.x - p1.x, p2.y - p1.y);
 	}
- 
-//- microEnemy ------------------------------------------------------------------------------------------------------------------------------
-	public class microEnemy {
-		public Point2D.Double pos;
-		public double energy;
-		public boolean live;
-	}
+
 }
 
 
