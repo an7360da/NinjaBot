@@ -1,5 +1,5 @@
 package movement;
-import group09.Main;
+import group09.Ninjabot;
 import robocode.HitByBulletEvent;
 
 public class dodging {
