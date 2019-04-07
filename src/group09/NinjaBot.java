@@ -10,7 +10,7 @@ import java.util.Hashtable;
 
 
 
-public class NinjaBot extends AdvancedRobot {
+public class NinjaBot extends TeamRobot {
 	
 	static Hashtable enemies = new Hashtable();
 	static microEnemy target;
