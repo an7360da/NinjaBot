@@ -30,13 +30,12 @@ public class NinjaBot extends TeamRobot {
 		setTurnRadarRightRadians(Double.POSITIVE_INFINITY);
  
 		nextDestination = lastPosition = myPos = new Point2D.Double(getX(), getY());
-		target = new microEnemy();
+		target = new EnemyRobot();
  
-		do {
+		while (true) {
  
 			myPos = new Point2D.Double(getX(),getY());
 			myEnergy = getEnergy();
- 
 			// wait until you have scanned all other bots. this should take around 7 to 9 ticks.
 			if(target.live && getTime()>9) {
 				doMovementAndGun();
@@ -44,7 +43,7 @@ public class NinjaBot extends TeamRobot {
  
 			execute();
  
-		} while(true);
+		}
 	}
  
 //- stuff -----------------------------------------------------------------------------------------------------------------------------------

@@ -1,3 +1,4 @@
+package info;
 
 
 public class EnemyRobot {
