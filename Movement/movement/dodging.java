@@ -1,5 +1,5 @@
 package movement;
-import group09.Ninjabot;
+import group09.NinjaBot;
 import robocode.HitByBulletEvent;
 
 public class dodging {
@@ -8,7 +8,6 @@ public class dodging {
 	 */
 	public void onHitByBullet(HitByBulletEvent e) {
 		// Replace the next line with any behavior you would like
-		back(10);
 	}
 
 }
