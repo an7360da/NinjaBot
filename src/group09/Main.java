@@ -19,8 +19,11 @@ public class Main extends AdvancedRobot {
 	static Point2D.Double myPos;
 	static double myEnergy;
 	
-	public void run(){
-		 setColors(Color.black,Color.red,Color.white); // body,gun,radar
+	public void run() {
+		
+		
+		
+		setColors(Color.black,Color.red,Color.white); // body,gun,radar
 		setAdjustGunForRobotTurn(true);
 		setAdjustRadarForGunTurn(true);
  

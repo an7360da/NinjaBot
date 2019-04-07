@@ -1,3 +1,5 @@
+
+
 public class EnemyRobot {
 	
 	private int energy;

@@ -1,4 +1,4 @@
-package group09;
+package movement;
 
 import robocode.HitWallEvent;
 
