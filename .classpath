@@ -5,7 +5,6 @@
 	<classpathentry kind="src" path="Info"/>
 	<classpathentry kind="src" path="Movement"/>
 	<classpathentry kind="src" path="Shooting"/>
-	<classpathentry kind="src" path="hejsan"/>
 	<classpathentry kind="lib" path="jars/robocode.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
