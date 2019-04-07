@@ -5,10 +5,6 @@
 	<classpathentry kind="src" path="Info"/>
 	<classpathentry kind="src" path="Movement"/>
 	<classpathentry kind="src" path="Shooting"/>
-	<classpathentry kind="lib" path="/Users/anna/robocode/libs/robocode.jar">
-		<attributes>
-			<attribute name="javadoc_location" value="file:/Users/anna/robocode/javadoc/"/>
-		</attributes>
-	</classpathentry>
+	<classpathentry kind="lib" path="jars/robocode.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

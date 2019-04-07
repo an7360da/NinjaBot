@@ -9,6 +9,7 @@ import java.util.Enumeration;
 import java.util.Hashtable;
 
 
+
 public class Main extends AdvancedRobot {
 	
 	static Hashtable enemies = new Hashtable();
