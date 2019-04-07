@@ -20,6 +20,7 @@ public class NinjaBot extends TeamRobot {
 	static Point2D.Double lastPosition;
 	static Point2D.Double myPos;
 	static double myEnergy;
+	private double distanceToTarget;
 	
 	public void run() {
 		
@@ -38,58 +39,57 @@ public class NinjaBot extends TeamRobot {
  
 			myPos = new Point2D.Double(getX(),getY());
 			myEnergy = getEnergy();
-			// wait until you have scanned all other bots. this should take around 7 to 9 ticks.
+			// Tar max 9 ticks tills alla är skannade
 			if(target.getAlive() && getTime()>9) {
-				doMovementAndGun();
+				distanceToTarget = myPos.distance(target.getPosition());
+				shoot();
+				move();
 			}
  
 			execute();
  
 		}
 	}
- 
-//- stuff -----------------------------------------------------------------------------------------------------------------------------------
-	public void doMovementAndGun() {
- 
-		double distanceToTarget = myPos.distance(target.getPosition());
- 
-	//**** gun ******************//
-		// HeadOnTargeting there's nothing I can say about this
+	
+	public void shoot() {
+		// HeadOnTargeting 
 		if(getGunTurnRemaining() == 0 && myEnergy > 1) {
 			setFire( Math.min(Math.min(myEnergy/6d, 1300d/distanceToTarget), target.getEnergy()/3d) );
 		}
  
 		setTurnGunRightRadians(Utils.normalRelativeAngle(calcAngle(target.getPosition(), myPos) - getGunHeadingRadians()));
  
-	//**** move *****************//
+
+	}
+	
+	public void move() {
+		//Anti-grav
 		double distanceToNextDestination = myPos.distance(nextDestination);
- 
+		 
 		//search a new destination if I reached this one
-		if(distanceToNextDestination < 15) {
- 
+		if (distanceToNextDestination < 15) {
 			// there should be better formulas then this one but it is basically here to increase OneOnOne performance. with more bots
 			// addLast will mostly be 1
 			double addLast = 1 - Math.rint(Math.pow(Math.random(), getOthers()));
  
 			Rectangle2D.Double battleField = new Rectangle2D.Double(30, 30, getBattleFieldWidth() - 60, getBattleFieldHeight() - 60);
 			Point2D.Double testPoint;
-			int i=0;
- 
-			do {
+			
+			for (int i = 0 ; i < 200 ; i++) {
 				//	calculate the testPoint somewhere around the current position. 100 + 200*Math.random() proved to be good if there are
 				//	around 10 bots in a 1000x1000 field. but this needs to be limited this to distanceToTarget*0.8. this way the bot wont
 				//	run into the target (should mostly be the closest bot) 
 				testPoint = calcPoint(myPos, Math.min(distanceToTarget*0.8, 100 + 200*Math.random()), 2*Math.PI*Math.random());
+				
 				if(battleField.contains(testPoint) && evaluate(testPoint, addLast) < evaluate(nextDestination, addLast)) {
 					nextDestination = testPoint;
 				}
-			} while(i++ < 200);
- 
+			}
+				
 			lastPosition = myPos;
  
 		} else {
  
-		// just the normal goTo stuff
 			double angle = calcAngle(nextDestination, myPos) - getHeadingRadians();
 			double direction = 1;
  
@@ -100,14 +100,15 @@ public class NinjaBot extends TeamRobot {
  
 			setAhead(distanceToNextDestination * direction);
 			setTurnRightRadians(angle = Utils.normalRelativeAngle(angle));
-			// hitting walls isn't a good idea, but HawkOnFire still does it pretty often
+			// hitting walls isn't a good idea, but NinjaBot still does it pretty often
 			setMaxVelocity(Math.abs(angle) > 1 ? 0 : 8d);
  
 		}
+
 	}
- 
-//- eval position ---------------------------------------------------------------------------------------------------------------------------
-	public static double evaluate(Point2D.Double p, double addLast) {
+	
+	
+ 	public double evaluate(Point2D.Double p, double addLast) {
 		// this is basically here that the bot uses more space on the battlefield. In melee it is dangerous to stay somewhere too long.
 		double eval = addLast*0.08/p.distanceSq(lastPosition);
  
