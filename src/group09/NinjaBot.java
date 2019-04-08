@@ -1,5 +1,6 @@
 package group09;
 import robocode.*;
+
 import robocode.util.Utils;
 
 import java.awt.Color;
@@ -11,6 +12,7 @@ import java.util.Hashtable;
 import info.EnemyRobot;
 import info.Ninja;
 import movement.Movement;
+import group09.Calculations;
 
 
 
@@ -61,7 +63,7 @@ public class NinjaBot extends TeamRobot {
 			setFire( Math.min(Math.min(ninja.getEnergy()/6d, 1300d/ninja.getDistanceToTarget()), target.getEnergy()/3d) );
 		}
  
-		setTurnGunRightRadians(Utils.normalRelativeAngle(calcAngle(target.getPosition(),ninja.getPos()) - getGunHeadingRadians()));
+		setTurnGunRightRadians(Utils.normalRelativeAngle(Calculations.calcAngle(target.getPosition(),ninja.getPos()) - getGunHeadingRadians()));
  
 
 	}
@@ -80,7 +82,7 @@ public class NinjaBot extends TeamRobot {
  
 		} else {
  
-			double angle = calcAngle(ninja.getNextDestination(), ninja.getPos()) - getHeadingRadians();
+			double angle = Calculations.calcAngle(ninja.getNextDestination(), ninja.getPos()) - getHeadingRadians();
 			double direction = 1;
  
 			if(Math.cos(angle) < 0) {
@@ -97,27 +99,6 @@ public class NinjaBot extends TeamRobot {
 
 	}
 	
-	
- 	public double evaluate(Point2D.Double p, double addLast, Ninja ninja) {
-		// this is basically here that the bot uses more space on the battlefield. In melee it is dangerous to stay somewhere too long.
-		double eval = addLast*0.08/p.distanceSq(ninja.getLastPosition());
- 
-		Enumeration _enum = enemies.elements();
-		while (_enum.hasMoreElements()) {
-			EnemyRobot en = (EnemyRobot)_enum.nextElement();
-			// this is the heart of HawkOnFire. So I try to explain what I wanted to do:
-			// -	Math.min(en.energy/myEnergy,2) is multiplied because en.energy/myEnergy is an indicator how dangerous an enemy is
-			// -	Math.abs(Math.cos(calcAngle(myPos, p) - calcAngle(en.pos, p))) is bigger if the moving direction isn't good in relation
-			//		to a certain bot. it would be more natural to use Math.abs(Math.cos(calcAngle(p, myPos) - calcAngle(en.pos, myPos)))
-			//		but this wasn't going to give me good results
-			// -	1 / p.distanceSq(en.pos) is just the normal anti gravity thing
-			if(en.getAlive()) {
-				eval += Math.min(en.getEnergy()/ninja.getEnergy(),2) * 
-						(1 + Math.abs(Math.cos(calcAngle(ninja.getPos(), p) - calcAngle(en.getPosition(), p)))) / p.distanceSq(en.getPosition());
-			}
-		}
-		return eval;
-	}
  
 //- scan event ------------------------------------------------------------------------------------------------------------------------------
 	public void onScannedRobot(ScannedRobotEvent e, Ninja ninja)
@@ -131,7 +112,7 @@ public class NinjaBot extends TeamRobot {
  
 		en.setEnergy((double) e.getEnergy());
 		en.setAlive(true);
-		en.setPosition(calcPoint(ninja.getPos(), e.getDistance(), getHeadingRadians() + e.getBearingRadians())); 
+		en.setPosition(Calculations.calcPoint(ninja.getPos(), e.getDistance(), getHeadingRadians() + e.getBearingRadians())); 
  
 		// normal target selection: the one closer to you is the most dangerous so attack him
 		if(!target.getAlive() || e.getDistance() <ninja.getPos().distance(target.getPosition())) {
@@ -148,14 +129,7 @@ public class NinjaBot extends TeamRobot {
 	}
  
 //- math ------------------------------------------------------------------------------------------------------------------------------------
-	private static Point2D.Double calcPoint(Point2D.Double p, double dist, double ang) {
-		return new Point2D.Double(p.x + dist*Math.sin(ang), p.y + dist*Math.cos(ang));
-	}
- 
-	private static double calcAngle(Point2D.Double p2,Point2D.Double p1){
-		return Math.atan2(p2.x - p1.x, p2.y - p1.y);
-	}
-
+	
 }
 
 
