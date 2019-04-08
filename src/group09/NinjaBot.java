@@ -10,6 +10,7 @@ import java.util.Hashtable;
 
 import info.EnemyRobot;
 import info.Ninja;
+import movement.Movement;
 
 
 
@@ -23,6 +24,7 @@ public class NinjaBot extends TeamRobot {
 		
 		
 		Ninja ninja = new Ninja();
+		Movement movement = new Movement();
 		setColors(Color.black,Color.red,Color.white); // body,gun,radar
 		setAdjustGunForRobotTurn(true);
 		setAdjustRadarForGunTurn(true);
@@ -45,7 +47,7 @@ public class NinjaBot extends TeamRobot {
 			if(target.getAlive() && getTime()>9) {
 				ninja.setDistanceToTarget(ninja.getPos().distance(target.getPosition()));
 				shoot(ninja);
-				move();
+				move(ninja, movement);
 			}
  
 			execute();
@@ -64,7 +66,7 @@ public class NinjaBot extends TeamRobot {
 
 	}
 	
-	public void move(Ninja ninja) {
+	public void move(Ninja ninja, Movement movement) {
 		//Anti-grav
 		double distanceToNextDestination = ninja.getPos().distance(ninja.getNextDestination());
 		 
@@ -72,23 +74,9 @@ public class NinjaBot extends TeamRobot {
 		if (distanceToNextDestination < 15) {
 			// there should be better formulas then this one but it is basically here to increase OneOnOne performance. with more bots
 			// addLast will mostly be 1
-			double addLast = 1 - Math.rint(Math.pow(Math.random(), getOthers()));
- 
-			Rectangle2D.Double battleField = new Rectangle2D.Double(30, 30, getBattleFieldWidth() - 60, getBattleFieldHeight() - 60);
-			Point2D.Double testPoint;
 			
-			for (int i = 0 ; i < 200 ; i++) {
-				//	calculate the testPoint somewhere around the current position. 100 + 200*Math.random() proved to be good if there are
-				//	around 10 bots in a 1000x1000 field. but this needs to be limited this to distanceToTarget*0.8. this way the bot wont
-				//	run into the target (should mostly be the closest bot) 
-				testPoint = calcPoint(ninja.getPos(), Math.min(ninja.getDistanceToTarget()*0.8, 100 + 200*Math.random()), 2*Math.PI*Math.random());
-				
-				if(battleField.contains(testPoint) && evaluate(testPoint, addLast, ninja) < evaluate(ninja.getNextDestination(), addLast, ninja)) {
-					ninja.setNextDestination(testPoint);
-				}
-			}
-				
-			ninja.setLastPosition(ninja.getPos());
+			movement.move(ninja, distanceToNextDestination);
+			
  
 		} else {
  
