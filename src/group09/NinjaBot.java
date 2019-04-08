@@ -9,6 +9,7 @@ import java.util.Enumeration;
 import java.util.Hashtable;
 
 import info.EnemyRobot;
+import info.Ninja;
 
 
 
@@ -16,33 +17,34 @@ public class NinjaBot extends TeamRobot {
 	
 	static Hashtable enemies = new Hashtable();
 	static EnemyRobot target;
-	static Point2D.Double nextDestination;
-	static Point2D.Double lastPosition;
-	static Point2D.Double myPos;
-	static double myEnergy;
-	private double distanceToTarget;
+	
 	
 	public void run() {
 		
 		
-		
+		Ninja ninja = new Ninja();
 		setColors(Color.black,Color.red,Color.white); // body,gun,radar
 		setAdjustGunForRobotTurn(true);
 		setAdjustRadarForGunTurn(true);
  
 		setTurnRadarRightRadians(Double.POSITIVE_INFINITY);
- 
-		nextDestination = lastPosition = myPos = new Point2D.Double(getX(), getY());
+		
+		
+		Point2D.Double point= new Point2D.Double(getX(), getY());
+		ninja.setNextDestination(point);
+		ninja.setLastPosition(point);
+		ninja.setPos(point);
+		
 		target = new EnemyRobot();
  
 		while (true) {
  
-			myPos = new Point2D.Double(getX(),getY());
-			myEnergy = getEnergy();
+			ninja.setPos(new Point2D.Double(getX(),getY()));
+			ninja.setEnergy(getEnergy());
 			// Tar max 9 ticks tills alla är skannade
 			if(target.getAlive() && getTime()>9) {
-				distanceToTarget = myPos.distance(target.getPosition());
-				shoot();
+				ninja.setDistanceToTarget(ninja.getPos().distance(target.getPosition()));
+				shoot(ninja);
 				move();
 			}
  
@@ -51,20 +53,20 @@ public class NinjaBot extends TeamRobot {
 		}
 	}
 	
-	public void shoot() {
+	public void shoot(Ninja ninja) {
 		// HeadOnTargeting 
-		if(getGunTurnRemaining() == 0 && myEnergy > 1) {
-			setFire( Math.min(Math.min(myEnergy/6d, 1300d/distanceToTarget), target.getEnergy()/3d) );
+		if(getGunTurnRemaining() == 0 && ninja.getEnergy() > 1) {
+			setFire( Math.min(Math.min(ninja.getEnergy()/6d, 1300d/ninja.getDistanceToTarget()), target.getEnergy()/3d) );
 		}
  
-		setTurnGunRightRadians(Utils.normalRelativeAngle(calcAngle(target.getPosition(), myPos) - getGunHeadingRadians()));
+		setTurnGunRightRadians(Utils.normalRelativeAngle(calcAngle(target.getPosition(),ninja.getPos()) - getGunHeadingRadians()));
  
 
 	}
 	
-	public void move() {
+	public void move(Ninja ninja) {
 		//Anti-grav
-		double distanceToNextDestination = myPos.distance(nextDestination);
+		double distanceToNextDestination = ninja.getPos().distance(ninja.getNextDestination());
 		 
 		//search a new destination if I reached this one
 		if (distanceToNextDestination < 15) {
@@ -79,18 +81,18 @@ public class NinjaBot extends TeamRobot {
 				//	calculate the testPoint somewhere around the current position. 100 + 200*Math.random() proved to be good if there are
 				//	around 10 bots in a 1000x1000 field. but this needs to be limited this to distanceToTarget*0.8. this way the bot wont
 				//	run into the target (should mostly be the closest bot) 
-				testPoint = calcPoint(myPos, Math.min(distanceToTarget*0.8, 100 + 200*Math.random()), 2*Math.PI*Math.random());
+				testPoint = calcPoint(ninja.getPos(), Math.min(ninja.getDistanceToTarget()*0.8, 100 + 200*Math.random()), 2*Math.PI*Math.random());
 				
-				if(battleField.contains(testPoint) && evaluate(testPoint, addLast) < evaluate(nextDestination, addLast)) {
-					nextDestination = testPoint;
+				if(battleField.contains(testPoint) && evaluate(testPoint, addLast, ninja) < evaluate(ninja.getNextDestination(), addLast, ninja)) {
+					ninja.setNextDestination(testPoint);
 				}
 			}
 				
-			lastPosition = myPos;
+			ninja.setLastPosition(ninja.getPos());
  
 		} else {
  
-			double angle = calcAngle(nextDestination, myPos) - getHeadingRadians();
+			double angle = calcAngle(ninja.getNextDestination(), ninja.getPos()) - getHeadingRadians();
 			double direction = 1;
  
 			if(Math.cos(angle) < 0) {
@@ -108,9 +110,9 @@ public class NinjaBot extends TeamRobot {
 	}
 	
 	
- 	public double evaluate(Point2D.Double p, double addLast) {
+ 	public double evaluate(Point2D.Double p, double addLast, Ninja ninja) {
 		// this is basically here that the bot uses more space on the battlefield. In melee it is dangerous to stay somewhere too long.
-		double eval = addLast*0.08/p.distanceSq(lastPosition);
+		double eval = addLast*0.08/p.distanceSq(ninja.getLastPosition());
  
 		Enumeration _enum = enemies.elements();
 		while (_enum.hasMoreElements()) {
@@ -122,15 +124,15 @@ public class NinjaBot extends TeamRobot {
 			//		but this wasn't going to give me good results
 			// -	1 / p.distanceSq(en.pos) is just the normal anti gravity thing
 			if(en.getAlive()) {
-				eval += Math.min(en.getEnergy()/myEnergy,2) * 
-						(1 + Math.abs(Math.cos(calcAngle(myPos, p) - calcAngle(en.getPosition(), p)))) / p.distanceSq(en.getPosition());
+				eval += Math.min(en.getEnergy()/ninja.getEnergy(),2) * 
+						(1 + Math.abs(Math.cos(calcAngle(ninja.getPos(), p) - calcAngle(en.getPosition(), p)))) / p.distanceSq(en.getPosition());
 			}
 		}
 		return eval;
 	}
  
 //- scan event ------------------------------------------------------------------------------------------------------------------------------
-	public void onScannedRobot(ScannedRobotEvent e)
+	public void onScannedRobot(ScannedRobotEvent e, Ninja ninja)
 	{
 		EnemyRobot en = (EnemyRobot)enemies.get(e.getName());
  
@@ -141,10 +143,10 @@ public class NinjaBot extends TeamRobot {
  
 		en.setEnergy((double) e.getEnergy());
 		en.setAlive(true);
-		en.setPosition(calcPoint(myPos, e.getDistance(), getHeadingRadians() + e.getBearingRadians())); 
+		en.setPosition(calcPoint(ninja.getPos(), e.getDistance(), getHeadingRadians() + e.getBearingRadians())); 
  
 		// normal target selection: the one closer to you is the most dangerous so attack him
-		if(!target.getAlive() || e.getDistance() < myPos.distance(target.getPosition())) {
+		if(!target.getAlive() || e.getDistance() <ninja.getPos().distance(target.getPosition())) {
 			target = en;
 		}
  
