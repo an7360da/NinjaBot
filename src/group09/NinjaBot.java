@@ -34,26 +34,32 @@ public class NinjaBot extends TeamRobot {
  
 		nextDestination = lastPosition = myPos = new Point2D.Double(getX(), getY());
 		target = new EnemyRobot();
+	
+		
  
 		while (true) {
  
 			myPos = new Point2D.Double(getX(),getY());
 			myEnergy = getEnergy();
 			// Tar max 9 ticks tills alla är skannade
-			if(target.getAlive() && !isTeammate(target.getName()) && getTime()>9) {
+			if(target.getAlive() && getTime()>9) {
 				distanceToTarget = myPos.distance(target.getPosition());
 				shoot();
 				move();
 			}
  
 			execute();
+			
  
 		}
 	}
 	
 	public void shoot() {
 		// HeadOnTargeting 
-		if(getGunTurnRemaining() == 0 && myEnergy > 5) {
+		if(getGunTurnRemaining() == 0 && myEnergy > 5 && !isTeammate(target.getName())) {
+			
+			
+			
 			setFire( Math.min(Math.min(myEnergy/6d, 1300d/distanceToTarget), target.getEnergy()/3d) );
 		}
  
