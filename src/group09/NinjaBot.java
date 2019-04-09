@@ -40,6 +40,9 @@ public class NinjaBot extends TeamRobot {
 		ninja.setPos(point);
 		
 		target = new EnemyRobot();
+		
+		
+		
  
 		while (true) {
  
@@ -103,9 +106,6 @@ public class NinjaBot extends TeamRobot {
 //- scan event ------------------------------------------------------------------------------------------------------------------------------
 	public void onScannedRobot(ScannedRobotEvent e, Ninja ninja){
 		
-		if (isTeammate(e.getName())) {
-			
-		} else {
 		
 			EnemyRobot er = (EnemyRobot)enemies.get(e.getName());
 	 
@@ -125,7 +125,7 @@ public class NinjaBot extends TeamRobot {
 	 
 			// locks the radar if there is only one opponent left
 			if(getOthers()==1)	setTurnRadarLeftRadians(getRadarTurnRemainingRadians());
-		}
+		
 	}
  
 //- minor events ----------------------------------------------------------------------------------------------------------------------------
