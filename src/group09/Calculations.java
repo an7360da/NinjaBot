@@ -5,6 +5,7 @@ import java.util.Enumeration;
 
 import info.EnemyRobot;
 import info.Ninja;
+import robocode.RobotDeathEvent;
 
 public class Calculations {
 	
@@ -19,6 +20,13 @@ public class Calculations {
 		return Math.atan2(p2.x - p1.x, p2.y - p1.y);
 
 					
+	}
+	
+	
+	
+	
+	public void onRobotDeath(RobotDeathEvent e) {
+		((EnemyRobot)NinjaBot.enemies.get(e.getName())).setAlive(false);
 	}
 	
 	
