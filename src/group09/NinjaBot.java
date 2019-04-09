@@ -57,7 +57,7 @@ public class NinjaBot extends TeamRobot {
 			setFire( Math.min(Math.min(myEnergy/6d, 1300d/distanceToTarget), target.getEnergy()/3d) );
 		}
  
-		setTurnGunRightRadians(Utils.normalRelativeAngle(calcAngle(target.getPosition(), myPos) - getGunHeadingRadians()));
+		setTurnGunRightRadians(Utils.normalRelativeAngle(Calculations.calcAngle(target.getPosition(), myPos) - getGunHeadingRadians()));
  
 
 	}
@@ -79,7 +79,7 @@ public class NinjaBot extends TeamRobot {
 				//	calculate the testPoint somewhere around the current position. 100 + 200*Math.random() proved to be good if there are
 				//	around 10 bots in a 1000x1000 field. but this needs to be limited this to distanceToTarget*0.8. this way the bot wont
 				//	run into the target (should mostly be the closest bot) 
-				testPoint = calcPoint(myPos, Math.min(distanceToTarget*0.8, 100 + 200*Math.random()), 2*Math.PI*Math.random());
+				testPoint = Calculations.calcPoint(myPos, Math.min(distanceToTarget*0.8, 100 + 200*Math.random()), 2*Math.PI*Math.random());
 				
 				if(battleField.contains(testPoint) && evaluate(testPoint, addLast) < evaluate(nextDestination, addLast)) {
 					nextDestination = testPoint;
@@ -90,7 +90,7 @@ public class NinjaBot extends TeamRobot {
  
 		} else {
  
-			double angle = calcAngle(nextDestination, myPos) - getHeadingRadians();
+			double angle = Calculations.calcAngle(nextDestination, myPos) - getHeadingRadians();
 			double direction = 1;
  
 			if(Math.cos(angle) < 0) {
@@ -123,7 +123,7 @@ public class NinjaBot extends TeamRobot {
 			// -	1 / p.distanceSq(en.pos) is just the normal anti gravity thing
 			if(en.getAlive()) {
 				eval += Math.min(en.getEnergy()/myEnergy,2) * 
-						(1 + Math.abs(Math.cos(calcAngle(myPos, p) - calcAngle(en.getPosition(), p)))) / p.distanceSq(en.getPosition());
+						(1 + Math.abs(Math.cos(Calculations.calcAngle(myPos, p) - Calculations.calcAngle(en.getPosition(), p)))) / p.distanceSq(en.getPosition());
 			}
 		}
 		return eval;
@@ -141,7 +141,7 @@ public class NinjaBot extends TeamRobot {
  
 		en.setEnergy((double) e.getEnergy());
 		en.setAlive(true);
-		en.setPosition(calcPoint(myPos, e.getDistance(), getHeadingRadians() + e.getBearingRadians())); 
+		en.setPosition(Calculations.calcPoint(myPos, e.getDistance(), getHeadingRadians() + e.getBearingRadians())); 
  
 		// normal target selection: the one closer to you is the most dangerous so attack him
 		if(!target.getAlive() || e.getDistance() < myPos.distance(target.getPosition())) {
@@ -158,13 +158,6 @@ public class NinjaBot extends TeamRobot {
 	}
  
 //- math ------------------------------------------------------------------------------------------------------------------------------------
-	private static Point2D.Double calcPoint(Point2D.Double p, double dist, double ang) {
-		return new Point2D.Double(p.x + dist*Math.sin(ang), p.y + dist*Math.cos(ang));
-	}
- 
-	private static double calcAngle(Point2D.Double p2,Point2D.Double p1){
-		return Math.atan2(p2.x - p1.x, p2.y - p1.y);
-	}
 
 }
 
