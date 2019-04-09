@@ -42,7 +42,7 @@ public class NinjaBot extends TeamRobot {
 			myPos = new Point2D.Double(getX(),getY());
 			myEnergy = getEnergy();
 			// Tar max 9 ticks tills alla är skannade
-			if(target.getAlive() && getTime()>9) {
+			if(target.getAlive() && getTime()>9 && !isTeammate(target.getName())) {
 				distanceToTarget = myPos.distance(target.getPosition());
 				shoot();
 				move();
@@ -144,7 +144,8 @@ public class NinjaBot extends TeamRobot {
 			en = new EnemyRobot();
 			enemies.put(e.getName(), en);
 		}
- 
+		
+		en.setName(e.getName());
 		en.setEnergy((double) e.getEnergy());
 		en.setAlive(true);
 		en.setPosition(Calculations.calcPoint(myPos, e.getDistance(), getHeadingRadians() + e.getBearingRadians())); 
