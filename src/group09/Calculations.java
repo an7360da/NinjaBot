@@ -24,10 +24,7 @@ public class Calculations {
 	
 	
 	
-	
-	public void onRobotDeath(RobotDeathEvent e) {
-		((EnemyRobot)NinjaBot.enemies.get(e.getName())).setAlive(false);
-	}
+
 	
 	
 	

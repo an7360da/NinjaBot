@@ -1,6 +1,8 @@
 package movement;
 
+import info.EnemyRobot;
 import robocode.HitWallEvent;
+import robocode.RobotDeathEvent;
 
 public class MovementEvents {
 	/**
@@ -9,5 +11,6 @@ public class MovementEvents {
 	public void onHitWall(HitWallEvent e) {
 		// Replace the next line with any behavior you would like
 	}	
-
+	
+	
 }

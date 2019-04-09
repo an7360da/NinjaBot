@@ -102,24 +102,30 @@ public class NinjaBot extends TeamRobot {
  
 //- scan event ------------------------------------------------------------------------------------------------------------------------------
 	public void onScannedRobot(ScannedRobotEvent e, Ninja ninja){
-		EnemyRobot er = (EnemyRobot)enemies.get(e.getName());
- 
-		if(er == null){
-			er = new EnemyRobot();
-			enemies.put(e.getName(), er);
+		
+		if (isTeammate(e.getName())) {
+			
+		} else {
+		
+			EnemyRobot er = (EnemyRobot)enemies.get(e.getName());
+	 
+			if(er == null){
+				er = new EnemyRobot();
+				enemies.put(e.getName(), er);
+			}
+	 
+			er.setEnergy((double) e.getEnergy());
+			er.setAlive(true);
+			er.setPosition(Calculations.calcPoint(ninja.getPos(), e.getDistance(), getHeadingRadians() + e.getBearingRadians())); 
+	 
+			// normal target selection: the one closer to you is the most dangerous so attack him
+			if(!target.getAlive() || e.getDistance() <ninja.getPos().distance(target.getPosition())) {
+				target = er;
+			}
+	 
+			// locks the radar if there is only one opponent left
+			if(getOthers()==1)	setTurnRadarLeftRadians(getRadarTurnRemainingRadians());
 		}
- 
-		er.setEnergy((double) e.getEnergy());
-		er.setAlive(true);
-		er.setPosition(Calculations.calcPoint(ninja.getPos(), e.getDistance(), getHeadingRadians() + e.getBearingRadians())); 
- 
-		// normal target selection: the one closer to you is the most dangerous so attack him
-		if(!target.getAlive() || e.getDistance() <ninja.getPos().distance(target.getPosition())) {
-			target = er;
-		}
- 
-		// locks the radar if there is only one opponent left
-		if(getOthers()==1)	setTurnRadarLeftRadians(getRadarTurnRemainingRadians());
 	}
  
 //- minor events ----------------------------------------------------------------------------------------------------------------------------
