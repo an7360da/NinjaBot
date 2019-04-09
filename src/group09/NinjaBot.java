@@ -59,7 +59,7 @@ public class NinjaBot extends TeamRobot {
 	
 	public void shoot(Ninja ninja) {
 		// HeadOnTargeting 
-		if(getGunTurnRemaining() == 0 && ninja.getEnergy() > 1) {
+		if(getGunTurnRemaining() == 0 && ninja.getEnergy() > 5) {
 			setFire( Math.min(Math.min(ninja.getEnergy()/6d, 1300d/ninja.getDistanceToTarget()), target.getEnergy()/3d) );
 		}
  
