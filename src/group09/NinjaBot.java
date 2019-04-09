@@ -101,22 +101,21 @@ public class NinjaBot extends TeamRobot {
 	
  
 //- scan event ------------------------------------------------------------------------------------------------------------------------------
-	public void onScannedRobot(ScannedRobotEvent e, Ninja ninja)
-	{
-		EnemyRobot en = (EnemyRobot)enemies.get(e.getName());
+	public void onScannedRobot(ScannedRobotEvent e, Ninja ninja){
+		EnemyRobot er = (EnemyRobot)enemies.get(e.getName());
  
-		if(en == null){
-			en = new EnemyRobot();
-			enemies.put(e.getName(), en);
+		if(er == null){
+			er = new EnemyRobot();
+			enemies.put(e.getName(), er);
 		}
  
-		en.setEnergy((double) e.getEnergy());
-		en.setAlive(true);
-		en.setPosition(Calculations.calcPoint(ninja.getPos(), e.getDistance(), getHeadingRadians() + e.getBearingRadians())); 
+		er.setEnergy((double) e.getEnergy());
+		er.setAlive(true);
+		er.setPosition(Calculations.calcPoint(ninja.getPos(), e.getDistance(), getHeadingRadians() + e.getBearingRadians())); 
  
 		// normal target selection: the one closer to you is the most dangerous so attack him
 		if(!target.getAlive() || e.getDistance() <ninja.getPos().distance(target.getPosition())) {
-			target = en;
+			target = er;
 		}
  
 		// locks the radar if there is only one opponent left
