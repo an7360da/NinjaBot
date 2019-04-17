@@ -23,9 +23,7 @@ public class NinjaBot extends TeamRobot {
 //	static Point2D.Double myPos;
 //	static double myEnergy;
 //	private double distanceToTarget;
-	
-	private static EnemyRobot target;
-	
+		
 	public void run() {
 		
 				
@@ -41,8 +39,7 @@ public class NinjaBot extends TeamRobot {
 		Robot.setLastPosition(p);
 		
 		// = lastPosition = myPos = new Point2D.Double(getX(), getY());
-		target = new EnemyRobot();
-		target.setAlive(false);
+		
 	
 		
  
@@ -53,13 +50,13 @@ public class NinjaBot extends TeamRobot {
 			Robot.setEnergy(getEnergy());
 			// Tar max 9 ticks tills alla är skannade			
 			
-			if(target.getAlive() && getTime()>=0) {
+			if(Robot.hasTarget() && Robot.getTarget().getAlive() && getTime()>=0) {
 				
-				java.awt.geom.Point2D.Double targetPos = target.getPosition();
+				java.awt.geom.Point2D.Double targetPos = Robot.getTarget().getPosition();
 				java.awt.geom.Point2D.Double robotPos = Robot.getPos();
 				double distance = robotPos.distance(targetPos);
 				Robot.setDistanceToTarget(distance);
-				if(!isTeammate(target.getName())){
+				if(!isTeammate(Robot.getTarget().getName())){
 					shoot();	
 				}
 			}
@@ -72,14 +69,12 @@ public class NinjaBot extends TeamRobot {
 	
 	public void shoot() {
 		// HeadOnTargeting 
-		if(getGunTurnRemaining() == 0 && Robot.getEnergy() > 5 && !isTeammate(target.getName())) {
+		if(getGunTurnRemaining() == 0 && Robot.getEnergy() > 5 && Robot.hasTarget() && !isTeammate(Robot.getTarget().getName())) {
 			
-			
-			
-			setFire( Math.min(Math.min(Robot.getEnergy()/6d, 1300d/Robot.getDistanceToTarget()), target.getEnergy()/3d) );
+			setFire( Math.min(Math.min(Robot.getEnergy()/6d, 1300d/Robot.getDistanceToTarget()), Robot.getTarget().getEnergy()/3d) );
+			setTurnGunRightRadians(Utils.normalRelativeAngle(Calculations.calcAngle(Robot.getTarget().getPosition(), Robot.getPos()) - getGunHeadingRadians()));
 		}
  
-		setTurnGunRightRadians(Utils.normalRelativeAngle(Calculations.calcAngle(target.getPosition(), Robot.getPos()) - getGunHeadingRadians()));
  
 
 	}

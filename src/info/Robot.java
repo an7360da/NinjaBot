@@ -58,5 +58,9 @@ public class Robot {
 		Robot.distanceToTarget = distanceToTarget;
 	}
 	
+	public static boolean hasTarget() {
+		return target != null;
+	}
+	
 
 }

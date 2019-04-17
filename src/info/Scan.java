@@ -5,24 +5,27 @@ import robocode.ScannedRobotEvent;
 public class Scan {
 	
 	
- 	public void onScannedRobot(ScannedRobotEvent e, double headingRadians){
+ 	public void onScannedRobot(ScannedRobotEvent event, double headingRadians){
 		
-		EnemyRobot en = (EnemyRobot)Environment.enemies.get(e.getName());
+		EnemyRobot en = (EnemyRobot)Environment.enemies.get(event.getName());
 		 
 		if(en == null){
 			en = new EnemyRobot();
-			Environment.enemies.put(e.getName(), en);
+			Environment.enemies.put(event.getName(), en);
 		}
 		
-		en.setName(e.getName());
-		en.setEnergy((double) e.getEnergy());
+		en.setName(event.getName());
+		en.setEnergy((double) event.getEnergy());
 		en.setAlive(true);
-		en.setPosition(Calculations.calcPoint(Robot.getPos(), e.getDistance(), headingRadians + e.getBearingRadians())); 
+		en.setPosition(Calculations.calcPoint(Robot.getPos(), event.getDistance(), headingRadians + event.getBearingRadians())); 
  
 		// normal target selection: the one closer to you is the most dangerous so attack him
-		if(!Robot.getTarget().getAlive() || e.getDistance() < Robot.getPos().distance(Robot.getTarget().getPosition())) {
+		if (Robot.hasTarget()) {
+			if(!Robot.getTarget().getAlive() || event.getDistance() < Robot.getPos().distance(Robot.getTarget().getPosition())) {
+				Robot.setTarget(en);
+			}
+		} else {
 			Robot.setTarget(en);
-			
 		}
  
 		// locks the radar if there is only one opponent left
