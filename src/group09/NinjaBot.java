@@ -5,6 +5,8 @@ import robocode.util.Utils;
 import java.awt.Color;
 import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
+import java.io.IOException;
+import java.io.Serializable;
 import java.util.Enumeration;
 import java.util.Hashtable;
 
@@ -26,12 +28,32 @@ public class NinjaBot extends TeamRobot {
 	
 	private static EnemyRobot target;
 	
+	public void broadcastMessage(Serializable message) {
+		
+	}
+	
 	public void run() {
 		
+		RobotColors c = new RobotColors();
+		
+		c.bodyColor = Color.black;
+		c.gunColor = Color.white;
+		c.radarColor = Color.orange;
+		c.scanColor = Color.black;
+		c.bulletColor = Color.red;
 				
-		setColors(Color.black,Color.red,Color.white); // body,gun,radar
+		setBodyColor(c.bodyColor);
+		setGunColor(c.gunColor);
+		setRadarColor(c.radarColor);
+		setScanColor(c.scanColor);
+		setBulletColor(c.bulletColor);
+		
+		// Send RobotColors object to our entire team
+		broadcastMessage(c);
+
 		setAdjustGunForRobotTurn(true);
 		setAdjustRadarForGunTurn(true);
+		
  
 		setTurnRadarRightRadians(Double.POSITIVE_INFINITY);
  
@@ -52,7 +74,7 @@ public class NinjaBot extends TeamRobot {
  
 			Robot.setPos(new Point2D.Double(getX(),getY()));
 			Robot.setEnergy(getEnergy());
-			// Tar max 9 ticks tills alla Ã¤r skannade
+			// Tar max 9 ticks tills alla Ãr skannade
 			if(target.getAlive() && getTime()>9 && !isTeammate(target.getName())) {
 				Robot.setDistanceToTarget(Robot.getPos().distance(target.getPosition()));
 				shoot();
@@ -68,8 +90,6 @@ public class NinjaBot extends TeamRobot {
 	public void shoot() {
 		// HeadOnTargeting 
 		if(getGunTurnRemaining() == 0 && Robot.getEnergy() > 5 && !isTeammate(target.getName())) {
-			
-			
 			
 			setFire( Math.min(Math.min(Robot.getEnergy()/6d, 1300d/Robot.getDistanceToTarget()), target.getEnergy()/3d) );
 		}
@@ -150,7 +170,10 @@ public class NinjaBot extends TeamRobot {
 	public void onScannedRobot(ScannedRobotEvent e)
 	{
 		Scan scan = new Scan();
-		scan.onScannedRobot(e, getHeadingRadians());
+		EnemyRobot scanned = scan.onScannedRobot(e, getHeadingRadians());
+		broadcastMessage("targetPos;" + scanned.getPosition().x + ";" + scanned.getPosition().getY());
+		broadcastMessage("myPos;" + Robot.getPos().x + ";" + Robot.getPos().getY());
+		
 		
 		if(getOthers()==1)	setTurnRadarLeftRadians(getRadarTurnRemainingRadians());
 

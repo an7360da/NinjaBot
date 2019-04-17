@@ -1,11 +1,13 @@
 package info;
+import java.io.IOException;
+
 import group09.Calculations;
 import robocode.ScannedRobotEvent;
 
 public class Scan {
 	
 	
-	public void onScannedRobot(ScannedRobotEvent e, double headingRadians){
+	public EnemyRobot onScannedRobot(ScannedRobotEvent e, double headingRadians){
 		
 		EnemyRobot en = (EnemyRobot)Environment.enemies.get(e.getName());
 		 
@@ -26,6 +28,7 @@ public class Scan {
 		}
  
 		// locks the radar if there is only one opponent left
+		return en;
 
 		
 	}
