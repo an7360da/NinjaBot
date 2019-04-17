@@ -5,6 +5,7 @@ import robocode.util.Utils;
 import java.awt.Color;
 import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
+import java.io.IOException;
 import java.util.Enumeration;
 import java.util.Hashtable;
 
@@ -26,6 +27,27 @@ public class NinjaBot extends TeamRobot {
 		
 	public void run() {
 		
+RobotColors c = new RobotColors();
+		
+		c.bodyColor = Color.black;
+		c.gunColor = Color.white;
+		c.radarColor = Color.orange;
+		c.scanColor = Color.black;
+		c.bulletColor = Color.red;
+				
+		setBodyColor(c.bodyColor);
+		setGunColor(c.gunColor);
+		setRadarColor(c.radarColor);
+		setScanColor(c.scanColor);
+		setBulletColor(c.bulletColor);
+		
+		// Send RobotColors object to our entire team
+		try {
+			broadcastMessage(c);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 				
 		setColors(Color.black,Color.red,Color.white); // body,gun,radar
 		setAdjustGunForRobotTurn(true);
@@ -147,10 +169,21 @@ public class NinjaBot extends TeamRobot {
 	}
  
 //- scan event ------------------------------------------------------------------------------------------------------------------------------
-	public void onScannedRobot(ScannedRobotEvent e)
-	{
+	public void onScannedRobot(ScannedRobotEvent e) {
+		
 		Scan scan = new Scan();
-		scan.onScannedRobot(e, getHeadingRadians());
+//		scan.onScannedRobot(e, getHeadingRadians());
+		
+		EnemyRobot scanned = scan.onScannedRobot(e, getHeadingRadians());
+		try {
+			broadcastMessage("targetPos;" + scanned.getPosition().x + ";" + scanned.getPosition().getY());
+			broadcastMessage("myPos;" + Robot.getPos().x + ";" + Robot.getPos().getY());
+
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+
 		
 		if(getOthers()==1)	setTurnRadarLeftRadians(getRadarTurnRemainingRadians());
 

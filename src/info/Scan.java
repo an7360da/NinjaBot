@@ -1,12 +1,15 @@
 package info;
+import java.awt.Color;
+
 import group09.Calculations;
 import robocode.ScannedRobotEvent;
 
 public class Scan {
 	
 	
- 	public void onScannedRobot(ScannedRobotEvent event, double headingRadians){
-		
+	public EnemyRobot onScannedRobot(ScannedRobotEvent event, double headingRadians){
+ 		
+ 		
 		EnemyRobot en = (EnemyRobot)Environment.enemies.get(event.getName());
 		 
 		if(en == null){
@@ -27,8 +30,8 @@ public class Scan {
 		} else {
 			Robot.setTarget(en);
 		}
- 
-		// locks the radar if there is only one opponent left
+		
+		return en;
 
 		
 	}
