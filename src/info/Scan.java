@@ -5,7 +5,7 @@ import robocode.ScannedRobotEvent;
 public class Scan {
 	
 	
-	public void onScannedRobot(ScannedRobotEvent e, double headingRadians){
+ 	public void onScannedRobot(ScannedRobotEvent e, double headingRadians){
 		
 		EnemyRobot en = (EnemyRobot)Environment.enemies.get(e.getName());
 		 

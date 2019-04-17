@@ -53,9 +53,17 @@ public class NinjaBot extends TeamRobot {
 			Robot.setPos(new Point2D.Double(getX(),getY()));
 			Robot.setEnergy(getEnergy());
 			// Tar max 9 ticks tills alla är skannade
-			if(target.getAlive() && getTime()>9 && !isTeammate(target.getName())) {
+			
+			System.out.println(target.getAlive());
+			System.out.println(getTime());
+			System.out.println(isTeammate(target.getName()));
+			
+			
+			if(target.getAlive() && getTime()>=0) {
 				Robot.setDistanceToTarget(Robot.getPos().distance(target.getPosition()));
-				shoot();
+				if(!isTeammate(target.getName())){
+					shoot();	
+				}
 				move();
 			}
  
