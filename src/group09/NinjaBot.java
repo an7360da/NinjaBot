@@ -48,7 +48,6 @@ public class NinjaBot extends TeamRobot {
 		setScanColor(c.scanColor);
 		setBulletColor(c.bulletColor);
 		
-		// Send RobotColors object to our entire team
 		broadcastMessage(c);
 
 		setAdjustGunForRobotTurn(true);
