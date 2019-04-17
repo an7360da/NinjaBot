@@ -154,27 +154,6 @@ public class NinjaBot extends TeamRobot {
 		
 		if(getOthers()==1)	setTurnRadarLeftRadians(getRadarTurnRemainingRadians());
 
-		// FLYTTAT TILL SCAN/ENVIRONMENT
-		
-		
-//		EnemyRobot en = (EnemyRobot)enemies.get(e.getName());
-// 
-//		if(en == null){
-//			en = new EnemyRobot();
-//			enemies.put(e.getName(), en);
-//		}
-//		
-//		en.setName(e.getName());
-//		en.setEnergy((double) e.getEnergy());
-//		en.setAlive(true);
-//		en.setPosition(Calculations.calcPoint(myPos, e.getDistance(), getHeadingRadians() + e.getBearingRadians())); 
-// 
-//		// normal target selection: the one closer to you is the most dangerous so attack him
-//		if(!target.getAlive() || e.getDistance() < myPos.distance(target.getPosition())) {
-//			target = en;
-//		}
-// 
-//		// locks the radar if there is only one opponent left
 	}
  
 //- minor events ----------------------------------------------------------------------------------------------------------------------------
