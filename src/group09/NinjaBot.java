@@ -42,31 +42,28 @@ public class NinjaBot extends TeamRobot {
 		
 		// = lastPosition = myPos = new Point2D.Double(getX(), getY());
 		target = new EnemyRobot();
-		target.setAlive(true);
+		target.setAlive(false);
 	
 		
  
 		while (true) {
 			
 			
- 
 			Robot.setPos(new Point2D.Double(getX(),getY()));
 			Robot.setEnergy(getEnergy());
-			// Tar max 9 ticks tills alla Ã¤r skannade
-			
-			System.out.println(target.getAlive());
-			System.out.println(getTime());
-			System.out.println(isTeammate(target.getName()));
-			
+			// Tar max 9 ticks tills alla är skannade			
 			
 			if(target.getAlive() && getTime()>=0) {
-				Robot.setDistanceToTarget(Robot.getPos().distance(target.getPosition()));
+				
+				java.awt.geom.Point2D.Double targetPos = target.getPosition();
+				java.awt.geom.Point2D.Double robotPos = Robot.getPos();
+				double distance = robotPos.distance(targetPos);
+				Robot.setDistanceToTarget(distance);
 				if(!isTeammate(target.getName())){
 					shoot();	
 				}
-				move();
 			}
- 
+			move();
 			execute();
 			
  
