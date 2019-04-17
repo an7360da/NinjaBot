@@ -1,3 +1,4 @@
+
 package group09;
 
 import java.awt.geom.Point2D;
@@ -11,6 +12,5 @@ public class Calculations {
 	public static double calcAngle(Point2D.Double p2,Point2D.Double p1){
 		return Math.atan2(p2.x - p1.x, p2.y - p1.y);
 	}
-
 
 }
