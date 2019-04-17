@@ -21,7 +21,7 @@ public class NinjaBot extends TeamRobot {
 //	static Point2D.Double nextDestination;
 //	static Point2D.Double;
 //	static Point2D.Double myPos;
-//	static double ninja.getEnergy();;
+	private static double myEnergy;
 //	private double distanceToTarget;
 	private Ninja ninja = new Ninja();
 	
@@ -39,13 +39,13 @@ public class NinjaBot extends TeamRobot {
 		ninja.setLastPosition(point);
 		ninja.setPos(point);
 		target = new EnemyRobot();
-	
+		myEnergy = ninja.getEnergy();
 		
  
 		while (true) {
  
 			ninja.setPos(new Point2D.Double(getX(),getY()));
-			double myEnergy = ninja.getEnergy();
+			
 			// Tar max 9 ticks tills alla är skannade
 			if(target.getAlive() && getTime()>9 && !isTeammate(target.getName())) {
 				Point2D.Double nPos = ninja.getPos();
@@ -63,11 +63,11 @@ public class NinjaBot extends TeamRobot {
 	
 	public void shoot() {
 		// HeadOnTargeting 
-		if(getGunTurnRemaining() == 0 && ninja.getEnergy() > 5 && !isTeammate(target.getName())) {
+		if(getGunTurnRemaining() == 0 && myEnergy > 5 && !isTeammate(target.getName())) {
 			
 			
 			
-			setFire( Math.min(Math.min(ninja.getEnergy()/6d, 1300d/ninja.getDistanceToTarget()), target.getEnergy()/3d) );
+			setFire( Math.min(Math.min(myEnergy/6d, 1300d/ninja.getDistanceToTarget()), target.getEnergy()/3d) );
 		}
  
 		setTurnGunRightRadians(Utils.normalRelativeAngle(Calculations.calcAngle(target.getPosition(), ninja.getPos()) - getGunHeadingRadians()));
