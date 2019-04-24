@@ -13,8 +13,6 @@ import info.EnemyRobot;
 import info.Robot;
 import info.Scan;
 
-
-
 public class NinjaBot extends TeamRobot {
 	
 //	static Hashtable enemies = new Hashtable();
@@ -27,7 +25,7 @@ public class NinjaBot extends TeamRobot {
 		
 	public void run() {
 		
-RobotColors c = new RobotColors();
+		RobotColors c = new RobotColors();
 		
 		c.bodyColor = Color.black;
 		c.gunColor = Color.white;
@@ -62,9 +60,6 @@ RobotColors c = new RobotColors();
 		
 		// = lastPosition = myPos = new Point2D.Double(getX(), getY());
 		
-	
-		
- 
 		while (true) {
 			
 			
@@ -84,11 +79,8 @@ RobotColors c = new RobotColors();
 			}
 			move();
 			execute();
-			
- 
 		}
 	}
-	
 	public void shoot() {
 		// HeadOnTargeting 
 		if(getGunTurnRemaining() == 0 && Robot.getEnergy() > 5 && Robot.hasTarget() && !isTeammate(Robot.getTarget().getName())) {
@@ -96,8 +88,6 @@ RobotColors c = new RobotColors();
 			setFire( Math.min(Math.min(Robot.getEnergy()/6d, 1300d/Robot.getDistanceToTarget()), Robot.getTarget().getEnergy()/3d) );
 			setTurnGunRightRadians(Utils.normalRelativeAngle(Calculations.calcAngle(Robot.getTarget().getPosition(), Robot.getPos()) - getGunHeadingRadians()));
 		}
- 
- 
 
 	}
 	
@@ -126,7 +116,7 @@ RobotColors c = new RobotColors();
 			}
 				
 			Robot.setLastPosition(Robot.getPos());
- 
+			
 		} else {
  
 			double angle = Calculations.calcAngle(Robot.getNextDestination(), Robot.getPos()) - getHeadingRadians();
@@ -141,11 +131,8 @@ RobotColors c = new RobotColors();
 			setTurnRightRadians(angle = Utils.normalRelativeAngle(angle));
 			// hitting walls isn't a good idea, but NinjaBot still does it pretty often
 			setMaxVelocity(Math.abs(angle) > 1 ? 0 : 8d);
- 
 		}
-
 	}
-	
 	
  	public double evaluate(Point2D.Double p, double addLast) {
 		// this is basically here that the bot uses more space on the battlefield. In melee it is dangerous to stay somewhere too long.
@@ -183,7 +170,6 @@ RobotColors c = new RobotColors();
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
-
 		
 		if(getOthers()==1)	setTurnRadarLeftRadians(getRadarTurnRemainingRadians());
 
