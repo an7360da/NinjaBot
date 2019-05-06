@@ -70,7 +70,7 @@ RobotColors c = new RobotColors();
 			
 			Robot.setPos(new Point2D.Double(getX(),getY()));
 			Robot.setEnergy(getEnergy());
-			// Tar max 9 ticks tills alla är skannade			
+			// Tar max 9 ticks tills alla ï¿½r skannade			
 			
 			if(Robot.hasTarget() && Robot.getTarget().getAlive() && getTime()>=0) {
 				
@@ -191,7 +191,10 @@ RobotColors c = new RobotColors();
  
 //- minor events ----------------------------------------------------------------------------------------------------------------------------
 	public void onRobotDeath(RobotDeathEvent e) {
-		((EnemyRobot)Robot.getEnemies().get(e.getName())).setAlive(false);
+			Robot.getEnemies().remove(e.hashCode());
+			Robot.getEnemies().remove(e.hashCode());
+			//((EnemyRobot)Robot.getEnemies().get(e.getName())).setAlive(false);
+			
 	}
  
 //- math ------------------------------------------------------------------------------------------------------------------------------------
