@@ -98,7 +98,7 @@ public class NinjaBot extends TeamRobot {
 		//search a new destination if I reached this one
 		if (distanceToNextDestination < 15) {
 			// there should be better formulas then this one but it is basically here to increase OneOnOne performance. with more bots
-			// addLast will mostly be 1
+			// § will mostly be 1
 			double addLast = 1 - Math.rint(Math.pow(Math.random(), getOthers()));
  
 			Rectangle2D.Double battleField = new Rectangle2D.Double(30, 30, getBattleFieldWidth() - 60, getBattleFieldHeight() - 60);
@@ -110,7 +110,7 @@ public class NinjaBot extends TeamRobot {
 				//	run into the target (should mostly be the closest bot) 
 				testPoint = Calculations.calcPoint(Robot.getPos(), Math.min(Robot.getDistanceToTarget()*0.8, 100 + 200*Math.random()), 2*Math.PI*Math.random());
 				
-				if(battleField.contains(testPoint) && evaluate(testPoint, addLast) < evaluate(Robot.getNextDestination(), addLast)) {
+				if(battleField.contains(testPoint) && Calculations.evaluate(testPoint, addLast) < Calculations.evaluate(Robot.getNextDestination(), addLast)) {
 					Robot.setNextDestination(testPoint);
 				}
 			}
@@ -133,38 +133,18 @@ public class NinjaBot extends TeamRobot {
 			setMaxVelocity(Math.abs(angle) > 1 ? 0 : 8d);
 		}
 	}
-	
- 	public double evaluate(Point2D.Double p, double addLast) {
-		// this is basically here that the bot uses more space on the battlefield. In melee it is dangerous to stay somewhere too long.
-		double eval = addLast*0.08/p.distanceSq(Robot.getLastPosition());
- 
-		Enumeration _enum = Robot.getEnemies().elements();
-		while (_enum.hasMoreElements()) {
-			EnemyRobot en = (EnemyRobot)_enum.nextElement();
-			// this is the heart of HawkOnFire. So I try to explain what I wanted to do:
-			// -	Math.min(en.energy/myEnergy,2) is multiplied because en.energy/myEnergy is an indicator how dangerous an enemy is
-			// -	Math.abs(Math.cos(calcAngle(myPos, p) - calcAngle(en.pos, p))) is bigger if the moving direction isn't good in relation
-			//		to a certain bot. it would be more natural to use Math.abs(Math.cos(calcAngle(p, myPos) - calcAngle(en.pos, myPos)))
-			//		but this wasn't going to give me good results
-			// -	1 / p.distanceSq(en.pos) is just the normal anti gravity thing
-			if(en.getAlive()) {
-				eval += Math.min(en.getEnergy()/Robot.getEnergy(),2) * 
-						(1 + Math.abs(Math.cos(Calculations.calcAngle(Robot.getPos(), p) - Calculations.calcAngle(en.getPosition(), p)))) / p.distanceSq(en.getPosition());
-			}
-		}
-		return eval;
-	}
- 
+	 
 //- scan event ------------------------------------------------------------------------------------------------------------------------------
 	public void onScannedRobot(ScannedRobotEvent e) {
-		
+//		en.setPosition(Calculations.calcPoint(Robot.getPos(), event.getDistance(), headingRadians + event.getBearingRadians())); 
+
 		Scan scan = new Scan();
-//		scan.onScannedRobot(e, getHeadingRadians());
 		
 		EnemyRobot scanned = scan.onScannedRobot(e, getHeadingRadians());
 		try {
 			broadcastMessage("targetPos;" + scanned.getPosition().x + ";" + scanned.getPosition().getY());
 			broadcastMessage("myPos;" + Robot.getPos().x + ";" + Robot.getPos().getY());
+//			broadcastMessage("enemyDetails;" + e.getName() + ";" + e.getPos().x + ";" + e.getPos().y + ";" + e.getEnergy());
 
 		} catch (IOException e1) {
 			// TODO Auto-generated catch block
