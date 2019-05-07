@@ -12,6 +12,7 @@ import java.util.Hashtable;
 import info.EnemyRobot;
 import info.Robot;
 import info.Scan;
+import movement.MovementEvents;
 
 public class NinjaBot extends TeamRobot {
 	
@@ -53,6 +54,7 @@ public class NinjaBot extends TeamRobot {
  
 		setTurnRadarRightRadians(Double.POSITIVE_INFINITY);
  
+		
 		Point2D.Double p = new Point2D.Double(getX(), getY());
 		Robot.setNextDestination(p);
 		Robot.setPos(p);
@@ -65,7 +67,7 @@ public class NinjaBot extends TeamRobot {
 			
 			Robot.setPos(new Point2D.Double(getX(),getY()));
 			Robot.setEnergy(getEnergy());
-			// Tar max 9 ticks tills alla är skannade			
+			// Tar max 9 ticks tills alla ï¿½r skannade			
 			
 			if(Robot.hasTarget() && Robot.getTarget().getAlive() && getTime()>=0) {
 				
@@ -92,40 +94,20 @@ public class NinjaBot extends TeamRobot {
 	}
 	
 	public void move() {
+		MovementEvents moveToDestination = new MovementEvents();
+		MovementEvents newDestination = new MovementEvents();
+	
 		//Anti-grav
 		double distanceToNextDestination = Robot.getPos().distance(Robot.getNextDestination());
 		 
 		//search a new destination if I reached this one
 		if (distanceToNextDestination < 15) {
-			// there should be better formulas then this one but it is basically here to increase OneOnOne performance. with more bots
-			// § will mostly be 1
-			double addLast = 1 - Math.rint(Math.pow(Math.random(), getOthers()));
- 
-			Rectangle2D.Double battleField = new Rectangle2D.Double(30, 30, getBattleFieldWidth() - 60, getBattleFieldHeight() - 60);
-			Point2D.Double testPoint;
-			
-			for (int i = 0 ; i < 200 ; i++) {
-				//	calculate the testPoint somewhere around the current position. 100 + 200*Math.random() proved to be good if there are
-				//	around 10 bots in a 1000x1000 field. but this needs to be limited this to distanceToTarget*0.8. this way the bot wont
-				//	run into the target (should mostly be the closest bot) 
-				testPoint = Calculations.calcPoint(Robot.getPos(), Math.min(Robot.getDistanceToTarget()*0.8, 100 + 200*Math.random()), 2*Math.PI*Math.random());
-				
-				if(battleField.contains(testPoint) && Calculations.evaluate(testPoint, addLast) < Calculations.evaluate(Robot.getNextDestination(), addLast)) {
-					Robot.setNextDestination(testPoint);
-				}
-			}
-				
-			Robot.setLastPosition(Robot.getPos());
+			newDestination.newDestination(getOthers(), getBattleFieldWidth(), getBattleFieldHeight());
 			
 		} else {
- 
-			double angle = Calculations.calcAngle(Robot.getNextDestination(), Robot.getPos()) - getHeadingRadians();
-			double direction = 1;
- 
-			if(Math.cos(angle) < 0) {
-				angle += Math.PI;
-				direction = -1;
-			}
+			
+			double angle = moveToDestination.calculateAngle(getHeadingRadians());
+			double direction = moveToDestination.calculateDirection(angle);
  
 			setAhead(distanceToNextDestination * direction);
 			setTurnRightRadians(angle = Utils.normalRelativeAngle(angle));
