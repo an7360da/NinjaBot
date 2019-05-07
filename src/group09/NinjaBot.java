@@ -65,7 +65,7 @@ public class NinjaBot extends TeamRobot {
 			
 			Robot.setPos(new Point2D.Double(getX(),getY()));
 			Robot.setEnergy(getEnergy());
-			// Tar max 9 ticks tills alla är skannade			
+			// Tar max 9 ticks tills alla ï¿½r skannade			
 			
 			if(Robot.hasTarget() && Robot.getTarget().getAlive() && getTime()>=0) {
 				
@@ -98,7 +98,7 @@ public class NinjaBot extends TeamRobot {
 		//search a new destination if I reached this one
 		if (distanceToNextDestination < 15) {
 			// there should be better formulas then this one but it is basically here to increase OneOnOne performance. with more bots
-			// § will mostly be 1
+			// ï¿½ will mostly be 1
 			double addLast = 1 - Math.rint(Math.pow(Math.random(), getOthers()));
  
 			Rectangle2D.Double battleField = new Rectangle2D.Double(30, 30, getBattleFieldWidth() - 60, getBattleFieldHeight() - 60);
