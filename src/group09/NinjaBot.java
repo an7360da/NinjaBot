@@ -83,6 +83,7 @@ public class NinjaBot extends TeamRobot {
 			execute();
 		}
 	}
+	
 	public void shoot() {
 		// HeadOnTargeting 
 		if(getGunTurnRemaining() == 0 && Robot.getEnergy() > 5 && Robot.hasTarget() && !isTeammate(Robot.getTarget().getName())) {
@@ -113,6 +114,7 @@ public class NinjaBot extends TeamRobot {
 			setTurnRightRadians(angle = Utils.normalRelativeAngle(angle));
 			// hitting walls isn't a good idea, but NinjaBot still does it pretty often
 			setMaxVelocity(Math.abs(angle) > 1 ? 0 : 8d);
+			
 		}
 	}
 	 

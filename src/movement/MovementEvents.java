@@ -50,16 +50,6 @@ public class MovementEvents {
 		return direction;
 	}
 	
-	public void move() {
-		//Anti-grav
-		 
-		//search a new destination if I reached this one
-		if (distanceToNextDestination < 15) {
-			
-		} else {
- 
-		}
-	}
 	/**
 	 * onHitWall: What to do when you hit a wall
 	 */
