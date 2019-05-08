@@ -17,8 +17,6 @@ public class RobotTest {
 	@Before
 	public void setUp() throws Exception {
 		testBot = new Robot();
-		enemies;
-		testBot.setEnemies(enemies);
 	}
 
 	@After
