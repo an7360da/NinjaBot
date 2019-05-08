@@ -140,9 +140,7 @@ public class NinjaBot extends TeamRobot {
 	}
  
 //- minor events ----------------------------------------------------------------------------------------------------------------------------
-	public void onRobotDeath(RobotDeathEvent e) {
-		((EnemyRobot)Robot.getEnemies().get(e.getName())).setAlive(false);
-	}
+	
  
 //- math ------------------------------------------------------------------------------------------------------------------------------------
 
