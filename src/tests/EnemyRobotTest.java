@@ -2,14 +2,21 @@ package tests;
 
 import static org.junit.Assert.*;
 
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import info.EnemyRobot;
+
 public class EnemyRobotTest {
+	private EnemyRobot testBot;
 
 	@Before
 	public void setUp() throws Exception {
+		testBot = new EnemyRobot();
+		testBot.setEnergy(200.0);
+		
 	}
 
 	@After
@@ -18,12 +25,13 @@ public class EnemyRobotTest {
 
 	@Test
 	public void testGetEnergy() {
-		fail("Not yet implemented");
+		assertEquals("getEnergy failed", testBot.getEnergy(), 200.0, 0);
 	}
 
 	@Test
 	public void testSetEnergy() {
-		fail("Not yet implemented");
+		testBot.setEnergy(120.3);
+		assertEquals("setEnergy failed", testBot.getEnergy(), 120,3);
 	}
 
 	@Test

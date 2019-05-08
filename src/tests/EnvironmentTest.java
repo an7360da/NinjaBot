@@ -16,9 +16,6 @@ public class EnvironmentTest {
 	public void tearDown() throws Exception {
 	}
 
-	@Test
-	public void testObject() {
-		fail("Not yet implemented");
-	}
+
 
 }

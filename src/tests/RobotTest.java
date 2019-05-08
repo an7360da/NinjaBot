@@ -2,18 +2,28 @@ package tests;
 
 import static org.junit.Assert.*;
 
+import java.util.Hashtable;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import info.Robot;
+
 public class RobotTest {
+	private Robot testBot;
+	private Hashtable enemies;
 
 	@Before
 	public void setUp() throws Exception {
+		testBot = new Robot();
+		enemies;
+		testBot.setEnemies(enemies);
 	}
 
 	@After
 	public void tearDown() throws Exception {
+		testBot = null;
 	}
 
 	@Test
