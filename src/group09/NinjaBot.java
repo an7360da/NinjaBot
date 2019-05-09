@@ -60,9 +60,17 @@ public class NinjaBot extends TeamRobot {
 			
 			Robot.setPos(new Point2D.Double(getX(),getY()));
 			Robot.setEnergy(getEnergy());
+			
+			try {
+				broadcastMessage("leadership;followMe");
+			} catch (IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+
 			// Tar max 9 ticks tills alla �r skannade			
 			
-			if(Robot.hasTarget() && Robot.getTarget().getAlive() && getTime()>=0) {
+			if(Robot.hasTarget() && Robot.getTarget().getAlive() && getTime()>=9) {
 				
 				java.awt.geom.Point2D.Double targetPos = Robot.getTarget().getPosition();
 				java.awt.geom.Point2D.Double robotPos = Robot.getPos();
@@ -112,6 +120,19 @@ public class NinjaBot extends TeamRobot {
 	}
 	 
 //- scan event ------------------------------------------------------------------------------------------------------------------------------
+	/**
+	 * Short one line description.                           (1)
+	 * <p>
+	 * Longer description. If there were any, it would be    (2)
+	 * here.
+	 * </p>
+	 * And even more explanations to follow in consecutive
+	 * paragraphs separated by HTML paragraph breaks.
+	 *
+	 * @param  variable Description text text text.          (3)
+	 * @return Description text text text.
+	 */
+
 	Scan scan = new Scan();
 	public void onScannedRobot(ScannedRobotEvent e) {
 		
