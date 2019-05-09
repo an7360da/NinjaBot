@@ -16,18 +16,8 @@ import info.Scan;
 import movement.MovementEvents;
 
 public class NinjaBot extends TeamRobot {
-	
-//	static Hashtable enemies = new Hashtable();
-//	static EnemyRobot target;
-//	static Point2D.Double nextDestination;
-//	static Point2D.Double lastPosition;
-//	static Point2D.Double myPos;
-//	static double myEnergy;
-//	private double distanceToTarget;
 		
 	public void run() {
-		
-		
 		
 		RobotColors c = new RobotColors();
 		
@@ -148,18 +138,11 @@ public class NinjaBot extends TeamRobot {
 	@Override
 	public void onRobotDeath(RobotDeathEvent e) {
 		
-//		ArrayList<EnemyRobot> o1 = Robot.getEnemies();
-//		String o2 = e.getName();
-//		EnemyRobot o3 = (EnemyRobot)o1.(o2);
-//		o3.setAlive(false);
-		
 		for (EnemyRobot en : Robot.getEnemies()) {
 			if(en.getName().equalsIgnoreCase(e.getName())) {
 				en.setAlive(false);
 			}
 		}
-		 // e.getName finns inte i hashtablen getEnemies, alltså fiendens namn finns inte i vår fiende-lista
-		//((EnemyRobot)Robot.getEnemies().get(e.getName())).setAlive(false);
 	}
 //- math ------------------------------------------------------------------------------------------------------------------------------------
 
