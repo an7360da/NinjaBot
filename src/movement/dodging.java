@@ -8,6 +8,7 @@ public class dodging {
 	 */
 	public void onHitByBullet(HitByBulletEvent e) {
 		// Replace the next line with any behavior you would like
+		//fire pattern analysis
 	}
 
 }
