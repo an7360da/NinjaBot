@@ -129,6 +129,13 @@ public class NinjaBot extends TeamRobot {
 			}
 		}
 		
+		try {
+			broadcastMessage("myPos;" + Robot.getPos().x + ";" + Robot.getPos().y);
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		
 		if(getOthers() == 1)	setTurnRadarLeftRadians(getRadarTurnRemainingRadians());
 		
 	}
