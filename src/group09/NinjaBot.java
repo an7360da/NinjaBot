@@ -114,23 +114,23 @@ public class NinjaBot extends TeamRobot {
 //- scan event ------------------------------------------------------------------------------------------------------------------------------
 	Scan scan = new Scan();
 	public void onScannedRobot(ScannedRobotEvent e) {
-//		en.setPosition(Calculations.calcPoint(Robot.getPos(), event.getDistance(), headingRadians + event.getBearingRadians())); 
-
 		
-		
-		EnemyRobot scanned = scan.onScannedRobot(e, getHeadingRadians());
-		try {
-			broadcastMessage("targetPos;" + scanned.getPosition().x + ";" + scanned.getPosition().getY());
-			broadcastMessage("myPos;" + Robot.getPos().x + ";" + Robot.getPos().getY());
-//			broadcastMessage("enemyDetails;" + e.getName() + ";" + e.getPos().x + ";" + e.getPos().y + ";" + e.getEnergy());
-
-		} catch (IOException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
+		if (isTeammate(e.getName())) {
+			EnemyRobot scannedRobot = scan.onScannedEnemyRobot(e, getHeadingRadians());
+		} else {
+			EnemyRobot scannedRobot = scan.onScannedEnemyRobot(e, getHeadingRadians());
+			try {
+				broadcastMessage("targetPos;" + scannedRobot.getPosition().x + ";" + scannedRobot.getPosition().getY());
+				broadcastMessage("enemyDetails;" + scannedRobot.getName() + ";" + scannedRobot.getPosition().x + 
+						";" + scannedRobot.getPosition().y + ";" + scannedRobot.getEnergy());
+			} catch (IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 		}
 		
-		if(getOthers()==1)	setTurnRadarLeftRadians(getRadarTurnRemainingRadians());
-
+		if(getOthers() == 1)	setTurnRadarLeftRadians(getRadarTurnRemainingRadians());
+		
 	}
  
 //- minor events ----------------------------------------------------------------------------------------------------------------------------
