@@ -6,6 +6,7 @@ import java.awt.Color;
 import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.Hashtable;
 
@@ -25,6 +26,8 @@ public class NinjaBot extends TeamRobot {
 //	private double distanceToTarget;
 		
 	public void run() {
+		
+		
 		
 		RobotColors c = new RobotColors();
 		
@@ -119,10 +122,11 @@ public class NinjaBot extends TeamRobot {
 	}
 	 
 //- scan event ------------------------------------------------------------------------------------------------------------------------------
+	Scan scan = new Scan();
 	public void onScannedRobot(ScannedRobotEvent e) {
 //		en.setPosition(Calculations.calcPoint(Robot.getPos(), event.getDistance(), headingRadians + event.getBearingRadians())); 
 
-		Scan scan = new Scan();
+		
 		
 		EnemyRobot scanned = scan.onScannedRobot(e, getHeadingRadians());
 		try {
@@ -140,10 +144,23 @@ public class NinjaBot extends TeamRobot {
 	}
  
 //- minor events ----------------------------------------------------------------------------------------------------------------------------
+	
+	@Override
 	public void onRobotDeath(RobotDeathEvent e) {
-		((EnemyRobot)Robot.getEnemies().get(e.getName())).setAlive(false);
+		
+//		ArrayList<EnemyRobot> o1 = Robot.getEnemies();
+//		String o2 = e.getName();
+//		EnemyRobot o3 = (EnemyRobot)o1.(o2);
+//		o3.setAlive(false);
+		
+		for (EnemyRobot en : Robot.getEnemies()) {
+			if(en.getName().equalsIgnoreCase(e.getName())) {
+				en.setAlive(false);
+			}
+		}
+		 // e.getName finns inte i hashtablen getEnemies, alltså fiendens namn finns inte i vår fiende-lista
+		//((EnemyRobot)Robot.getEnemies().get(e.getName())).setAlive(false);
 	}
- 
 //- math ------------------------------------------------------------------------------------------------------------------------------------
 
 }

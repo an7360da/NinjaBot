@@ -1,13 +1,14 @@
 package info;
 
 import java.awt.geom.Point2D;
+import java.util.ArrayList;
 import java.util.Hashtable;
 
 import robocode.TeamRobot;
 
 public class Robot {
 	
-	private static Hashtable enemies = new Hashtable();
+	//private static Hashtable enemies = new Hashtable();
 	private static EnemyRobot target;
 	private static Point2D.Double nextDestination;
 	private static Point2D.Double lastPosition;
@@ -15,11 +16,11 @@ public class Robot {
 	private static double energy;
 	private static double distanceToTarget;
 	
-	public static Hashtable getEnemies() {
-		return enemies;
+	public static ArrayList<EnemyRobot> getEnemies() {
+		return Environment.enemies;
 	}
-	public static void setEnemies(Hashtable enemies) {
-		Robot.enemies = enemies;
+	public static void setEnemies( ArrayList<EnemyRobot> enemies) {
+		Environment.enemies = enemies;
 	}
 	public static EnemyRobot getTarget() {
 		return target;
