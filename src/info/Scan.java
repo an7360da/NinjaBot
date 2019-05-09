@@ -10,12 +10,11 @@ public class Scan {
 	
 	
 	public EnemyRobot onScannedRobot(ScannedRobotEvent event, double headingRadians){
- 		
-		
+ 				
 		EnemyRobot en= new EnemyRobot();
 		int j=0;
  		
-		
+			
 		if(!Environment.enemies.isEmpty()) {
 		for (int i=0; i < Environment.enemies.size(); i++) {
 			
@@ -29,7 +28,7 @@ public class Scan {
 			
 		}
 		}
-		
+			
 		if(j==Environment.enemies.size()) {
 			Environment.enemies.add(en);
 		}
@@ -49,15 +48,15 @@ public class Scan {
 		
 		
 	
-//		if(en == null){
-//			en = new EnemyRobot();
-//			Environment.enemies.put(event.getName(), en);
-//		}
+		//if(en == null){
+			//en = new EnemyRobot();
+			//Environment.enemies.put(event.getName(), en);
+		//}
 		
 		// här låg set-grejerna
  
 		// normal target selection: the one closer to you is the most dangerous so attack him
-		if (Robot.hasTarget()) {
+			if (Robot.hasTarget()) {
 			if(!Robot.getTarget().getAlive() || event.getDistance() < Robot.getPos().distance(Robot.getTarget().getPosition())) {
 				Robot.setTarget(en);
 			}
@@ -66,12 +65,8 @@ public class Scan {
 		}
 		
 		return en;
-
-		
 	}
 	
 	
-	public void onRobotDeath(RobotDeathEvent e) {
-		((EnemyRobot)Robot.getEnemies().get(e.getName())).setAlive(false);
-	}
 }
+
