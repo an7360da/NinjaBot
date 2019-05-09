@@ -11,6 +11,7 @@ import java.util.Enumeration;
 import java.util.Hashtable;
 
 import info.EnemyRobot;
+import info.Environment;
 import info.Robot;
 import info.Scan;
 import movement.MovementEvents;
@@ -135,7 +136,15 @@ public class NinjaBot extends TeamRobot {
 
 	Scan scan = new Scan();
 	public void onScannedRobot(ScannedRobotEvent e) {
+		String teamMode = Calculations.calcTeamMode();
 		
+		try {
+			broadcastMessage("teamMode;" + teamMode);
+		} catch (IOException e2) {
+			// TODO Auto-generated catch block
+			e2.printStackTrace();
+		}
+
 		if (isTeammate(e.getName())) {
 			EnemyRobot scannedRobot = scan.onScannedEnemyRobot(e, getHeadingRadians());
 		} else {
