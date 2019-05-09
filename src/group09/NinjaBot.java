@@ -16,18 +16,8 @@ import info.Scan;
 import movement.MovementEvents;
 
 public class NinjaBot extends TeamRobot {
-	
-//	static Hashtable enemies = new Hashtable();
-//	static EnemyRobot target;
-//	static Point2D.Double nextDestination;
-//	static Point2D.Double lastPosition;
-//	static Point2D.Double myPos;
-//	static double myEnergy;
-//	private double distanceToTarget;
 		
 	public void run() {
-		
-		
 		
 		RobotColors c = new RobotColors();
 		

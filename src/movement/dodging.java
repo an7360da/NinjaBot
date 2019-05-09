@@ -1,4 +1,5 @@
 package movement;
+
 import group09.NinjaBot;
 import robocode.HitByBulletEvent;
 

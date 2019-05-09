@@ -48,49 +48,48 @@ public class Scan {
 	
 	public EnemyRobot onScannedEnemyRobot(ScannedRobotEvent event, double headingRadians) {
 
-		EnemyRobot en = new EnemyRobot();
+		EnemyRobot enemey = new EnemyRobot();
 		int j = 0;
 
 		if (!Environment.enemies.isEmpty()) {
 			for (int i = 0; i < Environment.enemies.size(); i++) {
 				if (Environment.enemies.get(i).getName().equals(event.getName())) {
-					en = Environment.enemies.get(i);
+					enemey = Environment.enemies.get(i);
 				} else {
 					j++;
 				}
 			}
 		}
 
+
 		if (j == Environment.enemies.size()) {
-			Environment.enemies.add(en);
+			Environment.enemies.add(enemey);
 		}
 
-		en.setName(event.getName());
-		en.setEnergy((double) event.getEnergy());
-		en.setPosition(Calculations.calcPoint(Robot.getPos(), event.getDistance(),
+		enemey.setName(event.getName());
+		enemey.setEnergy((double) event.getEnergy());
+		enemey.setPosition(Calculations.calcPoint(Robot.getPos(), event.getDistance(),
 				headingRadians + event.getBearingRadians()));
-		en.setDistance(event.getDistance());
-		en.setHeading(headingRadians);
-		en.setVelocity(event.getVelocity());
-		
-		if (en.getEnergy() > 0) {
-			en.setAlive(true);
+		enemey.setDistance(event.getDistance());
+		enemey.setHeading(headingRadians);
+		enemey.setVelocity(event.getVelocity());
+
+		if (enemey.getEnergy() > 0) {
+			enemey.setAlive(true);
 		} else {
-			en.setAlive(false);
+			enemey.setAlive(false);
 
 		}
 
 		if (Robot.hasTarget()) {
 			if (!Robot.getTarget().getAlive() || 
 					event.getDistance() < Robot.getPos().distance(Robot.getTarget().getPosition())) {
-				Robot.setTarget(en);
+				Robot.setTarget(enemey);
 			}
 		} else {
-			Robot.setTarget(en);
+			Robot.setTarget(enemey);
 		}
 
-		return en;
+		return enemey;
 	}
-
-
 }
