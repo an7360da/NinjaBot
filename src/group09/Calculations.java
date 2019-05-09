@@ -1,9 +1,11 @@
 package group09;
 
 import java.awt.geom.Point2D;
+import java.util.ArrayList;
 import java.util.Enumeration;
 
 import info.EnemyRobot;
+import info.Environment;
 import info.Robot;
 
 public class Calculations {
@@ -27,5 +29,31 @@ public class Calculations {
 			}
 		}
 		return eval;
+	}
+
+	public static double teamsTotalEnergy(ArrayList<EnemyRobot> team) {
+
+		double totalEnergy = 0.0;
+
+		for (int i = 0; i < team.size(); i++) {
+			totalEnergy += team.get(i).getEnergy();
+		}
+
+		return totalEnergy;
+	}
+
+	public static String calcTeamMode() {
+		if ((Calculations.teamsTotalEnergy(Environment.friends))
+				- (Calculations.teamsTotalEnergy(Environment.enemies)) > 50) {
+			Robot.setTeamMode("offense");
+			return "offense";
+		} 
+		else if ((Calculations.teamsTotalEnergy(Environment.enemies))
+				- (Calculations.teamsTotalEnergy(Environment.friends)) > 50) {
+			Robot.setTeamMode("defense");
+			return "defense";
+		} else {
+			return Robot.getTeamMode();
+		}
 	}
 }
