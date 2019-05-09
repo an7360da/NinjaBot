@@ -30,7 +30,7 @@ public class Calculations {
 		}
 		return eval;
 	}
-
+	// denna metod beräknar det lag som skickas in som parameters totala energy
 	public static double teamsTotalEnergy(ArrayList<EnemyRobot> team) {
 
 		double totalEnergy = 0.0;
@@ -41,7 +41,8 @@ public class Calculations {
 
 		return totalEnergy;
 	}
-
+	
+	//denna metod beräknar vilket teammode om/som ska broadcastas, offense eller defense som ger laget information
 	public static String calcTeamMode() {
 		if ((Calculations.teamsTotalEnergy(Environment.friends))
 				- (Calculations.teamsTotalEnergy(Environment.enemies)) > 50) {
