@@ -139,8 +139,8 @@ public class NinjaBot extends TeamRobot {
 			}
 		}
 		
-		if(getOthers()==1)	setTurnRadarLeftRadians(getRadarTurnRemainingRadians());
-
+		if(getOthers() == 1)	setTurnRadarLeftRadians(getRadarTurnRemainingRadians());
+		
 	}
  
 //- minor events ----------------------------------------------------------------------------------------------------------------------------
