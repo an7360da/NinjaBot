@@ -78,13 +78,16 @@ public class NinjaBot extends TeamRobot {
 				}
 			}
 			move();
+			if(Robot.getTarget() != null) {
+				System.out.println(Robot.getTarget().getName());
+			}
 			execute();
 		}
 	}
 	
 	public void shoot() {
 		// HeadOnTargeting 
-		if(getGunTurnRemaining() == 0 && Robot.getEnergy() > 5 && Robot.hasTarget() && !isTeammate(Robot.getTarget().getName())) {
+		if(getGunTurnRemaining() == 0 && Robot.getEnergy() > 5 && Robot.hasTarget()) {
 			
 			setFire( Math.min(Math.min(Robot.getEnergy()/6d, 1300d/Robot.getDistanceToTarget()), Robot.getTarget().getEnergy()/3d) );
 			setTurnGunRightRadians(Utils.normalRelativeAngle(Calculations.calcAngle(Robot.getTarget().getPosition(), Robot.getPos()) - getGunHeadingRadians()));
