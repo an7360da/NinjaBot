@@ -1,9 +1,10 @@
 package info;
 
-import java.util.Hashtable;
+import java.util.ArrayList;
 
 public class Environment {
 	
-	static Hashtable enemies = new Hashtable();
+	public static ArrayList<EnemyRobot> enemies = new ArrayList<EnemyRobot>();
+	public static ArrayList<EnemyRobot> friends = new ArrayList<EnemyRobot>();
 	
 }
