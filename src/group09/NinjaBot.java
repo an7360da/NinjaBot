@@ -1,5 +1,7 @@
 package group09;
 import robocode.*;
+import robocode.control.events.IBattleListener;
+import robocode.control.events.TurnEndedEvent;
 import robocode.util.Utils;
 
 import java.awt.Color;
@@ -181,6 +183,7 @@ public class NinjaBot extends TeamRobot {
 			}
 		}
 	}
+	
 //- math ------------------------------------------------------------------------------------------------------------------------------------
 
 }
