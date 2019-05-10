@@ -33,7 +33,7 @@ public class MovementEvents {
 					2 * Math.PI * Math.random());
 
 			if (battleField.contains(testPoint) && Calculations.evaluate(testPoint, addLast) < Calculations
-					.evaluate(Robot.getNextDestination(), addLast)) {
+					.evaluate(Robot.getNextDestination(), addLast)) {	
 				Robot.setNextDestination(testPoint);
 			}
 		}
@@ -62,5 +62,4 @@ public class MovementEvents {
 	public void onHitWall(HitWallEvent e) {
 		// Replace the next line with any behavior you would like
 	}
-
 }

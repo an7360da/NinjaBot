@@ -53,23 +53,20 @@ public class NinjaBot extends TeamRobot {
 		Robot.setPos(p);
 		Robot.setLastPosition(p);
 		
-		// = lastPosition = myPos = new Point2D.Double(getX(), getY());
-		
 		while (true) {
-			
 			
 			Robot.setPos(new Point2D.Double(getX(),getY()));
 			Robot.setEnergy(getEnergy());
 			// Tar max 9 ticks tills alla �r skannade			
-			
-			if(Robot.hasTarget() && Robot.getTarget().getAlive() && getTime()>=0) {
+			System.out.println("");
+			if(Robot.hasTarget() && Robot.getTarget().getAlive() && getTime()>=9) {
 				
 				java.awt.geom.Point2D.Double targetPos = Robot.getTarget().getPosition();
 				java.awt.geom.Point2D.Double robotPos = Robot.getPos();
 				double distance = robotPos.distance(targetPos);
 				Robot.setDistanceToTarget(distance);
 				if(!isTeammate(Robot.getTarget().getName())){
-					shoot();	
+					shoot();
 				}
 			}
 			move();
@@ -97,7 +94,6 @@ public class NinjaBot extends TeamRobot {
 		//search a new destination if I reached this one
 		if (distanceToNextDestination < 15) {
 			newDestination.newDestination(getOthers(), getBattleFieldWidth(), getBattleFieldHeight());
-			
 		} else {
 			
 			double angle = moveToDestination.calculateAngle(getHeadingRadians());
@@ -107,7 +103,6 @@ public class NinjaBot extends TeamRobot {
 			setTurnRightRadians(angle = Utils.normalRelativeAngle(angle));
 			// hitting walls isn't a good idea, but NinjaBot still does it pretty often
 			setMaxVelocity(Math.abs(angle) > 1 ? 0 : 8d);
-			
 		}
 	}
 	 
