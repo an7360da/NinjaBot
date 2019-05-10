@@ -15,7 +15,7 @@ public class Calculations {
 	public static double calcAngle(Point2D.Double p2,Point2D.Double p1){
 		return Math.atan2(p2.x - p1.x, p2.y - p1.y);
 	}
-	
+	 
 	public static double evaluate(Point2D.Double p, double addLast) {
 		double eval = addLast*0.08/p.distanceSq(Robot.getLastPosition());
 		 
