@@ -1,6 +1,8 @@
 package tests;
 
 import static org.junit.Assert.assertTrue;
+
+
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
@@ -9,6 +11,7 @@ import robocode.control.events.RoundEndedEvent;
 import robocode.control.events.RoundStartedEvent;
 import robocode.control.events.TurnEndedEvent;
 import robocode.control.testing.RobotTestBed;
+import robocode.control.snapshot.IRobotSnapshot;
 
 @RunWith(JUnit4.class)
 public class ST_F1_Survival extends RobotTestBed {
@@ -28,6 +31,8 @@ public class ST_F1_Survival extends RobotTestBed {
 	private String ROBOT_UNDER_TEST = "group09.NinjaBot*";
 	private String ENEMY_ROBOTS = "sample.SittingDuck";
 	private int NBR_ROUNDS = 1;
+	private boolean offWall;
+	private int wallHits;
 
 	/**
 	 * The names of the robots that want battling is specified.
@@ -120,7 +125,7 @@ public class ST_F1_Survival extends RobotTestBed {
 	@Override
 	public void onBattleCompleted(BattleCompletedEvent event) {
 
-		assertTrue("ST_F1_RadarSystem not implemented yet", false);
+		assertTrue("Robot hit the wall", offWall);
 	}
 
 	/**
@@ -131,6 +136,7 @@ public class ST_F1_Survival extends RobotTestBed {
 	 */
 	@Override
 	public void onRoundStarted(RoundStartedEvent event) {
+		offWall = true;
 	}
 
 	/**
@@ -150,7 +156,18 @@ public class ST_F1_Survival extends RobotTestBed {
 	 * @param event The TurnEndedEvent.
 	 */
 	@Override
+//checks if robot hits wall or not after each turn
 	public void onTurnEnded(TurnEndedEvent event) {
+		IRobotSnapshot bmb = event.getTurnSnapshot().getRobots()[0];
+		double xBMB = bmb.getX();
+		double yBMB = bmb.getY();
+		
+		
+		if(xBMB < 15 || xBMB > (800-15) || yBMB < 15 || yBMB > (600-15)) {
+			offWall = false;
+			wallHits++;
+		}
+		
 	}
 
 }

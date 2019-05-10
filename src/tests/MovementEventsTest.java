@@ -8,11 +8,9 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import group09.Calculations;
-import info.EnemyRobot;
 import info.Robot;
 import movement.MovementEvents;
-import robocode.control.snapshot.IRobotSnapshot;
+
 
 public class MovementEventsTest {
 	Point2D.Double pos1;
