@@ -15,6 +15,7 @@ public class Robot {
 	private static Point2D.Double pos;
 	private static double energy;
 	private static double distanceToTarget;
+	private static String teamMode;
 
 	public static ArrayList<EnemyRobot> getEnemies() {
 		return Environment.enemies;
@@ -74,6 +75,14 @@ public class Robot {
 
 	public static boolean hasTarget() {
 		return target != null;
+	}
+
+	public static String getTeamMode() {
+		return teamMode;
+	}
+
+	public static void setTeamMode(String teamMode) {
+		Robot.teamMode = teamMode;
 	}
 
 }

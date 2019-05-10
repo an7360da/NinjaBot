@@ -11,6 +11,7 @@ import java.util.Enumeration;
 import java.util.Hashtable;
 
 import info.EnemyRobot;
+import info.Environment;
 import info.Robot;
 import info.Scan;
 import movement.MovementEvents;
@@ -57,8 +58,15 @@ public class NinjaBot extends TeamRobot {
 			
 			Robot.setPos(new Point2D.Double(getX(),getY()));
 			Robot.setEnergy(getEnergy());
+			
+			try {
+				broadcastMessage("leadership;followMe");
+			} catch (IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+
 			// Tar max 9 ticks tills alla �r skannade			
-			System.out.println("");
 			if(Robot.hasTarget() && Robot.getTarget().getAlive() && getTime()>=9) {
 				
 				java.awt.geom.Point2D.Double targetPos = Robot.getTarget().getPosition();
@@ -107,9 +115,30 @@ public class NinjaBot extends TeamRobot {
 	}
 	 
 //- scan event ------------------------------------------------------------------------------------------------------------------------------
+	/**
+	 * Short one line description.                           (1)
+	 * <p>
+	 * Longer description. If there were any, it would be    (2)
+	 * here.
+	 * </p>
+	 * And even more explanations to follow in consecutive
+	 * paragraphs separated by HTML paragraph breaks.
+	 *
+	 * @param  variable Description text text text.          (3)
+	 * @return Description text text text.
+	 */
+
 	Scan scan = new Scan();
 	public void onScannedRobot(ScannedRobotEvent e) {
+		String teamMode = Calculations.calcTeamMode();
 		
+		try {
+			broadcastMessage("teamMode;" + teamMode);
+		} catch (IOException e2) {
+			// TODO Auto-generated catch block
+			e2.printStackTrace();
+		}
+
 		if (isTeammate(e.getName())) {
 			EnemyRobot scannedRobot = scan.onScannedEnemyRobot(e, getHeadingRadians());
 		} else {
