@@ -73,7 +73,7 @@ public class Calculations {
 				
 			}
 		
-		return "targetEnemy;" + leader;
+		 return "targetEnemy;" + leader;
 		
 		
 	}
