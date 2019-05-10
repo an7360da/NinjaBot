@@ -84,6 +84,14 @@ public class NinjaBot extends TeamRobot {
 				}
 			}
 			move();
+		 if(Environment.enemies.size()>6 && Calculations.findLeader() != null) {
+			 try {
+					broadcastMessage(Calculations.findLeader());
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+		 }
 			execute();
 		}
 	}
