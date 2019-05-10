@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.util.ArrayList;
 
 import group09.Calculations;
+import robocode.BulletMissedEvent;
 import robocode.RobotDeathEvent;
 import robocode.ScannedRobotEvent;
 
@@ -91,5 +92,19 @@ public class Scan {
 		}
 
 		return enemey;
+	}
+	
+	int enemyHitByBullet = 0;
+	long startTime=0;
+	int nbrOfMissed =0;
+	public void onBulletMissed(BulletMissedEvent e) {
+		if(startTime==0){
+			startTime=e.getTime();
+		}
+		nbrOfMissed++;
+		if(e.getTime()-startTime > 10 && nbrOfMissed>=6) {
+			//stoppa shooting ett tag
+		}
+		
 	}
 }

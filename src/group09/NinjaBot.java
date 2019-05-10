@@ -82,6 +82,8 @@ public class NinjaBot extends TeamRobot {
 				}
 			}
 			move();
+			int counter = 0;
+			
 			execute();
 		}
 	}
@@ -93,8 +95,27 @@ public class NinjaBot extends TeamRobot {
 			setFire( Math.min(Math.min(Robot.getEnergy()/6d, 1300d/Robot.getDistanceToTarget()), Robot.getTarget().getEnergy()/3d) );
 			setTurnGunRightRadians(Utils.normalRelativeAngle(Calculations.calcAngle(Robot.getTarget().getPosition(), Robot.getPos()) - getGunHeadingRadians()));
 		}
+		
+		
 
 	}
+//	public double reduceMissedBullets() {
+		
+		
+//		setTime()
+//		
+//		//Behöver nog göras i ninjabot för att det ska göras varje gång
+//		double enemyHitByBullet = 0;
+//		double bulletHitBullet = 0;
+//		double percentageMissedBullets = enemyHitByBullet/)
+//		
+//		if(Robot.getBullet() || Robot.onBulletHit() ) {
+//			enemyHitByBullet++;
+//		}
+//		if(onBulletHitBullet((double)bulletHitBullet) || onBulletMissed())
+//				
+//		return 0.0;
+//	}
 	
 	public void move() {
 		MovementEvents moveToDestination = new MovementEvents();
