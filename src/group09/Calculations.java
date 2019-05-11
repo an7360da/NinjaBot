@@ -85,4 +85,17 @@ public class Calculations {
 		
 	}
 	
+	public static double targetValue(EnemyRobot enemy, EnemyRobot teammate) {
+		double targetValue;
+		double distanceValue = 5;
+		double energyValue = 5;
+		
+		distanceValue -= enemy.getPosition().distance(teammate.getPosition()) / 100;
+		energyValue -= enemy.getEnergy() / 10;
+		
+		targetValue= distanceValue + energyValue;
+		
+		return targetValue;
+	}
+	
 }

@@ -42,13 +42,14 @@ public class Scan {
 	
 	public EnemyRobot onScannedEnemyRobot(ScannedRobotEvent event, double headingRadians) {
 	
-		EnemyRobot enemey = new EnemyRobot();
+		EnemyRobot enemy = new EnemyRobot();
 		int j = 0;
+		
 
 		if (!Environment.enemies.isEmpty()) {
 			for (int i = 0; i < Environment.enemies.size(); i++) {
 				if (Environment.enemies.get(i).getName().equals(event.getName())) {
-					enemey = Environment.enemies.get(i);
+					enemy = Environment.enemies.get(i);
 				} else {
 					j++;
 				}
@@ -57,33 +58,35 @@ public class Scan {
 
 
 		if (j == Environment.enemies.size()) {
-			Environment.enemies.add(enemey);
+			Environment.enemies.add(enemy);
 		}
 
-		enemey.setName(event.getName());
-		enemey.setEnergy((double) event.getEnergy());
-		enemey.setPosition(Calculations.calcPoint(Robot.getPos(), event.getDistance(),
+		enemy.setName(event.getName());
+		enemy.setEnergy((double) event.getEnergy());
+		enemy.setPosition(Calculations.calcPoint(Robot.getPos(), event.getDistance(),
 				headingRadians + event.getBearingRadians()));
-		enemey.setDistance(event.getDistance());
-		enemey.setHeading(headingRadians);
-		enemey.setVelocity(event.getVelocity());
+		enemy.setDistance(event.getDistance());
+		enemy.setHeading(headingRadians);
+		enemy.setVelocity(event.getVelocity());
 
-		if (enemey.getEnergy() > 0) {
-			enemey.setAlive(true);
+		if (enemy.getEnergy() > 0) {
+			enemy.setAlive(true);
 		} else {
-			enemey.setAlive(false);
+			enemy.setAlive(false);
 
 		}
 
 		if (Robot.hasTarget()) {
 			if (!Robot.getTarget().getAlive() || 
 					event.getDistance() < Robot.getPos().distance(Robot.getTarget().getPosition())) {
-				Robot.setTarget(enemey);
+				Robot.setTarget(enemy);
 			}
 		} else {
-			Robot.setTarget(enemey);
+			Robot.setTarget(enemy);
 		}
 
-		return enemey;
+		return enemy;
+		
+	
 	}
 }
