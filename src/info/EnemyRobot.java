@@ -62,13 +62,6 @@ public class EnemyRobot {
 	}
 	
 	public boolean getAlive() {
-//		if (getEnergy()>0) {
-//			return true;
-//		} else {
-//			return false;
-//		}
-	
-		
 		return this.alive;
 	}
 	
