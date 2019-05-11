@@ -1,17 +1,10 @@
 package group09;
 import robocode.*;
-import robocode.control.events.IBattleListener;
-import robocode.control.events.TurnEndedEvent;
 import robocode.util.Utils;
 
 import java.awt.Color;
 import java.awt.geom.Point2D;
-import java.awt.geom.Rectangle2D;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Enumeration;
-import java.util.Hashtable;
-
 import info.EnemyRobot;
 import info.Environment;
 import info.Robot;
@@ -112,6 +105,7 @@ public class NinjaBot extends TeamRobot {
 	
 		if(Robot.isTooClose()) {
 			System.out.println("Too close!");
+
 			double angle = moveToDestination.calculateAngle(getHeadingRadians());
 			double direction = moveToDestination.calculateDirection(angle);
 
