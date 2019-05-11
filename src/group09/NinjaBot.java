@@ -17,7 +17,9 @@ import info.Scan;
 import movement.MovementEvents;
 
 public class NinjaBot extends TeamRobot {
-		
+	
+	int timeCounter = 0;
+
 	public void run() {
 		
 		RobotColors c = new RobotColors();
@@ -48,17 +50,12 @@ public class NinjaBot extends TeamRobot {
  
 		setTurnRadarRightRadians(Double.POSITIVE_INFINITY);
  
-		
 		Point2D.Double p = new Point2D.Double(getX(), getY());
 		Robot.setNextDestination(p);
 		Robot.setPos(p);
 		Robot.setLastPosition(p);
 		
-		// = lastPosition = myPos = new Point2D.Double(getX(), getY());
-		
 		while (true) {
-			
-			
 			Robot.setPos(new Point2D.Double(getX(),getY()));
 			Robot.setEnergy(getEnergy());
 			
@@ -77,13 +74,14 @@ public class NinjaBot extends TeamRobot {
 				java.awt.geom.Point2D.Double robotPos = Robot.getPos();
 				double distance = robotPos.distance(targetPos);
 				Robot.setDistanceToTarget(distance);
-				if(!isTeammate(Robot.getTarget().getName())){
+				if(!isTeammate(Robot.getTarget().getName()) && Robot.isAccurateEnoughToFire()){
 					shoot();	
 				}
 			}
 			move();
-			int counter = 0;
-			
+			Robot.timePassed();
+			System.out.println(Robot.getBulletQuality());
+			Calculations.setAccurateEnoughToFire();
 			execute();
 		}
 	}
@@ -95,27 +93,7 @@ public class NinjaBot extends TeamRobot {
 			setFire( Math.min(Math.min(Robot.getEnergy()/6d, 1300d/Robot.getDistanceToTarget()), Robot.getTarget().getEnergy()/3d) );
 			setTurnGunRightRadians(Utils.normalRelativeAngle(Calculations.calcAngle(Robot.getTarget().getPosition(), Robot.getPos()) - getGunHeadingRadians()));
 		}
-		
-		
-
 	}
-//	public double reduceMissedBullets() {
-		
-		
-//		setTime()
-//		
-//		//Behöver nog göras i ninjabot för att det ska göras varje gång
-//		double enemyHitByBullet = 0;
-//		double bulletHitBullet = 0;
-//		double percentageMissedBullets = enemyHitByBullet/)
-//		
-//		if(Robot.getBullet() || Robot.onBulletHit() ) {
-//			enemyHitByBullet++;
-//		}
-//		if(onBulletHitBullet((double)bulletHitBullet) || onBulletMissed())
-//				
-//		return 0.0;
-//	}
 	
 	public void move() {
 		MovementEvents moveToDestination = new MovementEvents();
@@ -127,9 +105,7 @@ public class NinjaBot extends TeamRobot {
 		//search a new destination if I reached this one
 		if (distanceToNextDestination < 15) {
 			newDestination.newDestination(getOthers(), getBattleFieldWidth(), getBattleFieldHeight());
-			
 		} else {
-			
 			double angle = moveToDestination.calculateAngle(getHeadingRadians());
 			double direction = moveToDestination.calculateDirection(angle);
  
@@ -137,9 +113,9 @@ public class NinjaBot extends TeamRobot {
 			setTurnRightRadians(angle = Utils.normalRelativeAngle(angle));
 			// hitting walls isn't a good idea, but NinjaBot still does it pretty often
 			setMaxVelocity(Math.abs(angle) > 1 ? 0 : 8d);
-			
 		}
 	}
+	
 	 
 //- scan event ------------------------------------------------------------------------------------------------------------------------------
 	/**
@@ -186,13 +162,9 @@ public class NinjaBot extends TeamRobot {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
-		
-		if(getOthers() == 1)	setTurnRadarLeftRadians(getRadarTurnRemainingRadians());
-		
+		if(getOthers() == 1) setTurnRadarLeftRadians(getRadarTurnRemainingRadians());
 	}
  
-//- minor events ----------------------------------------------------------------------------------------------------------------------------
-	
 	@Override
 	public void onRobotDeath(RobotDeathEvent e) {
 		
@@ -202,8 +174,10 @@ public class NinjaBot extends TeamRobot {
 			}
 		}
 	}
-//- math ------------------------------------------------------------------------------------------------------------------------------------
-
+	
+	public void onBulletMissed(BulletMissedEvent e) {
+		Robot.bulletMissed();
+	}
 }
 
 

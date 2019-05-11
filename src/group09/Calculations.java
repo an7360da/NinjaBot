@@ -57,4 +57,11 @@ public class Calculations {
 			return Robot.getTeamMode();
 		}
 	}
+	public static void setAccurateEnoughToFire() {
+		if (Robot.getBulletQuality() > 330) {
+			Robot.setAccurateEnoughToFire(false);
+		} else if (Robot.getBulletQuality() < 165) {
+			Robot.setAccurateEnoughToFire(true);
+		}
+	}
 }
