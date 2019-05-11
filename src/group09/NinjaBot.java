@@ -4,12 +4,7 @@ import robocode.util.Utils;
 
 import java.awt.Color;
 import java.awt.geom.Point2D;
-import java.awt.geom.Rectangle2D;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Enumeration;
-import java.util.Hashtable;
-
 import info.EnemyRobot;
 import info.Environment;
 import info.Robot;
@@ -82,13 +77,21 @@ public class NinjaBot extends TeamRobot {
 				}
 			}
 			move();
+		 if(Environment.enemies.size()>6 && Calculations.findLeader() != null) {
+			 try {
+					broadcastMessage(Calculations.findLeader());
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+		 }
 			execute();
 		}
 	}
 	
 	public void shoot() {
 		// HeadOnTargeting 
-		if(getGunTurnRemaining() == 0 && Robot.getEnergy() > 5 && Robot.hasTarget() && !isTeammate(Robot.getTarget().getName())) {
+		if(getGunTurnRemaining() == 0 && Robot.getEnergy() > 5 && Robot.hasTarget()) {
 			
 			setFire( Math.min(Math.min(Robot.getEnergy()/6d, 1300d/Robot.getDistanceToTarget()), Robot.getTarget().getEnergy()/3d) );
 			setTurnGunRightRadians(Utils.normalRelativeAngle(Calculations.calcAngle(Robot.getTarget().getPosition(), Robot.getPos()) - getGunHeadingRadians()));
@@ -100,24 +103,35 @@ public class NinjaBot extends TeamRobot {
 		MovementEvents moveToDestination = new MovementEvents();
 		MovementEvents newDestination = new MovementEvents();
 	
-		//Anti-grav
-		double distanceToNextDestination = Robot.getPos().distance(Robot.getNextDestination());
-		 
-		//search a new destination if I reached this one
-		if (distanceToNextDestination < 15) {
-		newDestination.newDestination(getOthers(), getBattleFieldWidth(), getBattleFieldHeight());
+		if(Robot.isTooClose()) {
+			System.out.println("Too close!");
 
-		} else {
-			
 			double angle = moveToDestination.calculateAngle(getHeadingRadians());
 			double direction = moveToDestination.calculateDirection(angle);
- 
-			setAhead(distanceToNextDestination * direction);
-			setTurnRightRadians(angle = Utils.normalRelativeAngle(angle));
-			// hitting walls isn't a good idea, but NinjaBot still does it pretty often
-			setMaxVelocity(Math.abs(angle) > 1 ? 0 : 8d);
-			
+
+			setAhead(-(Robot.getPos().distance(Robot.getCloseLocation()) * direction  * 5));
+		}else {
+			//Anti-grav
+			double distanceToNextDestination = Robot.getPos().distance(Robot.getNextDestination());
+			 
+			//search a new destination if I reached this one
+			if (distanceToNextDestination < 15) {
+				newDestination.newDestination(getOthers(), getBattleFieldWidth(), getBattleFieldHeight());
+				
+			} else {
+				
+				double angle = moveToDestination.calculateAngle(getHeadingRadians());
+				double direction = moveToDestination.calculateDirection(angle);
+	 
+				setAhead(distanceToNextDestination * direction);
+				setTurnRightRadians(angle = Utils.normalRelativeAngle(angle));
+				// hitting walls isn't a good idea, but NinjaBot still does it pretty often
+				setMaxVelocity(Math.abs(angle) > 1 ? 0 : 8d);
+				
+			}
+		
 		}
+		
 	}
 	 
 //- scan event ------------------------------------------------------------------------------------------------------------------------------
@@ -136,6 +150,15 @@ public class NinjaBot extends TeamRobot {
 
 	Scan scan = new Scan();
 	public void onScannedRobot(ScannedRobotEvent e) {
+		
+		if(e.getDistance()<80) {
+			Robot.setTooClose(true);
+			Robot.setCloseLocation(Calculations.calcPoint(Robot.getPos(), e.getDistance(),
+					e.getHeadingRadians() + e.getBearingRadians()));
+		}else {
+			Robot.setTooClose(false);
+		}
+		
 		String teamMode = Calculations.calcTeamMode();
 		
 		try {
@@ -146,7 +169,7 @@ public class NinjaBot extends TeamRobot {
 		}
 
 		if (isTeammate(e.getName())) {
-			EnemyRobot scannedRobot = scan.onScannedEnemyRobot(e, getHeadingRadians());
+			EnemyRobot scannedRobot = scan.onScannedFriendlyRobot(e, getHeadingRadians());
 		} else {
 			EnemyRobot scannedRobot = scan.onScannedEnemyRobot(e, getHeadingRadians());
 			try {
@@ -181,6 +204,7 @@ public class NinjaBot extends TeamRobot {
 			}
 		}
 	}
+	
 //- math ------------------------------------------------------------------------------------------------------------------------------------
 
 }

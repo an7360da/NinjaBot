@@ -16,6 +16,24 @@ public class Robot {
 	private static double energy;
 	private static double distanceToTarget;
 	private static String teamMode;
+	private static boolean tooClose;
+	private static Point2D.Double closeLocation;
+
+	public static Point2D.Double getCloseLocation() {
+		return closeLocation;
+	}
+
+	public static void setCloseLocation(Point2D.Double closeLocation) {
+		Robot.closeLocation = closeLocation;
+	}
+
+	public static boolean isTooClose() {
+		return tooClose;
+	}
+
+	public static void setTooClose(boolean tooClose) {
+		Robot.tooClose = tooClose;
+	}
 
 	public static ArrayList<EnemyRobot> getEnemies() {
 		return Environment.enemies;
@@ -84,5 +102,5 @@ public class Robot {
 	public static void setTeamMode(String teamMode) {
 		Robot.teamMode = teamMode;
 	}
-
+	
 }

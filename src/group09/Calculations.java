@@ -7,6 +7,8 @@ import java.util.Enumeration;
 import info.EnemyRobot;
 import info.Environment;
 import info.Robot;
+import robocode.control.events.TurnEndedEvent;
+import robocode.control.snapshot.IRobotSnapshot;
 
 public class Calculations {
 
@@ -57,4 +59,23 @@ public class Calculations {
 			return Robot.getTeamMode();
 		}
 	}
+	
+	
+	public static String findLeader(){
+		
+		String leader = null;
+		
+		for(int j=0; j< Environment.enemies.size(); j++) {
+				
+				if(Environment.enemies.get(j).getEnergy()>150) {
+					leader=Environment.enemies.get(j).getName();
+				}
+				
+			}
+		
+		 return "targetEnemy;" + leader;
+		
+		
+	}
+	
 }
