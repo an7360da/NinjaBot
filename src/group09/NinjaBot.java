@@ -80,6 +80,9 @@ public class NinjaBot extends TeamRobot {
 			}
 			move();
 			Robot.timePassed();
+			if(Robot.getBulletQuality() < 0) {
+				Robot.resetBulletQuality();
+			}
 			System.out.println(Robot.getBulletQuality());
 			Calculations.setAccurateEnoughToFire();
 			execute();

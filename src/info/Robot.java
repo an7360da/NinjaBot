@@ -107,6 +107,10 @@ public class Robot {
 		missRate -= 1;
 	}
 	
+	public static void resetBulletQuality() {
+		missRate = 0;
+	}
+	
 	public static int getBulletQuality() {
 		return missRate;
 	}
