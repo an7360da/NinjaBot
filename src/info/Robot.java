@@ -19,6 +19,24 @@ public class Robot {
 	private static int missRate;
 	private static boolean accurateEnoughToFire;
 	
+	private static boolean tooClose;
+	private static Point2D.Double closeLocation;
+
+	public static Point2D.Double getCloseLocation() {
+		return closeLocation;
+	}
+
+	public static void setCloseLocation(Point2D.Double closeLocation) {
+		Robot.closeLocation = closeLocation;
+	}
+
+	public static boolean isTooClose() {
+		return tooClose;
+	}
+
+	public static void setTooClose(boolean tooClose) {
+		Robot.tooClose = tooClose;
+	}
 	public static ArrayList<EnemyRobot> getEnemies() {
 		return Environment.enemies;
 	}

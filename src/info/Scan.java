@@ -2,7 +2,6 @@ package info;
 
 import java.awt.Color;
 import java.util.ArrayList;
-
 import group09.Calculations;
 import robocode.BulletMissedEvent;
 import robocode.RobotDeathEvent;
@@ -37,18 +36,12 @@ public class Scan {
 		friend.setHeading(headingRadians);
 		friend.setVelocity(event.getVelocity());
 		
-		if (friend.getEnergy() > 0) {
-			friend.setAlive(true);
-		} else {
-			friend.setAlive(false);
-
-		}
 
 		return friend;
 	}
 	
 	public EnemyRobot onScannedEnemyRobot(ScannedRobotEvent event, double headingRadians) {
-
+	
 		EnemyRobot enemey = new EnemyRobot();
 		int j = 0;
 
