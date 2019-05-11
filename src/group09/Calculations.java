@@ -59,6 +59,13 @@ public class Calculations {
 			return Robot.getTeamMode();
 		}
 	}
+	public static void setAccurateEnoughToFire() {
+		if (Robot.getBulletQuality() > 280) {
+			Robot.setAccurateEnoughToFire(false);
+		} else if (Robot.getBulletQuality() < 165) {
+			Robot.setAccurateEnoughToFire(true);
+		}
+	}
 	
 	
 	public static String findLeader(){
