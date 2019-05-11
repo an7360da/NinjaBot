@@ -11,7 +11,16 @@ public class EnemyRobot {
 	private String name;
 	private boolean alive;
 	private Point2D.Double position;
+	private double targetValue;
 	
+	public double getTargetValue() {
+		return targetValue;
+	}
+
+	public void setTargetValue(double targetValue) {
+		this.targetValue = targetValue;
+	}
+
 	public double getEnergy () {
 		return this.energy;
 	}

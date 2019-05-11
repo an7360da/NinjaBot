@@ -151,7 +151,7 @@ public class NinjaBot extends TeamRobot {
 	Scan scan = new Scan();
 	public void onScannedRobot(ScannedRobotEvent e) {
 		
-		if(e.getDistance()<80) {
+		if(e.getDistance()<80 && e.getEnergy()>0) {
 			Robot.setTooClose(true);
 			Robot.setCloseLocation(Calculations.calcPoint(Robot.getPos(), e.getDistance(),
 					e.getHeadingRadians() + e.getBearingRadians()));
@@ -171,6 +171,7 @@ public class NinjaBot extends TeamRobot {
 		if (isTeammate(e.getName())) {
 			EnemyRobot scannedRobot = scan.onScannedFriendlyRobot(e, getHeadingRadians());
 		} else {
+			
 			EnemyRobot scannedRobot = scan.onScannedEnemyRobot(e, getHeadingRadians());
 			try {
 				broadcastMessage("targetPos;" + scannedRobot.getPosition().x + ";" + scannedRobot.getPosition().getY());
@@ -180,6 +181,27 @@ public class NinjaBot extends TeamRobot {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
+			
+			for(int i=0; i<Environment.friends.size(); i++) {
+				EnemyRobot teammate;
+				double targetValue;
+				teammate =Environment.friends.get(i);
+				
+				targetValue=Calculations.targetValue(scannedRobot, teammate);
+				
+				if(targetValue>7) {
+					try {
+						sendMessage(teammate.getName(), "targetEnemy:" + scannedRobot.getName());
+					} catch (IOException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+				}
+					
+				
+			}
+			
+			
 		}
 		
 		try {
@@ -190,6 +212,9 @@ public class NinjaBot extends TeamRobot {
 		}
 		
 		if(getOthers() == 1)	setTurnRadarLeftRadians(getRadarTurnRemainingRadians());
+		
+		
+		
 		
 	}
  
