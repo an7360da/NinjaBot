@@ -53,14 +53,8 @@ public class MovementEvents {
 			angle += Math.PI;
 			direction = -1;
 		}
+		
 		return direction;
-	}
-
-	/**
-	 * onHitWall: What to do when you hit a wall
-	 */
-	public void onHitWall(HitWallEvent e) {
-		// Replace the next line with any behavior you would like
 	}
 
 }

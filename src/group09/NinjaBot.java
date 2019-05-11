@@ -105,8 +105,8 @@ public class NinjaBot extends TeamRobot {
 		 
 		//search a new destination if I reached this one
 		if (distanceToNextDestination < 15) {
-			newDestination.newDestination(getOthers(), getBattleFieldWidth(), getBattleFieldHeight());
-			
+		newDestination.newDestination(getOthers(), getBattleFieldWidth(), getBattleFieldHeight());
+
 		} else {
 			
 			double angle = moveToDestination.calculateAngle(getHeadingRadians());
