@@ -60,7 +60,7 @@ public class Calculations {
 		}
 	}
 	public static void setAccurateEnoughToFire() {
-		if (Robot.getBulletQuality() > 330) {
+		if (Robot.getBulletQuality() > 280) {
 			Robot.setAccurateEnoughToFire(false);
 		} else if (Robot.getBulletQuality() < 165) {
 			Robot.setAccurateEnoughToFire(true);
