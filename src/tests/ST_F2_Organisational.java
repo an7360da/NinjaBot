@@ -5,6 +5,7 @@ import static org.junit.Assert.assertTrue;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
+import info.EnemyRobot;
 import robocode.control.events.BattleCompletedEvent;
 import robocode.control.events.RoundEndedEvent;
 import robocode.control.events.RoundStartedEvent;
@@ -28,6 +29,12 @@ public class ST_F2_Organisational extends RobotTestBed {
 	private String ROBOT_UNDER_TEST = "group09.NinjaBot*";
 	private String ENEMY_ROBOTS = "sample.SittingDuck";
 	private int NBR_ROUNDS = 1;
+	private EnemyRobot testBot1;
+	private EnemyRobot testBot2;
+	private EnemyRobot testBot3;
+	private MockBot NinjaBot;
+	
+	
 
 	/**
 	 * The names of the robots that want battling is specified.
@@ -67,7 +74,7 @@ public class ST_F2_Organisational extends RobotTestBed {
 	 */
 	@Override
 	public String getInitialPositions() {
-		return null;
+		return "(400,400,0), (300,400,0), (700,700,0), (50,50,0) ";
 	}
 
 	/**
@@ -101,6 +108,12 @@ public class ST_F2_Organisational extends RobotTestBed {
 	 */
 	@Override
 	protected void runSetup() {
+		testBot1= new EnemyRobot();
+		testBot1.setEnergy(30);
+		testBot2= new EnemyRobot();
+		testBot2.setEnergy(60);
+		testBot3= new EnemyRobot();
+		testBot3.setEnergy(10);
 	}
 
 	/**
@@ -109,6 +122,9 @@ public class ST_F2_Organisational extends RobotTestBed {
 	 */
 	@Override
 	protected void runTeardown() {
+		testBot1=null;
+		testBot2=null;
+		testBot3=null;
 	}
 
 	/**
@@ -119,6 +135,8 @@ public class ST_F2_Organisational extends RobotTestBed {
 	 */
 	@Override
 	public void onBattleCompleted(BattleCompletedEvent event) {
+		
+
 
 		assertTrue("ST_F1_RadarSystem not implemented yet", false);
 	}

@@ -33,8 +33,16 @@ public class Calculations {
 		return eval;
 	}
 	// denna metod beräknar det lag som skickas in som parameters totala energy
-	public static double teamsTotalEnergy(ArrayList<EnemyRobot> team) {
-
+	public static double teamsTotalEnergy(ArrayList<EnemyRobot> restOfTeam) {
+		EnemyRobot us = new EnemyRobot();
+		ArrayList<EnemyRobot> team = new ArrayList<>();
+		team.addAll(restOfTeam);
+		us.setDistance(0);
+		us.setEnergy(Robot.getEnergy());
+		us.setPosition(Robot.getPos());
+		team.add(us);
+		
+		
 		double totalEnergy = 0.0;
 
 		for (int i = 0; i < team.size(); i++) {
@@ -68,21 +76,13 @@ public class Calculations {
 	}
 	
 	
-	public static String findLeader(){
-		
-		String leader = null;
-		
+	public static void findLeader(){
 		for(int j=0; j< Environment.enemies.size(); j++) {
 				
 				if(Environment.enemies.get(j).getEnergy()>150) {
-					leader=Environment.enemies.get(j).getName();
+					Robot.setEnemyLeader(Environment.enemies.get(j).getName());
 				}
-				
-			}
-		
-		 return "targetEnemy;" + leader;
-		
-		
+		}
 	}
 	
 	public static double targetValue(EnemyRobot enemy, EnemyRobot teammate) {
