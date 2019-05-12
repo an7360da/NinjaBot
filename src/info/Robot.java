@@ -18,7 +18,7 @@ public class Robot {
 	private static int counter;
 	private static int missRate;
 	private static boolean accurateEnoughToFire;
-	
+	private static String enemyLeader;
 	private static boolean tooClose;
 	private static Point2D.Double closeLocation;
 
@@ -139,5 +139,13 @@ public class Robot {
 
 	public static void setAccurateEnoughToFire(boolean accurateEnoughToFire) {
 		Robot.accurateEnoughToFire = accurateEnoughToFire;
+	}
+
+	public static String getEnemyLeader() {
+		return enemyLeader;
+	}
+
+	public static void setEnemyLeader(String enemyLeader) {
+		Robot.enemyLeader = enemyLeader;
 	}
 }

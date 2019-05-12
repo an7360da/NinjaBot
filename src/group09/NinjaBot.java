@@ -78,16 +78,18 @@ public class NinjaBot extends TeamRobot {
 			if(Robot.getBulletQuality() < 0) {
 				Robot.resetBulletQuality();
 			}
+			
 			Calculations.setAccurateEnoughToFire();
-		 if(Environment.enemies.size()>6 && Calculations.findLeader() != null) {
-			 try {
-				 System.out.println(Calculations.findLeader());
-					broadcastMessage(Calculations.findLeader());
+			 if(Environment.enemies.size()>6 && Robot.getEnemyLeader() == null) {
+				Calculations.findLeader();
+				 try {
+					System.out.println(Robot.getEnemyLeader());
+					broadcastMessage("targetEnemy;" + Robot.getEnemyLeader());
 				} catch (IOException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
-		 }
+			 }
 			execute();
 		}
 	}
@@ -161,6 +163,8 @@ public class NinjaBot extends TeamRobot {
 		
 		String teamMode = Calculations.calcTeamMode();
 		
+		System.out.println(teamMode);
+		
 		try {
 			broadcastMessage("teamMode;" + teamMode);
 		} catch (IOException e2) {
@@ -189,6 +193,7 @@ public class NinjaBot extends TeamRobot {
 				teammate =Environment.friends.get(i);
 				
 				targetValue=Calculations.targetValue(scannedRobot, teammate);
+				System.out.println(targetValue);
 				
 				if(targetValue>7) {
 					try {
