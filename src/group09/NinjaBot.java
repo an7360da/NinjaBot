@@ -175,7 +175,8 @@ public class NinjaBot extends TeamRobot {
 			try {
 				broadcastMessage("targetPos;" + scannedRobot.getPosition().x + ";" + scannedRobot.getPosition().getY());
 				broadcastMessage("enemyDetails;" + scannedRobot.getName() + ";" + scannedRobot.getPosition().x + 
-						";" + scannedRobot.getPosition().y + ";0;" + scannedRobot.getEnergy()  + ";0;0");
+						";" + scannedRobot.getPosition().y + ";" + scannedRobot.getVelocity() + ";" + 
+						scannedRobot.getEnergy()  + ";" + scannedRobot.getHeading() +";0");
 			} catch (IOException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
