@@ -60,9 +60,9 @@ public class Calculations {
 		}
 	}
 	public static void setAccurateEnoughToFire() {
-		if (Robot.getBulletQuality() > 280) {
+		if (Robot.getBulletQuality() > 120) {
 			Robot.setAccurateEnoughToFire(false);
-		} else if (Robot.getBulletQuality() < 165) {
+		} else if (Robot.getBulletQuality() < 80) {
 			Robot.setAccurateEnoughToFire(true);
 		}
 	}

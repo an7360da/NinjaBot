@@ -105,8 +105,6 @@ public class NinjaBot extends TeamRobot {
 		MovementEvents newDestination = new MovementEvents();
 	
 		if(Robot.isTooClose()) {
-			System.out.println("Too close!");
-
 			double angle = moveToDestination.calculateAngle(getHeadingRadians());
 			double direction = moveToDestination.calculateDirection(angle);
 
@@ -177,7 +175,7 @@ public class NinjaBot extends TeamRobot {
 			try {
 				broadcastMessage("targetPos;" + scannedRobot.getPosition().x + ";" + scannedRobot.getPosition().getY());
 				broadcastMessage("enemyDetails;" + scannedRobot.getName() + ";" + scannedRobot.getPosition().x + 
-						";" + scannedRobot.getPosition().y + ";" + scannedRobot.getEnergy());
+						";" + scannedRobot.getPosition().y + ";0;" + scannedRobot.getEnergy()  + ";0;0");
 			} catch (IOException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
@@ -198,11 +196,7 @@ public class NinjaBot extends TeamRobot {
 						e1.printStackTrace();
 					}
 				}
-					
-				
 			}
-			
-			
 		}
 		
 		try {
