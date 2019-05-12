@@ -38,7 +38,7 @@ public class ST_F1_Survival extends RobotTestBed {
 	private int wallHits;
 	private boolean hitRobot;
 	private int robotHits;
-	private double THRESHOLD = 0.90;	
+	private double THRESHOLD = 0.85;	
 	private boolean PRINT_DEBUG = false;
 
 	/**
