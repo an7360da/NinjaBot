@@ -24,7 +24,7 @@ package tests;
 		private String ROBOT_UNDER_TEST = "group09.NinjaBot*";
 		private String ENEMY_ROBOTS = "sample.RamFire,sample.Crazy,sample.Walls";
 		private int NBR_ROUNDS = 100;
-		private double THRESHOLD = 0.33; // win rate in melee battles against 3 SpinBots
+		private double THRESHOLD = 0.52; // win rate in melee battles against 3 SpinBots
 		private boolean PRINT_DEBUG = false;
 			
 		/**
