@@ -30,7 +30,7 @@ public class ST_Q2_1vs1Crazy  extends RobotTestBed {
 	private String ROBOT_UNDER_TEST = "group09.NinjaBot*";
 	private String ENEMY_ROBOTS = "sample.Crazy";
 	private int NBR_ROUNDS = 100;
-	private double THRESHOLD = 0.75; // win rate against SpinBot
+	private double THRESHOLD = 0.9; // win rate against SpinBot
 	private boolean PRINT_DEBUG = false;
 		
 	/**
