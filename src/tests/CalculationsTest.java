@@ -131,6 +131,26 @@ public class CalculationsTest {
 		
 	}
 	
+	@Test
+	public void testtargetValue() {
+		
+	}
+	
+	@Test
+	public void testcalcfindLeader() {
+		
+	}
+	
+	@Test
+	public void testsetAccurateEnoughToFire() {
+		
+	}
+	
+	@Test
+	public void testevaluate() {
+		
+	}
+	
 	
 
 }
