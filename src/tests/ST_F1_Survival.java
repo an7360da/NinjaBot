@@ -32,14 +32,13 @@ public class ST_F1_Survival extends RobotTestBed {
 	 */
 	// constants used to configure this system test case
 	private String ROBOT_UNDER_TEST = "group09.NinjaBot*";
-	private String ENEMY_ROBOTS = "sample.RamFire,sample.RamFire";
+	private String ENEMY_ROBOTS = "sample.RamFire,sample.RamFire"; //Two enemies
 	private int NBR_ROUNDS = 100;
 	private boolean offWall;
 	private int wallHits;
 	private boolean hitRobot;
 	private int robotHits;
-	private double THRESHOLD = 0.90;	
-	private boolean PRINT_DEBUG = false;
+	private double THRESHOLD = 0.85;	
 
 	/**
 	 * The names of the robots that want battling is specified.
@@ -143,7 +142,7 @@ public class ST_F1_Survival extends RobotTestBed {
 		double bmbWinRate = (((double) bmbResults.getFirsts()) / NBR_ROUNDS);
 		
 	
-			System.out.println("BMB won " + bmbResults.getFirsts() + " out of " + NBR_ROUNDS + 
+			System.out.println("NinjaBot won " + bmbResults.getFirsts() + " out of " + NBR_ROUNDS + 
 					" rounds (win rate = " + bmbWinRate + ")");
 		
 			
