@@ -1,11 +1,13 @@
 package tests;
 
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
+import robocode.BattleResults;
 import robocode.control.events.BattleCompletedEvent;
 import robocode.control.events.RoundEndedEvent;
 import robocode.control.events.RoundStartedEvent;
@@ -15,9 +17,10 @@ import robocode.control.snapshot.IRobotSnapshot;
 
 @RunWith(JUnit4.class)
 public class ST_F1_Survival extends RobotTestBed {
+
 //
 //	REQ-F1-1: If NinjaBot misses more than 60% of the shots it fires within 10 seconds, it will hold fire.
-//	REQ-F1-2: NinjaBot will stay at least 15 units away from walls and robots.
+//	WALLS DONE!!  REQ-F1-2: NinjaBot will stay at least 15 units away from walls and robots.               
 //	REQ-F1-3: Ninjabot does not shoot in the direction of friendly robots. 
 //	REQ-F1-4: Analyses nearby locations and identifies the least risky direction to move in. 
 
@@ -29,10 +32,14 @@ public class ST_F1_Survival extends RobotTestBed {
 	 */
 	// constants used to configure this system test case
 	private String ROBOT_UNDER_TEST = "group09.NinjaBot*";
-	private String ENEMY_ROBOTS = "sample.SittingDuck";
-	private int NBR_ROUNDS = 1;
+	private String ENEMY_ROBOTS = "sample.RamFire,sample.RamFire";
+	private int NBR_ROUNDS = 100;
 	private boolean offWall;
 	private int wallHits;
+	private boolean hitRobot;
+	private int robotHits;
+	private double THRESHOLD = 0.90;	
+	private boolean PRINT_DEBUG = false;
 
 	/**
 	 * The names of the robots that want battling is specified.
@@ -124,8 +131,25 @@ public class ST_F1_Survival extends RobotTestBed {
 	 */
 	@Override
 	public void onBattleCompleted(BattleCompletedEvent event) {
-
+		System.out.println("Robot hit wall " + wallHits + " times");
 		assertTrue("Robot hit the wall", offWall);
+		System.out.println("Robot hit another robot " + robotHits + " times");
+		assertFalse("Robot hit another Robot", hitRobot);
+		// all battle results
+		BattleResults[] battleResults = event.getIndexedResults();
+		// BMB results
+		BattleResults bmbResults = battleResults[0];
+		// check that the required win rate has been reached
+		double bmbWinRate = (((double) bmbResults.getFirsts()) / NBR_ROUNDS);
+		
+	
+			System.out.println("BMB won " + bmbResults.getFirsts() + " out of " + NBR_ROUNDS + 
+					" rounds (win rate = " + bmbWinRate + ")");
+		
+			
+		
+		assertTrue("Basic Melee Bot should have a win rate of at least 90% in this melee battle", bmbWinRate >= THRESHOLD);
+		
 	}
 
 	/**
@@ -137,6 +161,7 @@ public class ST_F1_Survival extends RobotTestBed {
 	@Override
 	public void onRoundStarted(RoundStartedEvent event) {
 		offWall = true;
+		hitRobot = false;
 	}
 
 	/**
@@ -156,18 +181,92 @@ public class ST_F1_Survival extends RobotTestBed {
 	 * @param event The TurnEndedEvent.
 	 */
 	@Override
-//checks if robot hits wall or not after each turn
 	public void onTurnEnded(TurnEndedEvent event) {
 		IRobotSnapshot bmb = event.getTurnSnapshot().getRobots()[0];
 		double xBMB = bmb.getX();
 		double yBMB = bmb.getY();
+		IRobotSnapshot enemy1 = event.getTurnSnapshot().getRobots()[1];
+		double xEnemy1 = enemy1.getX();
+		double yEnemy1 = enemy1.getY();
+		IRobotSnapshot enemy2 = event.getTurnSnapshot().getRobots()[1];
+		double xEnemy2 = enemy2.getX();
+		double yEnemy2 = enemy2.getY();
 		
 		
+		//checks if robot hits wall or not after each turn
 		if(xBMB < 15 || xBMB > (800-15) || yBMB < 15 || yBMB > (600-15)) {
 			offWall = false;
 			wallHits++;
 		}
 		
+		//checks whether robot hits other robots or not after each turn
+		if(xBMB > xEnemy1) { 
+			if(xBMB - xEnemy1 < 15 || xEnemy1 - xBMB > -15 ) {
+				if(yBMB > yEnemy1) {
+					if(yBMB - yEnemy1 < 15 || yEnemy1 - yBMB > -15 ) {
+						hitRobot = true;
+						robotHits++;
+					}
+				} else if(yBMB < yEnemy1) {
+					if(yEnemy1 - yBMB < 15 || yBMB - yEnemy1 > -15 ) {
+						hitRobot = true;
+						robotHits++;
+					}
+				}
+			}
+		}
+		
+		if(xBMB < xEnemy1) { 
+			if(xEnemy1 - xBMB < 15 || xBMB - xEnemy1 > -15 ) {
+				if(yBMB > yEnemy1) {
+					if(yBMB - yEnemy1 < 15 || yEnemy1 - yBMB > -15 ) {
+						hitRobot = true;
+						robotHits++;
+					}
+				} else if(yBMB < yEnemy1) {
+					if(yEnemy1 - yBMB < 15 || yBMB - yEnemy1 > -15 ) {
+						hitRobot = true;
+						robotHits++;
+					}
+				}
+			}
+		}
+		
+		if(xBMB > xEnemy2) { 
+			if(xBMB - xEnemy2 < 15 || xEnemy2 - xBMB > -15 ) {
+				if(yBMB > yEnemy2) {
+					if(yBMB - yEnemy2 < 15 || yEnemy2 - yBMB > -15 ) {
+						hitRobot = true;
+						robotHits++;
+					}
+				} else if(yBMB < yEnemy2) {
+					if(yEnemy2 - yBMB < 15 || yBMB - yEnemy2 > -15 ) {
+						hitRobot = true;
+						robotHits++;
+					}
+				}
+			}
+		}
+		
+		if(xBMB < xEnemy2) { 
+			if(xEnemy2 - xBMB < 15 || xBMB - xEnemy2 > -15 ) {
+				if(yBMB > yEnemy2) {
+					if(yBMB - yEnemy2 < 15 || yEnemy2 - yBMB > -15 ) {
+						hitRobot = true;
+						robotHits++;
+					}
+				} else if(yBMB < yEnemy2) {
+					if(yEnemy2 - yBMB < 15 || yBMB - yEnemy2 > -15 ) {
+						hitRobot = true;
+						robotHits++;
+					}
+				}
+			}
+		}
+		
+		
+		
+	
 	}
 
 }
