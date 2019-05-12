@@ -7,6 +7,8 @@ import java.util.Enumeration;
 import info.EnemyRobot;
 import info.Environment;
 import info.Robot;
+import robocode.control.events.TurnEndedEvent;
+import robocode.control.snapshot.IRobotSnapshot;
 
 public class Calculations {
 
@@ -57,4 +59,43 @@ public class Calculations {
 			return Robot.getTeamMode();
 		}
 	}
+	public static void setAccurateEnoughToFire() {
+		if (Robot.getBulletQuality() > 120) {
+			Robot.setAccurateEnoughToFire(false);
+		} else if (Robot.getBulletQuality() < 80) {
+			Robot.setAccurateEnoughToFire(true);
+		}
+	}
+	
+	
+	public static String findLeader(){
+		
+		String leader = null;
+		
+		for(int j=0; j< Environment.enemies.size(); j++) {
+				
+				if(Environment.enemies.get(j).getEnergy()>150) {
+					leader=Environment.enemies.get(j).getName();
+				}
+				
+			}
+		
+		 return "targetEnemy;" + leader;
+		
+		
+	}
+	
+	public static double targetValue(EnemyRobot enemy, EnemyRobot teammate) {
+		double targetValue;
+		double distanceValue = 5;
+		double energyValue = 5;
+		
+		distanceValue -= enemy.getPosition().distance(teammate.getPosition()) / 100;
+		energyValue -= enemy.getEnergy() / 10;
+		
+		targetValue= distanceValue + energyValue;
+		
+		return targetValue;
+	}
+	
 }

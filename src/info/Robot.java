@@ -8,7 +8,6 @@ import robocode.TeamRobot;
 
 public class Robot {
 
-	// private static Hashtable enemies = new Hashtable();
 	private static EnemyRobot target;
 	private static Point2D.Double nextDestination;
 	private static Point2D.Double lastPosition;
@@ -16,7 +15,28 @@ public class Robot {
 	private static double energy;
 	private static double distanceToTarget;
 	private static String teamMode;
+	private static int counter;
+	private static int missRate;
+	private static boolean accurateEnoughToFire;
+	
+	private static boolean tooClose;
+	private static Point2D.Double closeLocation;
 
+	public static Point2D.Double getCloseLocation() {
+		return closeLocation;
+	}
+
+	public static void setCloseLocation(Point2D.Double closeLocation) {
+		Robot.closeLocation = closeLocation;
+	}
+
+	public static boolean isTooClose() {
+		return tooClose;
+	}
+
+	public static void setTooClose(boolean tooClose) {
+		Robot.tooClose = tooClose;
+	}
 	public static ArrayList<EnemyRobot> getEnemies() {
 		return Environment.enemies;
 	}
@@ -61,6 +81,14 @@ public class Robot {
 		return energy;
 	}
 
+	public static int getCounter() {
+		return counter;
+	}
+
+	public static void setCounter(int counter) {
+		Robot.counter = counter;
+	}
+
 	public static void setEnergy(double energy) {
 		Robot.energy = energy;
 	}
@@ -84,5 +112,32 @@ public class Robot {
 	public static void setTeamMode(String teamMode) {
 		Robot.teamMode = teamMode;
 	}
+	
+	public static int getMissedBullets() {
+		return missRate;
+	}
 
+	public static void bulletMissed() {
+		missRate += 33;
+	}
+	
+	public static void timePassed() {
+		missRate -= 1;
+	}
+	
+	public static void resetBulletQuality() {
+		missRate = 0;
+	}
+	
+	public static int getBulletQuality() {
+		return missRate;
+	}
+
+	public static boolean isAccurateEnoughToFire() {
+		return accurateEnoughToFire;
+	}
+
+	public static void setAccurateEnoughToFire(boolean accurateEnoughToFire) {
+		Robot.accurateEnoughToFire = accurateEnoughToFire;
+	}
 }

@@ -39,6 +39,10 @@ public class ST_F1_Survival extends RobotTestBed {
 	private boolean hitRobot;
 	private int robotHits;
 	private double THRESHOLD = 0.85;	
+<<<<<<< HEAD
+=======
+	private boolean PRINT_DEBUG = false;
+>>>>>>> 579421b12c690d6615d4f34703cc2f203e67f54c
 
 	/**
 	 * The names of the robots that want battling is specified.
