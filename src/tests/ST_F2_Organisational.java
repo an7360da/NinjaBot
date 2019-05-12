@@ -16,6 +16,7 @@ public class ST_F2_Organisational extends RobotTestBed {
 //	REQ-F2-1: If the majority of the opponent team is made up of droids, the Ninjabot will target the leader robot.
 //	REQ-F2-2: NinjaBot is able to communicate a weak target, with below x energy, to friendly robots within a certain distance y of the target. 
 //	REQ-F2-3: If the own team has in total 50 hp or more advantage over the enemy teams total hp, NinjaBot will communicate “offense” to the friendly team. If the enemy team has the same advantage, NinjaBot will instead communicate “defense”.
+//	REQ-F2-4: Ninjabot does not shoot in the direction of friendly robots.  MANUAL!
 
 	/**
 	 * Test class for Feature 2 - Organisational Abilities in NinjaBot.
