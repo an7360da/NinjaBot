@@ -104,14 +104,7 @@ public class NinjaBot extends TeamRobot {
 		MovementEvents moveToDestination = new MovementEvents();
 		MovementEvents newDestination = new MovementEvents();
 	
-		if(Robot.isTooClose()) {
-			System.out.println("Too close!");
-
-			double angle = moveToDestination.calculateAngle(getHeadingRadians());
-			double direction = moveToDestination.calculateDirection(angle);
-
-			setAhead(-(Robot.getPos().distance(Robot.getCloseLocation()) * direction  * 5));
-		}else {
+		
 			//Anti-grav
 			double distanceToNextDestination = Robot.getPos().distance(Robot.getNextDestination());
 			 
@@ -132,7 +125,7 @@ public class NinjaBot extends TeamRobot {
 			}
 		}
 		
-	}
+	
 	
 	 
 //- scan event ------------------------------------------------------------------------------------------------------------------------------

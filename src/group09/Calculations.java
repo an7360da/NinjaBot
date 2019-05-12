@@ -23,7 +23,11 @@ public class Calculations {
 	public static double evaluate(Point2D.Double p, double addLast) {
 		double eval = addLast * 0.08 / p.distanceSq(Robot.getLastPosition());
 
-		for (EnemyRobot en : Robot.getEnemies()) {
+		ArrayList<EnemyRobot> everyone = new ArrayList<>();
+		everyone.addAll(Environment.enemies);
+		everyone.addAll(Environment.friends);
+		
+		for (EnemyRobot en : everyone) {
 			if (en.getAlive()) {
 				eval += Math.min(en.getEnergy() / Robot.getEnergy(), 2) * (1 + Math.abs(Math
 						.cos(Calculations.calcAngle(Robot.getPos(), p) - Calculations.calcAngle(en.getPosition(), p))))
