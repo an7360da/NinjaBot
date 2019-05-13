@@ -35,9 +35,10 @@ public class NinjaBot extends TeamRobot {
 		// Send RobotColors object to our entire team
 		try {
 			broadcastMessage(c);
-		} catch (IOException e) {
+			System.out.println(c);
+		} catch (IOException ignored) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			//e.printStackTrace();
 		}
 				
 		setColors(Color.black,Color.red,Color.white); // body,gun,radar
