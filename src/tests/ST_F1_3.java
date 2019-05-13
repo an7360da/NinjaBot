@@ -238,7 +238,7 @@ public class ST_F1_3 extends RobotTestBed {
 					counter++;
 				}
 			}
-			assertTrue("BMB did not move for " + IMMOBILE_TURNS_LIMIT + " turns (turn " + event.getTurnSnapshot().getTurn() + ")", uniquePos);
+			assertTrue("NinjaBot did not move for " + IMMOBILE_TURNS_LIMIT + " turns (turn " + event.getTurnSnapshot().getTurn() + ")", uniquePos);
 		}
 		
 		// store last IMMOBILE_TURNS_LIMIT positions
