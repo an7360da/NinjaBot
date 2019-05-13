@@ -41,7 +41,6 @@ public class NinjaBot extends TeamRobot {
 			//e.printStackTrace();
 		}
 				
-		setColors(Color.black,Color.red,Color.white); // body,gun,radar
 		setAdjustGunForRobotTurn(true);
 		setAdjustRadarForGunTurn(true);
  
