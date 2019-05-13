@@ -77,6 +77,7 @@ public class NinjaBot extends TeamRobot {
 			}
 			move();
 			Robot.timePassed();
+			System.out.println(Robot.getBulletQuality());
 			if(Robot.getBulletQuality() < 0) {
 				Robot.resetBulletQuality();
 			}
@@ -155,7 +156,7 @@ public class NinjaBot extends TeamRobot {
 	Scan scan = new Scan();
 	public void onScannedRobot(ScannedRobotEvent e) {
 		
-		if(e.getDistance()<80 && e.getEnergy()>0) {
+		if(e.getDistance()<=80 && e.getEnergy()>0) {
 			Robot.setTooClose(true);
 			Robot.setCloseLocation(Calculations.calcPoint(Robot.getPos(), e.getDistance(),
 					e.getHeadingRadians() + e.getBearingRadians()));
