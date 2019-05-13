@@ -1,23 +1,13 @@
 package tests;
 
-import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
-import robocode.*;
-import robocode.util.Utils;
-
-import java.awt.geom.Point2D;
-import java.io.IOException;
-import java.util.LinkedList;
-
-import group09.Calculations;
 import info.Robot;
 import robocode.BattleResults;
-import robocode.BulletMissedEvent;
 import robocode.control.events.BattleCompletedEvent;
 import robocode.control.events.RoundEndedEvent;
 import robocode.control.events.RoundStartedEvent;
@@ -32,7 +22,8 @@ public class ST_F1_2 extends RobotTestBed {
 //
 //	REQ-F1-1: If NinjaBot misses more than 60% of the shots it fires within 10 seconds, it will hold fire.
 //	WALLS DONE!!  REQ-F1-2: NinjaBot will stay at least 15 units away from walls and robots.               
-//	REQ-F1-3: Analyses nearby locations and identifies the least risky direction to move in. 
+//	REQ-F1-3: Ninjabot does not shoot in the direction of friendly robots. 
+//	REQ-F1-4: Analyses nearby locations and identifies the least risky direction to move in. 
 
 	/**
 	 * Test class for Feature 1 - Lean Survival in NinjaBot.
@@ -53,8 +44,6 @@ public class ST_F1_2 extends RobotTestBed {
 	private double SHOTSREQ = 0.60;
 	private int counter;
 	
-
-
 	/**
 	 * The names of the robots that want battling is specified.
 	 * 
@@ -162,7 +151,7 @@ public class ST_F1_2 extends RobotTestBed {
 			
 		
 		assertTrue("Basic Melee Bot should have a win rate of at least 85% in this melee battle", ninjaBotWinRate >= THRESHOLD);
-		
+
 	}
 
 	/**
@@ -175,7 +164,6 @@ public class ST_F1_2 extends RobotTestBed {
 	public void onRoundStarted(RoundStartedEvent event) {
 		offWall = true;
 		hitRobot = false;
-
 	}
 
 	/**
@@ -281,5 +269,6 @@ public class ST_F1_2 extends RobotTestBed {
 		
 
 
-}}
+}
+}
 

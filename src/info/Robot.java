@@ -118,7 +118,7 @@ public class Robot {
 	}
 
 	public static void bulletMissed() {
-		missRate += 33;
+		missRate += 30;
 	}
 	
 	public static void timePassed() {

@@ -18,7 +18,7 @@ package tests;
 	 *
 	 */
 	@RunWith(JUnit4.class)
-	public class ST_Q1_MeleeBattlePreformance extends RobotTestBed{
+	public class ST_Q1_MeleeBattlePerformance extends RobotTestBed{
 		
 		// constants used to configure this system test case
 		private String ROBOT_UNDER_TEST = "group09.NinjaBot*";

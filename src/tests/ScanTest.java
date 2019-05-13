@@ -43,7 +43,6 @@ public class ScanTest {
 
 	@Test
 	public void testOnScannedFriendlyRobot() {
-	
 	}
 
 	@Test
