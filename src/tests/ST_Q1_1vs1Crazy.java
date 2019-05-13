@@ -134,11 +134,10 @@ public class ST_Q1_1vs1Crazy  extends RobotTestBed {
 				
 				// check that the required win rate has been reached
 				double NinjaBotWinRate = (((double) NinjaBotResults.getFirsts()) / NBR_ROUNDS);
-				
+				System.out.println("NinjaBot won " + NinjaBotResults.getFirsts() + " out of " + NBR_ROUNDS + 
+						" rounds (win rate = " + NinjaBotWinRate + ")");
 				assertTrue("NinjaBot should have a win rate of at least 75% in this battle",
 						NinjaBotWinRate >= THRESHOLD);
-				
-		//throw new UnsupportedOperationException("To be implemented in Lab3");
 	}
 	
 	/**
@@ -172,7 +171,7 @@ public class ST_Q1_1vs1Crazy  extends RobotTestBed {
 	 */
 	@Override
 	public void onTurnEnded(TurnEndedEvent event) {
-	}
 	
 }
 
+}

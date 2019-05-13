@@ -7,6 +7,6 @@ import org.junit.runners.Suite.SuiteClasses;
 
 	@RunWith(Suite.class)
 	@SuiteClasses({ CalculationsTest.class, EnemyRobotTest.class,MovementEventsTest.class, ScanTest.class })
-	public class NinjaBotUnitTest {
+	public class NinjaBotUnitTestSuite {
 
 	}
