@@ -28,7 +28,7 @@ package tests;
 		private String ROBOT_UNDER_TEST = "group09.NinjaBot*";
 		private String ENEMY_ROBOTS = "sample.RamFire,sample.Crazy,sample.Walls";
 		private int NBR_ROUNDS = 100;
-		private double THRESHOLD = 0.5; // win rate against RamFire, Crazy and Walls
+		private double THRESHOLD = 0.50; // win rate against RamFire, Crazy and Walls
 		private boolean PRINT_DEBUG = false;
 			
 		/**
@@ -132,6 +132,8 @@ package tests;
 					
 					// check that the required win rate has been reached
 					double NinjaBotWinRate = (((double) NinjaBotResults.getFirsts()) / NBR_ROUNDS);
+					System.out.println("NinjaBot won " + NinjaBotResults.getFirsts() + " out of " + NBR_ROUNDS + 
+							" rounds (win rate = " + NinjaBotWinRate + ")");
 					
 					assertTrue("NinjaBot should have a win rate of at least 75% in this battle",
 							NinjaBotWinRate >= THRESHOLD);

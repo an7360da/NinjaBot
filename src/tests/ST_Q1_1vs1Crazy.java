@@ -30,7 +30,7 @@ public class ST_Q1_1vs1Crazy  extends RobotTestBed {
 	private String ROBOT_UNDER_TEST = "group09.NinjaBot*";
 	private String ENEMY_ROBOTS = "sample.Crazy";
 	private int NBR_ROUNDS = 100;
-	private double THRESHOLD = 0.9; // win rate against SpinBot
+	private double THRESHOLD = 0.85; // win rate against SpinBot
 	private boolean PRINT_DEBUG = false;
 		
 	/**
@@ -134,11 +134,9 @@ public class ST_Q1_1vs1Crazy  extends RobotTestBed {
 				
 				// check that the required win rate has been reached
 				double NinjaBotWinRate = (((double) NinjaBotResults.getFirsts()) / NBR_ROUNDS);
-				
-				assertTrue("NinjaBot should have a win rate of at least 90% in this battle",
+
+				assertTrue("NinjaBot should have a win rate of at least 85% in this battle",
 						NinjaBotWinRate >= THRESHOLD);
-				
-		//throw new UnsupportedOperationException("To be implemented in Lab3");
 	}
 	
 	/**
@@ -172,7 +170,7 @@ public class ST_Q1_1vs1Crazy  extends RobotTestBed {
 	 */
 	@Override
 	public void onTurnEnded(TurnEndedEvent event) {
-	}
 	
 }
 
+}
