@@ -7,18 +7,27 @@ import static org.junit.Assert.assertTrue;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
+import robocode.*;
+import robocode.util.Utils;
+
+import java.awt.geom.Point2D;
+import java.io.IOException;
+import java.util.LinkedList;
+
 import group09.Calculations;
 import info.Robot;
 import robocode.BattleResults;
+import robocode.BulletMissedEvent;
 import robocode.control.events.BattleCompletedEvent;
 import robocode.control.events.RoundEndedEvent;
 import robocode.control.events.RoundStartedEvent;
 import robocode.control.events.TurnEndedEvent;
 import robocode.control.testing.RobotTestBed;
 import robocode.control.snapshot.IRobotSnapshot;
+import robocode.control.snapshot.RobotState;
 
 @RunWith(JUnit4.class)
-public class ST_F1_Survival extends RobotTestBed {
+public class ST_F1_2 extends RobotTestBed {
 
 //
 //	REQ-F1-1: If NinjaBot misses more than 60% of the shots it fires within 10 seconds, it will hold fire.
@@ -33,7 +42,7 @@ public class ST_F1_Survival extends RobotTestBed {
 	 */
 	// constants used to configure this system test case
 	private String ROBOT_UNDER_TEST = "group09.NinjaBot*";
-	private String ENEMY_ROBOTS = "sample.RamFire,sample.RamFire"; //Two enemies
+	private String ENEMY_ROBOTS = "sample.RamFire, sample.RamFire"; //Two enemies
 	private int NBR_ROUNDS = 100;
 	private boolean offWall;
 	private int wallHits;
@@ -42,6 +51,8 @@ public class ST_F1_Survival extends RobotTestBed {
 	private double THRESHOLD = 0.85;
 	private MockBot mockBot;
 	private double SHOTSREQ = 0.60;
+	private int counter;
+	
 
 
 	/**
@@ -95,7 +106,7 @@ public class ST_F1_Survival extends RobotTestBed {
 	 */
 	@Override
 	public boolean isDeterministic() {
-		return true;
+		return false;
 	}
 
 	/**
@@ -137,7 +148,6 @@ public class ST_F1_Survival extends RobotTestBed {
 		System.out.println("Robot hit wall " + wallHits + " times");
 		assertTrue("Robot hit the wall", offWall);
 		System.out.println("Robot hit another robot " + robotHits + " times");
-		assertFalse("Robot hit another Robot", hitRobot);
 		// all battle results
 		BattleResults[] battleResults = event.getIndexedResults();
 		// BMB results
@@ -151,7 +161,7 @@ public class ST_F1_Survival extends RobotTestBed {
 		
 			
 		
-		assertTrue("Basic Melee Bot should have a win rate of at least 90% in this melee battle", ninjaBotWinRate >= THRESHOLD);
+		assertTrue("Basic Melee Bot should have a win rate of at least 85% in this melee battle", ninjaBotWinRate >= THRESHOLD);
 		
 	}
 
@@ -165,8 +175,7 @@ public class ST_F1_Survival extends RobotTestBed {
 	public void onRoundStarted(RoundStartedEvent event) {
 		offWall = true;
 		hitRobot = false;
-		mockBot = new MockBot("NinjaBot", 200, 0,
-				   0, 0);
+
 	}
 
 	/**
@@ -187,13 +196,14 @@ public class ST_F1_Survival extends RobotTestBed {
 	 */
 	@Override
 	public void onTurnEnded(TurnEndedEvent event) {
+		counter++;
 		IRobotSnapshot ninjaBot = event.getTurnSnapshot().getRobots()[0];
 		double xNB = ninjaBot.getX();
 		double yNB = ninjaBot.getY();
 		IRobotSnapshot enemy1 = event.getTurnSnapshot().getRobots()[1];
 		double xEnemy1 = enemy1.getX();
 		double yEnemy1 = enemy1.getY();
-		IRobotSnapshot enemy2 = event.getTurnSnapshot().getRobots()[1];
+		IRobotSnapshot enemy2 = event.getTurnSnapshot().getRobots()[2];
 		double xEnemy2 = enemy2.getX();
 		double yEnemy2 = enemy2.getY();
 		
@@ -269,13 +279,7 @@ public class ST_F1_Survival extends RobotTestBed {
 			}
 		}
 		
-		mockBot.move();
-		
-//		
-//		if (battleField.contains(testPoint) && Calculations.evaluate(testPoint, addLast) < Calculations
-//				.evaluate(Robot.getNextDestination(), addLast)) {
-//			Robot.setNextDestination(testPoint);
-//		}
 
-}
-}
+
+}}
+
