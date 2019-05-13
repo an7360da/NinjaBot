@@ -18,13 +18,13 @@ package tests;
 	 *
 	 */
 	@RunWith(JUnit4.class)
-	public class ST_Q1_MeleeBattlePerformance extends RobotTestBed{
+	public class ST_Q2_MeleeBattlePerformance_1 extends RobotTestBed{
 		
 		// constants used to configure this system test case
 		private String ROBOT_UNDER_TEST = "group09.NinjaBot*";
 		private String ENEMY_ROBOTS = "sample.RamFire,sample.Crazy,sample.Walls";
 		private int NBR_ROUNDS = 100;
-		private double THRESHOLD = 0.52; // win rate in melee battles against 3 SpinBots
+		private double THRESHOLD = 0.50;
 		private boolean PRINT_DEBUG = false;
 			
 		/**
@@ -132,6 +132,8 @@ package tests;
 			
 			// check that the required win rate has been reached
 			double NinjaBotWinRate = (((double) NinjaBotResults.getFirsts()) / NBR_ROUNDS);
+			System.out.println("NinjaBot won " + NinjaBotResults.getFirsts() + " out of " + NBR_ROUNDS + 
+					" rounds (win rate = " + NinjaBotWinRate + ")");
 			
 			if (PRINT_DEBUG) {
 				System.out.println("NinjaBot won " + NinjaBotResults.getFirsts() + " out of " + NBR_ROUNDS + 

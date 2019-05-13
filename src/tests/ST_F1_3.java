@@ -59,7 +59,7 @@ public class ST_F1_3 extends RobotTestBed {
 	private LinkedList<Double> allDistances;
 	private LinkedList<Point2D> prevPos;
 	private int nbrPassed;
-	private double IMMOBILE_TURNS_LIMIT = 100;
+	private double IMMOBILE_TURNS_LIMIT = 200;
 	private boolean PRINT_DEBUG = false;
 
 
