@@ -30,8 +30,7 @@ public class CalculationsTest {
 	private EnemyRobot e1;
 	private EnemyRobot e2;
 	private EnemyRobot e3;
-	private Calculations c;
-
+	
 	@Before
 	public void setUp() throws Exception {
 		testBot1 = new EnemyRobot();
@@ -123,10 +122,10 @@ public class CalculationsTest {
 		Environment.friends.add(testBot2);
 		Environment.friends.add(testBot3);
 		
-		assertEquals("defense", Calculations.calcTeamMode());
+		assertEquals("offense", Calculations.calcTeamMode());
 		
 		e3.setEnergy(70);
-		assertEquals("defense", Calculations.calcTeamMode());
+		assertEquals("offense", Calculations.calcTeamMode());
 		
 		e2.setEnergy(1);
 		Environment.enemies.add(e2);
@@ -151,10 +150,6 @@ public class CalculationsTest {
 		
 	}
 	
-	@Test
-	public void testevaluate() {
-		
-	}
 	
 	
 
