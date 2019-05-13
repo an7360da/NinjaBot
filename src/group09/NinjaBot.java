@@ -16,6 +16,19 @@ public class NinjaBot extends TeamRobot {
 	
 	int timeCounter = 0;
 
+	/**
+	 * Main robocode method, runs every turn
+	 * Sets colors of NinjaBot and broadcasts them to teammates
+	 * Turns radar infinately
+	 * 
+	 * While loop:
+	 * Broadcasts followMe for teammates to interperate
+	 * Updates Robot class with own values
+	 * Localizes target and shoots if NinjaBot is accurate enough or is close to NinjaBot
+	 * moves
+	 * calls accurateEnoughToFire
+	 * Checks if the enemy team consists of more than  6 robots and then targets the leader
+	 */
 	public void run() {
 		
 		RobotColors c = new RobotColors();
@@ -100,6 +113,9 @@ public class NinjaBot extends TeamRobot {
 		}
 	}
 	
+	/**
+	 * If the robot the robot has a target to shoot and the energy for it fires at the target
+	 */
 	public void shoot() {
 		// HeadOnTargeting 
 		if(getGunTurnRemaining() == 0 && Robot.getEnergy() > 5 && Robot.hasTarget()) {
@@ -109,6 +125,12 @@ public class NinjaBot extends TeamRobot {
 		}
 	}
 	
+	/**
+	 * If the target is too close it moves from the target,
+	 * otherwise it moves towards the least risky destination previous set,
+	 * if the destination is reached a new destination is calculated
+	 */
+
 	public void move() {
 		MovementEvents moveToDestination = new MovementEvents();
 		MovementEvents newDestination = new MovementEvents();
@@ -143,19 +165,12 @@ public class NinjaBot extends TeamRobot {
 	
 	 
 //- scan event ------------------------------------------------------------------------------------------------------------------------------
+	
 	/**
-	 * Short one line description.                           (1)
-	 * <p>
-	 * Longer description. If there were any, it would be    (2)
-	 * here.
-	 * </p>
-	 * And even more explanations to follow in consecutive
-	 * paragraphs separated by HTML paragraph breaks.
-	 *
-	 * @param  variable Description text text text.          (3)
-	 * @return Description text text text.
+	 * 
+	 * 
+	 *  
 	 */
-
 	Scan scan = new Scan();
 	public void onScannedRobot(ScannedRobotEvent e) {
 		
