@@ -23,7 +23,7 @@ import robocode.control.testing.RobotTestBed;
  *
  */
 @RunWith(JUnit4.class)
-public class ST_Q2_1vs1Walls  extends RobotTestBed {
+public class ST_Q1_1vs1Walls  extends RobotTestBed {
 	
 	// constants used to configure this system test case
 	private String ROBOT_UNDER_TEST = "group09.NinjaBot*";
@@ -133,6 +133,8 @@ public class ST_Q2_1vs1Walls  extends RobotTestBed {
 				
 				// check that the required win rate has been reached
 				double NinjaBotWinRate = (((double) NinjaBotResults.getFirsts()) / NBR_ROUNDS);
+				System.out.println("NinjaBot won " + NinjaBotResults.getFirsts() + " out of " + NBR_ROUNDS + 
+						" rounds (win rate = " + NinjaBotWinRate + ")");
 				
 				assertTrue("NinjaBot should have a win rate of at least 75% in this battle",
 						NinjaBotWinRate >= THRESHOLD);

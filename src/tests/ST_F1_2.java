@@ -33,13 +33,13 @@ public class ST_F1_2 extends RobotTestBed {
 	 */
 	// constants used to configure this system test case
 	private String ROBOT_UNDER_TEST = "group09.NinjaBot*";
-	private String ENEMY_ROBOTS = "sample.RamFire, sample.RamFire"; //Two enemies
+	private String ENEMY_ROBOTS = "sample.RamFire, sample.RamFire, sample.RamFire"; //Two enemies
 	private int NBR_ROUNDS = 100;
 	private boolean offWall;
 	private int wallHits;
 	private boolean hitRobot;
 	private int robotHits;
-	private double THRESHOLD = 0.85;
+	private double THRESHOLD = 0.75;
 	private MockBot mockBot;
 	private double SHOTSREQ = 0.60;
 	private int counter;
@@ -150,7 +150,7 @@ public class ST_F1_2 extends RobotTestBed {
 		
 			
 		
-		assertTrue("Basic Melee Bot should have a win rate of at least 85% in this melee battle", ninjaBotWinRate >= THRESHOLD);
+		assertTrue("Basic Melee Bot should have a win rate of at least 75% in this melee battle", ninjaBotWinRate >= THRESHOLD);
 
 	}
 
@@ -194,6 +194,9 @@ public class ST_F1_2 extends RobotTestBed {
 		IRobotSnapshot enemy2 = event.getTurnSnapshot().getRobots()[2];
 		double xEnemy2 = enemy2.getX();
 		double yEnemy2 = enemy2.getY();
+		IRobotSnapshot enemy3 = event.getTurnSnapshot().getRobots()[3];
+		double xEnemy3 = enemy3.getX();
+		double yEnemy3 = enemy3.getY();
 		
 		
 		//checks if robot hits wall or not after each turn
@@ -267,6 +270,37 @@ public class ST_F1_2 extends RobotTestBed {
 			}
 		}
 		
+		if(xNB > xEnemy3) { 
+			if(xNB - xEnemy3 < 15 || xEnemy3 - xNB > -15 ) {
+				if(yNB > yEnemy3) {
+					if(yNB - yEnemy3 < 15 || yEnemy3 - yNB > -15 ) {
+						hitRobot = true;
+						robotHits++;
+					}
+				} else if(yNB < yEnemy3) {
+					if(yEnemy3 - yNB < 15 || yNB - yEnemy3 > -15 ) {
+						hitRobot = true;
+						robotHits++;
+					}
+				}
+			}
+		}
+		
+		if(xNB < xEnemy3) { 
+			if(xEnemy3 - xNB < 15 || xNB - xEnemy3 > -15 ) {
+				if(yNB > yEnemy3) {
+					if(yNB - yEnemy3 < 15 || yEnemy3 - yNB > -15 ) {
+						hitRobot = true;
+						robotHits++;
+					}
+				} else if(yNB < yEnemy3) {
+					if(yEnemy3 - yNB < 15 || yNB - yEnemy3 > -15 ) {
+						hitRobot = true;
+						robotHits++;
+					}
+				}
+			}
+		}
 
 
 }

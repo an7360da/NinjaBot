@@ -7,28 +7,24 @@ package tests;
 
 	import org.junit.runner.RunWith;
 	import org.junit.runners.JUnit4;
-
 	import robocode.BattleResults;
 	import robocode.control.events.BattleCompletedEvent;
-	import robocode.control.events.RoundEndedEvent;
-	import robocode.control.events.RoundStartedEvent;
-	import robocode.control.events.TurnEndedEvent;
 	import robocode.control.testing.RobotTestBed;
 
 	/**
 	 * Test class for NinjaBot.
 	 *
-	 * @author Anna Dahlström
+	 * @author Louise Pham
 	 *
 	 */
 	@RunWith(JUnit4.class)
-	public class ST_Q1_1vs1RamFire  extends RobotTestBed {
+	public class ST_Q2_MeleeBattlePerformance_3 extends RobotTestBed{
 		
 		// constants used to configure this system test case
 		private String ROBOT_UNDER_TEST = "group09.NinjaBot*";
-		private String ENEMY_ROBOTS = "sample.RamFire,sample.Crazy,sample.Walls";
+		private String ENEMY_ROBOTS = "sample.SpinBot,sample.Crazy,sample.Target";
 		private int NBR_ROUNDS = 100;
-		private double THRESHOLD = 0.50; // win rate against RamFire, Crazy and Walls
+		private double THRESHOLD = 0.50;
 		private boolean PRINT_DEBUG = false;
 			
 		/**
@@ -103,6 +99,7 @@ package tests;
 		 */
 		@Override
 		protected void runSetup() {
+			// Default does nothing.
 		}
 
 		/**
@@ -112,67 +109,39 @@ package tests;
 		 */
 		@Override
 		protected void runTeardown() {
+			// Default does nothing.
 		}
 		
 		/**
-		 * Called after the battle. Provided here to show that you could use this
-		 * method as part of your testing.
+		 * Tests to see if our robot won most rounds.
 		 * 
 		 * @param event
 		 *            Holds information about the battle has been completed.
 		 */
 		@Override
 		public void onBattleCompleted(BattleCompletedEvent event) {
-			// ETSA02 Lab 3: Implement a test case for the 1-vs-1 quality requirement.
+			// all battle results
+			BattleResults[] battleResults = event.getIndexedResults();
+			// BMB results
+			BattleResults NinjaBotResults = battleResults[0];
+
+			// check that BMB won the overall battle
+			String robotName = NinjaBotResults.getTeamLeaderName();		
+			assertEquals("NinjaBot should be first in the results array",
+					ROBOT_UNDER_TEST, robotName);
 			
-					// all battle results
-					BattleResults[] battleResults = event.getIndexedResults();
-					// NinjaBot results
-					BattleResults NinjaBotResults = battleResults[0];
-					
-					// check that the required win rate has been reached
-					double NinjaBotWinRate = (((double) NinjaBotResults.getFirsts()) / NBR_ROUNDS);
-					System.out.println("NinjaBot won " + NinjaBotResults.getFirsts() + " out of " + NBR_ROUNDS + 
-							" rounds (win rate = " + NinjaBotWinRate + ")");
-					
-					assertTrue("NinjaBot should have a win rate of at least 75% in this battle",
-							NinjaBotWinRate >= THRESHOLD);
-					
-			//throw new UnsupportedOperationException("To be implemented in Lab3");
+			// check that the required win rate has been reached
+			double NinjaBotWinRate = (((double) NinjaBotResults.getFirsts()) / NBR_ROUNDS);
+			System.out.println("NinjaBot won " + NinjaBotResults.getFirsts() + " out of " + NBR_ROUNDS + 
+					" rounds (win rate = " + NinjaBotWinRate + ")");
+			
+			if (PRINT_DEBUG) {
+				System.out.println("NinjaBot won " + NinjaBotResults.getFirsts() + " out of " + NBR_ROUNDS + 
+						" rounds (win rate = " + NinjaBotWinRate + ")");
+			}
+			assertTrue("NinjaBot should have a win rate of at least 50% in this melee battle",
+					NinjaBotWinRate >= THRESHOLD);
 		}
-		
-		/**
-		 * Called before each round. Provided here to show that you could use this
-		 * method as part of your testing.
-		 * 
-		 * @param event
-		 *            The RoundStartedEvent.
-		 */
-		@Override
-		public void onRoundStarted(RoundStartedEvent event) {
-		}
-		
-		/**
-		 * Called after each round. Provided here to show that you could use this
-		 * method as part of your testing.
-		 * 
-		 * @param event
-		 *            The RoundEndedEvent.
-		 */
-		@Override
-		public void onRoundEnded(RoundEndedEvent event) {
-		}
-		
-		/**
-		 * Called after each turn. Provided here to show that you could use this
-		 * method as part of your testing.
-		 * 
-		 * @param event
-		 *            The TurnEndedEvent.
-		 */
-		@Override
-		public void onTurnEnded(TurnEndedEvent event) {
-		}
-		
 	}
+
 
