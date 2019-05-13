@@ -6,7 +6,6 @@ import static org.junit.Assert.assertTrue;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
-import info.Robot;
 import robocode.BattleResults;
 import robocode.control.events.BattleCompletedEvent;
 import robocode.control.events.RoundEndedEvent;
@@ -37,11 +36,8 @@ public class ST_F1_2 extends RobotTestBed {
 	private int NBR_ROUNDS = 100;
 	private boolean offWall;
 	private int wallHits;
-	private boolean hitRobot;
 	private int robotHits;
 	private double THRESHOLD = 0.75;
-	private MockBot mockBot;
-	private double SHOTSREQ = 0.60;
 	private int counter;
 	
 	/**
@@ -161,7 +157,6 @@ public class ST_F1_2 extends RobotTestBed {
 	@Override
 	public void onRoundStarted(RoundStartedEvent event) {
 		offWall = true;
-		hitRobot = false;
 	}
 
 	/**
@@ -208,12 +203,10 @@ public class ST_F1_2 extends RobotTestBed {
 			if(xNB - xEnemy1 < 15 || xEnemy1 - xNB > -15 ) {
 				if(yNB > yEnemy1) {
 					if(yNB - yEnemy1 < 15 || yEnemy1 - yNB > -15 ) {
-						hitRobot = true;
 						robotHits++;
 					}
 				} else if(yNB < yEnemy1) {
 					if(yEnemy1 - yNB < 15 || yNB - yEnemy1 > -15 ) {
-						hitRobot = true;
 						robotHits++;
 					}
 				}
@@ -224,12 +217,10 @@ public class ST_F1_2 extends RobotTestBed {
 			if(xEnemy1 - xNB < 15 || xNB - xEnemy1 > -15 ) {
 				if(yNB > yEnemy1) {
 					if(yNB - yEnemy1 < 15 || yEnemy1 - yNB > -15 ) {
-						hitRobot = true;
 						robotHits++;
 					}
 				} else if(yNB < yEnemy1) {
 					if(yEnemy1 - yNB < 15 || yNB - yEnemy1 > -15 ) {
-						hitRobot = true;
 						robotHits++;
 					}
 				}
@@ -240,12 +231,10 @@ public class ST_F1_2 extends RobotTestBed {
 			if(xNB - xEnemy2 < 15 || xEnemy2 - xNB > -15 ) {
 				if(yNB > yEnemy2) {
 					if(yNB - yEnemy2 < 15 || yEnemy2 - yNB > -15 ) {
-						hitRobot = true;
 						robotHits++;
 					}
 				} else if(yNB < yEnemy2) {
 					if(yEnemy2 - yNB < 15 || yNB - yEnemy2 > -15 ) {
-						hitRobot = true;
 						robotHits++;
 					}
 				}
@@ -256,12 +245,10 @@ public class ST_F1_2 extends RobotTestBed {
 			if(xEnemy2 - xNB < 15 || xNB - xEnemy2 > -15 ) {
 				if(yNB > yEnemy2) {
 					if(yNB - yEnemy2 < 15 || yEnemy2 - yNB > -15 ) {
-						hitRobot = true;
 						robotHits++;
 					}
 				} else if(yNB < yEnemy2) {
 					if(yEnemy2 - yNB < 15 || yNB - yEnemy2 > -15 ) {
-						hitRobot = true;
 						robotHits++;
 					}
 				}
@@ -272,12 +259,10 @@ public class ST_F1_2 extends RobotTestBed {
 			if(xNB - xEnemy3 < 15 || xEnemy3 - xNB > -15 ) {
 				if(yNB > yEnemy3) {
 					if(yNB - yEnemy3 < 15 || yEnemy3 - yNB > -15 ) {
-						hitRobot = true;
 						robotHits++;
 					}
 				} else if(yNB < yEnemy3) {
 					if(yEnemy3 - yNB < 15 || yNB - yEnemy3 > -15 ) {
-						hitRobot = true;
 						robotHits++;
 					}
 				}
@@ -288,12 +273,10 @@ public class ST_F1_2 extends RobotTestBed {
 			if(xEnemy3 - xNB < 15 || xNB - xEnemy3 > -15 ) {
 				if(yNB > yEnemy3) {
 					if(yNB - yEnemy3 < 15 || yEnemy3 - yNB > -15 ) {
-						hitRobot = true;
 						robotHits++;
 					}
 				} else if(yNB < yEnemy3) {
 					if(yEnemy3 - yNB < 15 || yNB - yEnemy3 > -15 ) {
-						hitRobot = true;
 						robotHits++;
 					}
 				}

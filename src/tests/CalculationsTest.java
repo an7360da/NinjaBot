@@ -22,11 +22,9 @@ public class CalculationsTest {
 	private EnemyRobot testBot1;
 	private EnemyRobot testBot2;
 	private EnemyRobot testBot3;
-	private MockBot mockBot;
 	private Point2D.Double testPoint1;
 	private Point2D.Double testPoint2;
 	private ArrayList<EnemyRobot> team;
-	private ArrayList<EnemyRobot> enemyTeam;
 	private EnemyRobot e1;
 	private EnemyRobot e2;
 	private EnemyRobot e3;
@@ -36,21 +34,18 @@ public class CalculationsTest {
 		testBot1 = new EnemyRobot();
 		testBot2 = new EnemyRobot();
 		testBot3 = new EnemyRobot();
-		mockBot = new MockBot("NinjaBot", 200, 0, 100, 200);
 		testPoint1 = new Point2D.Double(0, 0);
 		testPoint2 = new Point2D.Double();
 		team = new ArrayList<EnemyRobot>();
 		e1 = new EnemyRobot();
 		e2 = new EnemyRobot();
 		e3 = new EnemyRobot();
-		enemyTeam = new ArrayList<EnemyRobot>();
 
 	}
 
 	@After
 	public void tearDown() throws Exception {
 		testBot3 = null;
-		mockBot = null;
 		testPoint1 = null;
 		testPoint2 = null;
 	}
@@ -61,10 +56,10 @@ public class CalculationsTest {
 		assertEquals("Calculated point wrong", 100, 00, testPoint2.getX());
 
 		testPoint2 = Calculations.calcPoint(testPoint1, 300.00, Math.PI / 4);
-		assertEquals("Calculated point wrong", 212, 13, testPoint2.getX());
+		assertEquals("calcPoint failed", 212, 13, testPoint2.getX());
 
 		testPoint2 = Calculations.calcPoint(testPoint1, 100, 0);
-		assertEquals("Calculated point wrong", 100, 00, testPoint2.getY());
+		assertEquals("calcPoint calculated wrong", 100, 00, testPoint2.getY());
 
 	}
 
@@ -91,21 +86,6 @@ public class CalculationsTest {
 		assertEquals(550, Calculations.teamsTotalEnergy(team), 0);
 	}
 
-//	// denna metod beräknar vilket teammode om/som ska broadcastas, offense
-//	// eller defense som ger laget information
-//	public static String calcTeamMode() {
-//		if ((Calculations.teamsTotalEnergy(Environment.friends))
-//				- (Calculations.teamsTotalEnergy(Environment.enemies)) > 50) {
-//			Robot.setTeamMode("offense");
-//			return "offense";
-//		} else if ((Calculations.teamsTotalEnergy(Environment.enemies))
-//				- (Calculations.teamsTotalEnergy(Environment.friends)) > 50) {
-//			Robot.setTeamMode("defense");
-//			return "defense";
-//		} else {
-//			return Robot.getTeamMode();
-//		}
-//	}
 	@Test
 	public void testcalcTeamMode() {
 		
@@ -133,24 +113,7 @@ public class CalculationsTest {
 		
 		
 	}
-	
-	@Test
-	public void testtargetValue() {
-		
-		
-	}
-	
-	@Test
-	public void testcalcfindLeader() {
-		
-	}
-	
-	@Test
-	public void testsetAccurateEnoughToFire() {
-		
-	}
-	
-	
+
 	
 
 }

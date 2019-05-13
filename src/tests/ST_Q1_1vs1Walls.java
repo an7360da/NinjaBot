@@ -29,7 +29,7 @@ public class ST_Q1_1vs1Walls  extends RobotTestBed {
 	private String ROBOT_UNDER_TEST = "group09.NinjaBot*";
 	private String ENEMY_ROBOTS = "sample.Walls";
 	private int NBR_ROUNDS = 100;
-	private double THRESHOLD = 0.45; // win rate against SpinBot
+	private double THRESHOLD = 0.43; // win rate against SpinBot
 	private boolean PRINT_DEBUG = false;
 		
 	/**
@@ -136,11 +136,11 @@ public class ST_Q1_1vs1Walls  extends RobotTestBed {
 				System.out.println("NinjaBot won " + NinjaBotResults.getFirsts() + " out of " + NBR_ROUNDS + 
 						" rounds (win rate = " + NinjaBotWinRate + ")");
 				
-				assertTrue("NinjaBot should have a win rate of at least 75% in this battle",
+				assertTrue("NinjaBot should have a win rate of at least 43% in this battle",
 						NinjaBotWinRate >= THRESHOLD);
 				
 		//throw new UnsupportedOperationException("To be implemented in Lab3");
-	}
+}
 	
 	/**
 	 * Called before each round. Provided here to show that you could use this

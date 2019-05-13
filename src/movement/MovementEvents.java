@@ -68,7 +68,6 @@ public class MovementEvents {
 		double direction = 1;
 
 		if (Math.cos(angle) < 0) {
-			//angle += Math.PI;
 			direction = -1;
 		}
 		

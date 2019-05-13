@@ -103,8 +103,6 @@ public class MockBot extends NinjaBot {
 		return fakeGunTurnRight;
 	}
 	
-	@Override
-	public void setFire(double power) {}
 	
 	@Override
 	public double getDistanceRemaining() {

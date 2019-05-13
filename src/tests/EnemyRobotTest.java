@@ -35,6 +35,7 @@ public class EnemyRobotTest {
 
 	@After
 	public void tearDown() throws Exception {
+		testBot = null;
 		
 	}
 

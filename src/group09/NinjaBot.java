@@ -50,8 +50,6 @@ public class NinjaBot extends TeamRobot {
 			broadcastMessage(c);
 			System.out.println(c);
 		} catch (IOException ignored) {
-			// TODO Auto-generated catch block
-			//e.printStackTrace();
 		}
 				
 		setAdjustGunForRobotTurn(true);
@@ -105,7 +103,6 @@ public class NinjaBot extends TeamRobot {
 //					System.out.println("NinjaBot broadcasts: targetEnemy;" + Robot.getEnemyLeader());
 					broadcastMessage("targetEnemy;" + Robot.getEnemyLeader());
 				} catch (IOException e1) {
-					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
 			 }

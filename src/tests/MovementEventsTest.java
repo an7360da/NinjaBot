@@ -43,10 +43,6 @@ public class MovementEventsTest {
 	public void testCalculateAngle() {
 		double wantedAng = -0.9730567728105703;
 		double testHeading = 1.5;
-//		Point2D.Double pos1 = new Point2D.Double(140, 25);
-//		Point2D.Double pos2 = new Point2D.Double(300, 300);
-//		Robot.setPos(pos1);
-//		Robot.setNextDestination(pos2);
 		double resultAng = move.calculateAngle(testHeading);
 		assertEquals("calculateAngle failed", resultAng ,wantedAng, 0.001);
 		
