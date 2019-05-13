@@ -67,6 +67,8 @@ public class NinjaBot extends TeamRobot {
 			
 			if(Robot.hasTarget() && Robot.getTarget().getAlive() && getTime()>=9) {
 				
+				//System.out.println("NinjaBot targets: " + Robot.getTarget().getName());
+				
 				java.awt.geom.Point2D.Double targetPos = Robot.getTarget().getPosition();
 				java.awt.geom.Point2D.Double robotPos = Robot.getPos();
 				double distance = robotPos.distance(targetPos);
@@ -86,7 +88,7 @@ public class NinjaBot extends TeamRobot {
 			 if(Environment.enemies.size()>6 && Robot.getEnemyLeader() == null) {
 				Calculations.findLeader();
 				 try {
-					System.out.println(Robot.getEnemyLeader());
+//					System.out.println("NinjaBot broadcasts: targetEnemy;" + Robot.getEnemyLeader());
 					broadcastMessage("targetEnemy;" + Robot.getEnemyLeader());
 				} catch (IOException e1) {
 					// TODO Auto-generated catch block
@@ -166,6 +168,8 @@ public class NinjaBot extends TeamRobot {
 		
 		String teamMode = Calculations.calcTeamMode();
 		
+		System.out.println("EnemyTeams Total Energy:" + Calculations.teamsTotalEnergy(Environment.enemies));
+		System.out.println("MyTeams Total Energy:" + Calculations.teamsTotalEnergy(Environment.friends));
 		System.out.println(teamMode);
 		
 		try {
@@ -207,7 +211,7 @@ public class NinjaBot extends TeamRobot {
 				teammate =Environment.friends.get(i);
 				
 				targetValue=Calculations.targetValue(scannedRobot, teammate);
-				System.out.println(targetValue);
+				
 				
 				if(targetValue>7) {
 					try {
