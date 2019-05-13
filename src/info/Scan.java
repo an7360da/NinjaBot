@@ -1,6 +1,7 @@
 package info;
 
 import java.awt.Color;
+
 import java.util.ArrayList;
 import group09.Calculations;
 import robocode.BulletMissedEvent;
@@ -9,6 +10,12 @@ import robocode.ScannedRobotEvent;
 
 public class Scan {
 
+	/**
+	 * Updates the information on a scanned friendly robot
+	 * @param event, the scanned robot event , headingRadians, the headingRadians off the scanned robot. 
+	 * @return the friendly robot friend. 
+	 */
+	
 	public EnemyRobot onScannedFriendlyRobot(ScannedRobotEvent event, double headingRadians) {
 
 		EnemyRobot friend = new EnemyRobot();
@@ -39,6 +46,11 @@ public class Scan {
 
 		return friend;
 	}
+	/**
+	 * Updates the information on a scanned enemy robot and sets it as a target if NinjaBot doesnt have one. 
+	 * @param event, the scanned robot event , headingRadians, the headingRadians off the scanned robot. 
+	 * @return the enemy robot friend. 
+	 */
 	
 	public EnemyRobot onScannedEnemyRobot(ScannedRobotEvent event, double headingRadians) {
 	

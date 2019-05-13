@@ -3,6 +3,7 @@ package tests;
 import static org.junit.Assert.*;
 
 
+
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
 import java.util.Enumeration;
@@ -25,9 +26,11 @@ public class CalculationsTest {
 	private Point2D.Double testPoint1;
 	private Point2D.Double testPoint2;
 	private ArrayList<EnemyRobot> team;
+	private ArrayList<EnemyRobot> enemyTeam;
 	private EnemyRobot e1;
 	private EnemyRobot e2;
 	private EnemyRobot e3;
+	private Calculations c;
 
 	@Before
 	public void setUp() throws Exception {
@@ -41,6 +44,7 @@ public class CalculationsTest {
 		e1 = new EnemyRobot();
 		e2 = new EnemyRobot();
 		e3 = new EnemyRobot();
+		enemyTeam = new ArrayList<EnemyRobot>();
 
 	}
 
@@ -128,6 +132,27 @@ public class CalculationsTest {
 		Environment.enemies.add(e2);
 		assertEquals("offense", Calculations.calcTeamMode());
 		
+		
+	}
+	
+	@Test
+	public void testtargetValue() {
+		
+		
+	}
+	
+	@Test
+	public void testcalcfindLeader() {
+		
+	}
+	
+	@Test
+	public void testsetAccurateEnoughToFire() {
+		
+	}
+	
+	@Test
+	public void testevaluate() {
 		
 	}
 	

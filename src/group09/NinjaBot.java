@@ -33,6 +33,7 @@ public class NinjaBot extends TeamRobot {
 		
 		// Send RobotColors object to our entire team
 		try {
+			System.out.println("Colors");
 			broadcastMessage(c);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
@@ -51,19 +52,22 @@ public class NinjaBot extends TeamRobot {
 		Robot.setLastPosition(p);
 		
 		while (true) {
-			Robot.setPos(new Point2D.Double(getX(),getY()));
-			Robot.setEnergy(getEnergy());
 			
 			try {
+				System.out.println("follow me");
 				broadcastMessage("leadership;followMe");
 			} catch (IOException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
-
+			Robot.setPos(new Point2D.Double(getX(),getY()));
+			Robot.setEnergy(getEnergy());
+			
 			// Tar max 9 ticks tills alla �r skannade			
 			
 			if(Robot.hasTarget() && Robot.getTarget().getAlive() && getTime()>=9) {
+				
+				//System.out.println("NinjaBot targets: " + Robot.getTarget().getName());
 				
 				java.awt.geom.Point2D.Double targetPos = Robot.getTarget().getPosition();
 				java.awt.geom.Point2D.Double robotPos = Robot.getPos();
@@ -75,18 +79,22 @@ public class NinjaBot extends TeamRobot {
 			}
 			move();
 			Robot.timePassed();
+			System.out.println(Robot.getBulletQuality());
 			if(Robot.getBulletQuality() < 0) {
 				Robot.resetBulletQuality();
 			}
+			
 			Calculations.setAccurateEnoughToFire();
-		 if(Environment.enemies.size()>6 && Calculations.findLeader() != null) {
-			 try {
-					broadcastMessage(Calculations.findLeader());
+			 if(Environment.enemies.size()>6 && Robot.getEnemyLeader() == null) {
+				Calculations.findLeader();
+				 try {
+//					System.out.println("NinjaBot broadcasts: targetEnemy;" + Robot.getEnemyLeader());
+					broadcastMessage("targetEnemy;" + Robot.getEnemyLeader());
 				} catch (IOException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
-		 }
+			 }
 			execute();
 		}
 	}
@@ -105,8 +113,6 @@ public class NinjaBot extends TeamRobot {
 		MovementEvents newDestination = new MovementEvents();
 	
 		if(Robot.isTooClose()) {
-			System.out.println("Too close!");
-
 			double angle = moveToDestination.calculateAngle(getHeadingRadians());
 			double direction = moveToDestination.calculateDirection(angle);
 
@@ -152,7 +158,7 @@ public class NinjaBot extends TeamRobot {
 	Scan scan = new Scan();
 	public void onScannedRobot(ScannedRobotEvent e) {
 		
-		if(e.getDistance()<80 && e.getEnergy()>0) {
+		if(e.getDistance()<=80 && e.getEnergy()>0) {
 			Robot.setTooClose(true);
 			Robot.setCloseLocation(Calculations.calcPoint(Robot.getPos(), e.getDistance(),
 					e.getHeadingRadians() + e.getBearingRadians()));
@@ -161,6 +167,10 @@ public class NinjaBot extends TeamRobot {
 		}
 		
 		String teamMode = Calculations.calcTeamMode();
+		
+		System.out.println("EnemyTeams Total Energy:" + Calculations.teamsTotalEnergy(Environment.enemies));
+		System.out.println("MyTeams Total Energy:" + Calculations.teamsTotalEnergy(Environment.friends));
+		System.out.println(teamMode);
 		
 		try {
 			broadcastMessage("teamMode;" + teamMode);
@@ -171,13 +181,25 @@ public class NinjaBot extends TeamRobot {
 
 		if (isTeammate(e.getName())) {
 			EnemyRobot scannedRobot = scan.onScannedFriendlyRobot(e, getHeadingRadians());
+			try {
+				System.out.println("friendPos: " + scannedRobot.getName() + ";" + scannedRobot.getPosition().x + ";" + scannedRobot.getPosition().y);
+				broadcastMessage("friendPos;" + scannedRobot.getName() + ";" + scannedRobot.getPosition().x + ";" + scannedRobot.getPosition().y);
+			} catch (IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 		} else {
 			
 			EnemyRobot scannedRobot = scan.onScannedEnemyRobot(e, getHeadingRadians());
 			try {
+				System.out.println("targetPos: " + scannedRobot.getPosition().x + ";" + scannedRobot.getPosition().getY());
+				System.out.println("enemyDetails: " + scannedRobot.getName() + ";" + scannedRobot.getPosition().x + 
+						";" + scannedRobot.getPosition().y + ";" + scannedRobot.getVelocity() + ";" + 
+						scannedRobot.getEnergy()  + ";" + scannedRobot.getHeading() +";0");
 				broadcastMessage("targetPos;" + scannedRobot.getPosition().x + ";" + scannedRobot.getPosition().getY());
 				broadcastMessage("enemyDetails;" + scannedRobot.getName() + ";" + scannedRobot.getPosition().x + 
-						";" + scannedRobot.getPosition().y + ";" + scannedRobot.getEnergy());
+						";" + scannedRobot.getPosition().y + ";" + scannedRobot.getVelocity() + ";" + 
+						scannedRobot.getEnergy()  + ";" + scannedRobot.getHeading() +";0");
 			} catch (IOException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
@@ -190,19 +212,17 @@ public class NinjaBot extends TeamRobot {
 				
 				targetValue=Calculations.targetValue(scannedRobot, teammate);
 				
+				
 				if(targetValue>7) {
 					try {
+						System.out.println("Message to: " + teammate.getName() + " targetEnemy:" + scannedRobot.getName());
 						sendMessage(teammate.getName(), "targetEnemy:" + scannedRobot.getName());
 					} catch (IOException e1) {
 						// TODO Auto-generated catch block
 						e1.printStackTrace();
 					}
 				}
-					
-				
 			}
-			
-			
 		}
 		
 		try {
