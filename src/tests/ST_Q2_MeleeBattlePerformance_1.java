@@ -18,7 +18,7 @@ package tests;
 	 *
 	 */
 	@RunWith(JUnit4.class)
-	public class ST_Q1_MeleeBattlePerformance extends RobotTestBed{
+	public class ST_Q2_MeleeBattlePerformance_1 extends RobotTestBed{
 		
 		// constants used to configure this system test case
 		private String ROBOT_UNDER_TEST = "group09.NinjaBot*";
@@ -122,7 +122,7 @@ package tests;
 		public void onBattleCompleted(BattleCompletedEvent event) {
 			// all battle results
 			BattleResults[] battleResults = event.getIndexedResults();
-			// BMB results
+			// NinjaBot results
 			BattleResults NinjaBotResults = battleResults[0];
 
 			// check that BMB won the overall battle

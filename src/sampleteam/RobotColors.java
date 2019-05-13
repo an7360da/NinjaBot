@@ -1,4 +1,4 @@
-package group09;
+package sampleteam;
 
 import java.awt.Color;
 

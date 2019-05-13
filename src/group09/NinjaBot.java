@@ -1,6 +1,7 @@
 package group09;
 import robocode.*;
 import robocode.util.Utils;
+import sampleteam.RobotColors;
 
 import java.awt.Color;
 import java.awt.geom.Point2D;
@@ -19,11 +20,11 @@ public class NinjaBot extends TeamRobot {
 		
 		RobotColors c = new RobotColors();
 		
-		c.bodyColor = Color.black;
-		c.gunColor = Color.white;
-		c.radarColor = Color.orange;
-		c.scanColor = Color.black;
-		c.bulletColor = Color.red;
+		c.bodyColor = Color.blue;
+		c.gunColor = Color.blue;
+		c.radarColor = Color.blue;
+		c.scanColor = Color.blue;
+		c.bulletColor = Color.blue;
 				
 		setBodyColor(c.bodyColor);
 		setGunColor(c.gunColor);
@@ -33,7 +34,6 @@ public class NinjaBot extends TeamRobot {
 		
 		// Send RobotColors object to our entire team
 		try {
-			System.out.println("Colors");
 			broadcastMessage(c);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
@@ -65,9 +65,10 @@ public class NinjaBot extends TeamRobot {
 			
 			// Tar max 9 ticks tills alla �r skannade			
 			
+			
 			if(Robot.hasTarget() && Robot.getTarget().getAlive() && getTime()>=9) {
 				
-				//System.out.println("NinjaBot targets: " + Robot.getTarget().getName());
+				System.out.println("NinjaBot targets: " + Robot.getTarget().getName());
 				
 				java.awt.geom.Point2D.Double targetPos = Robot.getTarget().getPosition();
 				java.awt.geom.Point2D.Double robotPos = Robot.getPos();

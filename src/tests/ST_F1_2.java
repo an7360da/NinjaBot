@@ -150,7 +150,7 @@ public class ST_F1_2 extends RobotTestBed {
 		
 			
 		
-		assertTrue("Basic Melee Bot should have a win rate of at least 85% in this melee battle", ninjaBotWinRate >= THRESHOLD);
+		assertTrue("NinjaBot should have a win rate of at least 85% in this melee battle", ninjaBotWinRate >= THRESHOLD);
 
 	}
 
