@@ -1,13 +1,6 @@
-package group09;
+package teamColor;
 
-import java.awt.Color;
-
-/**
- * RobotColors - A serializable class to send Colors to teammates.
- *
- * @author Mathew A. Nelson (original)
- * @author Flemming N. Larsen (contributor)
- */
+import java.awt.*;
 
 public class RobotColors implements java.io.Serializable {
 

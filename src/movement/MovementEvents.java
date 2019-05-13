@@ -9,7 +9,14 @@ import robocode.HitWallEvent;
 import robocode.util.Utils;
 
 public class MovementEvents {
-	// Anti-grav
+	
+	/**
+	 * Updates the information on a scanned frindly robot
+	 * @param event, the scanned robot event , headingRadians, the headingRadians off the scanned robo. 
+	 * @return the friendly robot friend. 
+	 */
+	
+	
 	double distanceToNextDestination = Robot.getPos().distance(Robot.getNextDestination());
 
 	public void newDestination(int others, double battleFieldWidth, double battleFieldHeight) {
@@ -41,11 +48,22 @@ public class MovementEvents {
 		Robot.setLastPosition(Robot.getPos());
 
 	}
-
+	/**
+	 * Updates the information on a scanned frindly robot
+	 * @param event, the scanned robot event , headingRadians, the headingRadians off the scanned robo. 
+	 * @return the friendly robot friend. 
+	 */
+	
 	public double calculateAngle(double headingRadians) {
 		return Calculations.calcAngle(Robot.getNextDestination(), Robot.getPos()) - headingRadians;
 	}
 
+	/**
+	 * Calculates the direction to move in. 
+	 * @param angle 
+	 * @return the direction NinjaBot should move in 
+	 */
+	
 	public double calculateDirection(double angle) {
 		double direction = 1;
 

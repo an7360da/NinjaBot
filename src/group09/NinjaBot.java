@@ -1,6 +1,7 @@
 package group09;
 import robocode.*;
 import robocode.util.Utils;
+import teamColor.RobotColors;
 
 import java.awt.Color;
 import java.awt.geom.Point2D;
@@ -33,11 +34,11 @@ public class NinjaBot extends TeamRobot {
 		
 		// Send RobotColors object to our entire team
 		try {
-			System.out.println("Colors");
 			broadcastMessage(c);
-		} catch (IOException e) {
+			System.out.println(c);
+		} catch (IOException ignored) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			//e.printStackTrace();
 		}
 				
 		setColors(Color.black,Color.red,Color.white); // body,gun,radar

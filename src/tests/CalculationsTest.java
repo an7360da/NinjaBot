@@ -13,7 +13,6 @@ import org.junit.Before;
 import org.junit.Test;
 
 import group09.Calculations;
-import group09.RobotColors;
 import info.EnemyRobot;
 import info.Environment;
 import info.Robot;
