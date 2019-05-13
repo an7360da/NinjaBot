@@ -39,9 +39,7 @@ public class NinjaBot extends TeamRobot {
 			System.out.println(c);
 		} catch (IOException ignored) {
 			// e.printStackTrace();
-		}
 
-		setColors(Color.black, Color.red, Color.white); // body,gun,radar
 		setAdjustGunForRobotTurn(true);
 		setAdjustRadarForGunTurn(true);
 
@@ -96,7 +94,7 @@ public class NinjaBot extends TeamRobot {
 				}
 			}
 			execute();
-		}
+		}}
 	}
 
 	public void shoot() {
