@@ -33,6 +33,7 @@ public class NinjaBot extends TeamRobot {
 		
 		// Send RobotColors object to our entire team
 		try {
+			System.out.println("Colors");
 			broadcastMessage(c);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
@@ -51,16 +52,17 @@ public class NinjaBot extends TeamRobot {
 		Robot.setLastPosition(p);
 		
 		while (true) {
-			Robot.setPos(new Point2D.Double(getX(),getY()));
-			Robot.setEnergy(getEnergy());
 			
 			try {
+				System.out.println("follow me");
 				broadcastMessage("leadership;followMe");
 			} catch (IOException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
-
+			Robot.setPos(new Point2D.Double(getX(),getY()));
+			Robot.setEnergy(getEnergy());
+			
 			// Tar max 9 ticks tills alla �r skannade			
 			
 			if(Robot.hasTarget() && Robot.getTarget().getAlive() && getTime()>=9) {
@@ -175,10 +177,21 @@ public class NinjaBot extends TeamRobot {
 
 		if (isTeammate(e.getName())) {
 			EnemyRobot scannedRobot = scan.onScannedFriendlyRobot(e, getHeadingRadians());
+			try {
+				System.out.println("friendPos: " + scannedRobot.getName() + ";" + scannedRobot.getPosition().x + ";" + scannedRobot.getPosition().y);
+				broadcastMessage("friendPos;" + scannedRobot.getName() + ";" + scannedRobot.getPosition().x + ";" + scannedRobot.getPosition().y);
+			} catch (IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 		} else {
 			
 			EnemyRobot scannedRobot = scan.onScannedEnemyRobot(e, getHeadingRadians());
 			try {
+				System.out.println("targetPos: " + scannedRobot.getPosition().x + ";" + scannedRobot.getPosition().getY());
+				System.out.println("enemyDetails: " + scannedRobot.getName() + ";" + scannedRobot.getPosition().x + 
+						";" + scannedRobot.getPosition().y + ";" + scannedRobot.getVelocity() + ";" + 
+						scannedRobot.getEnergy()  + ";" + scannedRobot.getHeading() +";0");
 				broadcastMessage("targetPos;" + scannedRobot.getPosition().x + ";" + scannedRobot.getPosition().getY());
 				broadcastMessage("enemyDetails;" + scannedRobot.getName() + ";" + scannedRobot.getPosition().x + 
 						";" + scannedRobot.getPosition().y + ";" + scannedRobot.getVelocity() + ";" + 
@@ -198,6 +211,7 @@ public class NinjaBot extends TeamRobot {
 				
 				if(targetValue>7) {
 					try {
+						System.out.println("Message to: " + teammate.getName() + " targetEnemy:" + scannedRobot.getName());
 						sendMessage(teammate.getName(), "targetEnemy:" + scannedRobot.getName());
 					} catch (IOException e1) {
 						// TODO Auto-generated catch block
