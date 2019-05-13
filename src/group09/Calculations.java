@@ -30,9 +30,9 @@ public class Calculations {
 		return Math.atan2(p2.x - p1.x, p2.y - p1.y);
 	}
 	/**
-	 * Evaluates TA DENNA SEN
-	 * @param  p, dist,  ang, the current position p, distance to the wanted point dist, and the angle ang to the wanted point
-	 * @return a new point. 
+	 * Calculates a risk-value for a possible position based on enemies energy, distance and angle
+	 * @param  p, a point to evaluate, addLast, a mathematical parameter to enhance 1vs1 preformance
+	 * @return a risk-value for the point. 
 	 */
 	public static double evaluate(Point2D.Double p, double addLast) {
 		double eval = addLast * 0.08 / p.distanceSq(Robot.getLastPosition());
