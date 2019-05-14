@@ -1,7 +1,7 @@
 package group09;
 import robocode.*;
 import robocode.util.Utils;
-import sampleteam.RobotColors;
+import se.lth.cs.etsa02.RobotColors;
 
 import java.awt.Color;
 import java.awt.geom.Point2D;
@@ -33,7 +33,7 @@ public class NinjaBot extends TeamRobot {
 		
 		RobotColors c = new RobotColors();
 		
-		c.bodyColor = Color.red;
+		c.bodyColor = Color.blue;
 		c.gunColor = Color.blue;
 		c.radarColor = Color.blue;
 		c.scanColor = Color.blue;
@@ -200,13 +200,13 @@ public class NinjaBot extends TeamRobot {
 
 		if (isTeammate(e.getName())) {
 			EnemyRobot scannedRobot = scan.onScannedFriendlyRobot(e, getHeadingRadians());
-			try {
-				System.out.println("friendPos: " + scannedRobot.getName() + ";" + scannedRobot.getPosition().x + ";" + scannedRobot.getPosition().y);
-				broadcastMessage("friendPos;" + scannedRobot.getName() + ";" + scannedRobot.getPosition().x + ";" + scannedRobot.getPosition().y);
-			} catch (IOException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
+//			try {
+//				System.out.println("friendPos: " + scannedRobot.getName() + ";" + scannedRobot.getPosition().x + ";" + scannedRobot.getPosition().y);
+//				broadcastMessage("friendPos;" + scannedRobot.getName() + ";" + scannedRobot.getPosition().x + ";" + scannedRobot.getPosition().y);
+//			} catch (IOException e1) {
+//				// TODO Auto-generated catch block
+//				e1.printStackTrace();
+//			}
 		} else {
 			
 			EnemyRobot scannedRobot = scan.onScannedEnemyRobot(e, getHeadingRadians());
