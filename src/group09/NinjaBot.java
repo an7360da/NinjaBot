@@ -33,7 +33,7 @@ public class NinjaBot extends TeamRobot {
 		
 		RobotColors c = new RobotColors();
 		
-		c.bodyColor = Color.blue;
+		c.bodyColor = Color.red;
 		c.gunColor = Color.blue;
 		c.radarColor = Color.blue;
 		c.scanColor = Color.blue;
@@ -48,7 +48,7 @@ public class NinjaBot extends TeamRobot {
 		// Send RobotColors object to our entire team
 		try {
 			broadcastMessage(c);
-			System.out.println(c);
+			System.out.println("Colors: "+c);
 		} catch (IOException ignored) {
 		}
 				
@@ -91,7 +91,7 @@ public class NinjaBot extends TeamRobot {
 			}
 			move();
 			Robot.timePassed();
-			System.out.println(Robot.getBulletQuality());
+			System.out.println("BulletQuality: " +Robot.getBulletQuality());
 			if(Robot.getBulletQuality() < 0) {
 				Robot.resetBulletQuality();
 			}
@@ -100,7 +100,7 @@ public class NinjaBot extends TeamRobot {
 			 if(Environment.enemies.size()>6 && Robot.getEnemyLeader() == null) {
 				Calculations.findLeader();
 				 try {
-//					System.out.println("NinjaBot broadcasts: targetEnemy;" + Robot.getEnemyLeader());
+					System.out.println("NinjaBot broadcasts: targetEnemy;" + Robot.getEnemyLeader());
 					broadcastMessage("targetEnemy;" + Robot.getEnemyLeader());
 				} catch (IOException e1) {
 					e1.printStackTrace();
