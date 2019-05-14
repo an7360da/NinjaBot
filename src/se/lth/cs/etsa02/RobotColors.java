@@ -1,4 +1,4 @@
-package sampleteam;
+package se.lth.cs.etsa02;
 
 import java.awt.Color;
 

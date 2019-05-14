@@ -13,10 +13,10 @@ import org.junit.Before;
 import org.junit.Test;
 
 import group09.Calculations;
-import sampleteam.RobotColors;
 import info.EnemyRobot;
 import info.Environment;
 import info.Robot;
+import se.lth.cs.etsa02.RobotColors;
 
 public class CalculationsTest {
 	private EnemyRobot testBot1;
