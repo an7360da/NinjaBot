@@ -33,11 +33,11 @@ public class NinjaBot extends TeamRobot {
 		
 		RobotColors c = new RobotColors();
 		
-		c.bodyColor = Color.MAGENTA;
-		c.gunColor = Color.ORANGE;
-		c.radarColor = Color.YELLOW;
+		c.bodyColor = Color.blue;
+		c.gunColor = Color.red;
+		c.radarColor = Color.WHITE;
 		c.scanColor = Color.YELLOW;
-		c.bulletColor = Color.YELLOW;
+		c.bulletColor = Color.WHITE;
 				
 		setBodyColor(c.bodyColor);
 		setGunColor(c.gunColor);
